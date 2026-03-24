@@ -1,0 +1,50 @@
+# Nekocode API Gateway Documentation
+
+> Unofficial documentation and tools for Nekocode — unified AI gateway for Anthropic Claude and OpenAI GPT models.
+
+Website: https://nekocode.app
+Status: https://status.nekocode.app
+Telegram: https://t.me/nekocode_app
+Author: Bakhtier Sizhaev (@bakhtiersizhaev)
+Updated: 2026-03-24
+
+## Docs
+
+- [Quick Start](docs/quickstart.md): Registration, API key, first config
+- [Channels](docs/channels.md): Alpha (x0.3), Spark (x1), Delta
+- [Gateways](docs/gateways.md): Default, Russia, Russia 2, Russia 3
+- [Switching & Reverting](docs/switching.md): Switch to/from Nekocode for all tools
+- [Anthropic Models](docs/models/anthropic.md): Claude Opus/Sonnet/Haiku pricing
+- [OpenAI Models](docs/models/openai.md): GPT-5.x pricing
+- [Alpha Pricing](docs/pricing/alpha.md): x0.3 multiplier full table
+- [Spark Pricing](docs/pricing/spark.md): x1 multiplier + 1M context
+- [Status](docs/status.md): Uptime, monitoring, Telegram
+- [Troubleshooting](docs/troubleshooting.md): Common errors and fixes
+
+## Integrations
+
+- [Claude Code](docs/integrations/claude-code.md)
+- [Codex CLI](docs/integrations/codex-cli.md)
+- [OpenCode](docs/integrations/opencode.md)
+- [OpenClaw](docs/integrations/openclaw.md)
+- [Cursor](docs/integrations/cursor.md)
+- [Aider](docs/integrations/aider.md)
+- [Windsurf](docs/integrations/windsurf.md)
+- [Continue.dev](docs/integrations/continue-dev.md)
+- [Anthropic SDK](docs/integrations/anthropic-sdk.md)
+- [cURL](docs/integrations/curl.md)
+- [Custom Projects](docs/integrations/custom.md)
+
+## Configs
+
+- [Claude Code config](configs/claude-code-settings.json)
+- [OpenCode config](configs/opencode.json)
+- [OpenClaw provider](configs/openclaw-provider.json)
+- [Codex CLI config](configs/codex-config.toml)
+- [Aider env](configs/aider-env.sh)
+- [Env example](configs/.env.example)
+
+## AI Reference
+
+- [AI-optimized reference](README.ai.md): Structured for AI agents
+- [Full docs (single file)](llms-full.txt): Complete documentation in one file

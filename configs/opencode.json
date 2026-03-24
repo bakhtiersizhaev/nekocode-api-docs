@@ -1,0 +1,29 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "_comment": "Nekocode Gateway — full config with Claude + GPT + Codex support",
+  "provider": {
+    "anthropic": {
+      "options": {
+        "apiKey": "sk_live_your_api_key",
+        "baseURL": "https://gateway.nekocode.app/alpha/v1",
+        "headers": {
+          "anthropic-beta": "claude-code-20250219,interleaved-thinking-2025-05-14,fine-grained-tool-streaming-2025-05-14,adaptive-thinking-2026-01-28"
+        }
+      }
+    },
+    "nekocode": {
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "apiKey": "sk_live_your_api_key",
+        "baseURL": "https://gateway.nekocode.app/alpha/v1"
+      }
+    },
+    "nekocode-codex": {
+      "npm": "@ai-sdk/openai",
+      "options": {
+        "apiKey": "sk_live_your_api_key",
+        "baseURL": "https://gateway.nekocode.app/alpha/v1"
+      }
+    }
+  }
+}

@@ -1,0 +1,4 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "_comment": "Default OpenCode config without Nekocode. Run /connect to set up your provider."
+}

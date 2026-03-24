@@ -1,0 +1,38 @@
+{
+  "models": {
+    "mode": "merge",
+    "providers": {
+      "nekocode": {
+        "baseUrl": "https://gateway.nekocode.app/alpha",
+        "apiKey": "sk_live_your_api_key",
+        "api": "anthropic-messages",
+        "models": [
+          {
+            "id": "claude-opus-4-6",
+            "name": "Claude Opus 4.6 (Nekocode Alpha)",
+            "reasoning": true,
+            "input": ["text", "image"],
+            "contextWindow": 200000,
+            "maxTokens": 16384
+          },
+          {
+            "id": "claude-sonnet-4-6",
+            "name": "Claude Sonnet 4.6 (Nekocode Alpha)",
+            "reasoning": true,
+            "input": ["text", "image"],
+            "contextWindow": 200000,
+            "maxTokens": 16384
+          },
+          {
+            "id": "claude-haiku-4-5",
+            "name": "Claude Haiku 4.5 (Nekocode Alpha)",
+            "reasoning": false,
+            "input": ["text", "image"],
+            "contextWindow": 200000,
+            "maxTokens": 8192
+          }
+        ]
+      }
+    }
+  }
+}

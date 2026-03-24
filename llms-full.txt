@@ -1,0 +1,6073 @@
+# Nekocode API Gateway — Full Documentation
+# Updated: 2026-03-24
+# Source: https://nekocode.app
+# Author: Bakhtier Sizhaev (@bakhtiersizhaev)
+# License: MIT
+
+============================================================
+
+============================================================
+FILE: README.ai.md
+============================================================
+# Nekocode API Gateway — AI Reference
+
+Updated: 2026-03-24
+Source: https://nekocode.app
+Telegram: https://t.me/nekocode_app
+Status: https://status.nekocode.app
+Dashboard: https://nekocode.app/dashboard
+
+## WHAT
+
+Unified AI gateway proxy for Anthropic Claude and OpenAI GPT models. Single API key, multiple gateways, two pricing channels. Drop-in replacement for direct provider APIs.
+
+## AUTH
+
+Key format: `sk_live_...`
+Get key: https://nekocode.app/dashboard/api-keys
+Key shown once — save immediately. If lost, revoke and create new.
+
+| API | Header |
+|-----|--------|
+| Anthropic | `x-api-key: {key}` |
+| OpenAI | `Authorization: Bearer {key}` |
+
+## GATEWAYS
+
+| Gateway | Base URL | Region | Uptime |
+|---------|----------|--------|--------|
+| Default | `gateway.nekocode.app` | Global (EU/US) | 99.96% |
+| Russia | `ru.gateway.nekocode.app` | Russia | 99.94% |
+| Russia #2 | `ru-2.gateway.nekocode.app` | Russia | 99.99% |
+| Russia #3 | `ru-3.gateway.nekocode.app` | Russia | 99.96% |
+
+URL format: `https://{gateway}/{channel}/v1/messages`
+
+## CHANNELS
+
+| Channel | URL suffix | Price multiplier | Context | Models |
+|---------|-----------|-----------------|---------|--------|
+| Alpha | `/alpha` | x0.3 (70% off) | 200K | Anthropic + OpenAI |
+| Spark | `/spark` | x1 | up to 1M | Anthropic only |
+
+Spark `[1m]` model variants cost x2 base price for 1M context window.
+
+## MODELS — ALPHA
+
+Prices: USD per 1M tokens. Alpha channel (x0.3 multiplier).
+
+### Anthropic Claude
+
+| Model | ID | Input | Output | Cache Write | Cache Read | tok/s | Latency |
+|-------|----|-------|--------|-------------|------------|-------|---------|
+| Claude Opus 4.6 | `claude-opus-4-6` | $5.00 | $25.00 | $6.25 | $0.50 | 37.8 | 4.9s |
+| Claude Opus 4.6 [1M] | `claude-opus-4-6[1m]` | $5.00 | $25.00 | $6.25 | $0.50 | 38.3 | 5.2s |
+| Claude Sonnet 4.6 | `claude-sonnet-4-6` | $3.00 | $15.00 | $3.75 | $0.30 | 24.1 | 3.8s |
+| Claude Sonnet 4.6 [1M] | `claude-sonnet-4-6[1m]` | $3.00 | $15.00 | $3.75 | $0.30 | 9.6 | 9.3s |
+| Claude Haiku 4.5 | `claude-haiku-4-5` | $1.00 | $5.00 | $1.25 | $0.10 | 74.5 | 2.7s |
+| Claude Sonnet 4.5 | `claude-sonnet-4-5` | $3.00 | $15.00 | $3.75 | $0.30 | 47.1 | 2.4s |
+| Claude Opus 4.5 | `claude-opus-4-5` | $5.00 | $25.00 | $6.25 | $0.50 | 43.4 | 2.0s |
+
+### OpenAI GPT
+
+| Model | ID | Input | Output | Cache Write | Cache Read | tok/s | Latency |
+|-------|----|-------|--------|-------------|------------|-------|---------|
+| GPT-5 | `gpt-5` | $1.07 | $8.50 | $0 | $0.11 | 55.2 | 4.4s |
+| GPT-5 Mini | `gpt-5-mini` | $0.25 | $2.00 | $0 | $0.03 | 77.5 | 19.2s |
+| GPT-5 Codex | `gpt-5-codex` | $1.25 | $10.00 | $0 | $0.13 | — | — |
+| GPT-5.1 | `gpt-5.1` | $1.25 | $10.00 | $0 | $0.13 | — | — |
+| GPT-5.1 Codex | `gpt-5.1-codex` | $1.25 | $10.00 | $0 | $0.13 | — | — |
+| GPT-5.2 | `gpt-5.2` | $1.75 | $14.00 | $0 | $0.17 | — | — |
+| GPT-5.2 Codex | `gpt-5.2-codex` | $1.75 | $14.00 | $0 | $0.17 | — | — |
+| GPT-5.3 Codex | `gpt-5.3-codex` | $1.74 | $14.00 | $0 | $0.17 | 41.1 | 2.5s |
+| GPT-5.4 | `gpt-5.4` | $2.50 | $15.00 | $0 | $0.25 | 50.4 | 21.3s |
+
+OpenAI Cache Write is always $0. Caching is automatic on OpenAI side.
+
+## MODELS — SPARK
+
+Spark channel (x1 multiplier). Anthropic Claude only. `[1m]` variants = x2 price.
+
+| Model | ID | Input | Output | Cache Write | Cache Read | tok/s | Latency |
+|-------|----|-------|--------|-------------|------------|-------|---------|
+| Claude Opus 4.6 | `claude-opus-4-6` | $5.00 | $25.00 | $6.25 | $0.50 | 42.6 | 3.6s |
+| Claude Opus 4.6 [1M] | `claude-opus-4-6[1m]` | $10.00 | $37.50 | $12.50 | $1.00 | 37.2 | 5.8s |
+| Claude Sonnet 4.6 | `claude-sonnet-4-6` | $3.00 | $15.00 | $3.75 | $0.30 | — | — |
+| Claude Sonnet 4.6 [1M] | `claude-sonnet-4-6[1m]` | $6.00 | $22.50 | $7.50 | $0.60 | 41.7 | 4.2s |
+| Claude Haiku 4.5 | `claude-haiku-4-5` | $1.00 | $5.00 | $1.25 | $0.10 | 54.5 | 2.9s |
+| Claude Sonnet 4.5 | `claude-sonnet-4-5` | $3.00 | $15.00 | $3.75 | $0.30 | — | — |
+| Claude Opus 4.5 | `claude-opus-4-5` | $5.00 | $25.00 | $6.25 | $0.50 | — | — |
+
+## CONFIG — CLAUDE CODE
+
+File: `~/.claude/settings.json`
+
+```json
+{
+  "env": {
+    "ANTHROPIC_AUTH_TOKEN": "sk_live_YOUR_KEY",
+    "ANTHROPIC_BASE_URL": "https://gateway.nekocode.app/alpha",
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"
+  }
+}
+```
+
+Russia: replace `gateway.nekocode.app` with `ru.gateway.nekocode.app`.
+Spark: replace `/alpha` with `/spark`.
+
+## CONFIG — CODEX CLI
+
+Method 1 — env vars:
+
+```bash
+export OPENAI_BASE_URL="https://gateway.nekocode.app/alpha/v1"
+export OPENAI_API_KEY="sk_live_YOUR_KEY"
+codex
+```
+
+Method 2 — file `~/.config/codex/config.toml`:
+
+```toml
+model_provider = "nekocode"
+
+[model_providers.nekocode]
+name = "Nekocode Gateway"
+base_url = "https://gateway.nekocode.app/alpha/v1"
+env_key_api_key = "NEKOCODE_API_KEY"
+wire_api = "responses"
+```
+
+```bash
+export NEKOCODE_API_KEY="sk_live_YOUR_KEY"
+codex --provider nekocode
+```
+
+URL must end with `/v1`.
+
+## CONFIG — OPENCODE
+
+File: `opencode.json` (project root or `~/.config/opencode/`)
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "anthropic": {
+      "options": {
+        "apiKey": "sk_live_YOUR_KEY",
+        "baseURL": "https://gateway.nekocode.app/alpha/v1",
+        "headers": {
+          "anthropic-beta": "claude-code-20250219,interleaved-thinking-2025-05-14,fine-grained-tool-streaming-2025-05-14,adaptive-thinking-2026-01-28"
+        }
+      }
+    }
+  }
+}
+```
+
+baseURL must end with `/v1`.
+
+## CONFIG — OPENCLAW
+
+File: `~/.openclaw/openclaw.json`
+
+Add provider:
+
+```json
+{
+  "models": {
+    "mode": "merge",
+    "providers": {
+      "nekocode": {
+        "baseUrl": "https://gateway.nekocode.app/alpha",
+        "apiKey": "sk_live_YOUR_KEY",
+        "api": "anthropic-messages",
+        "models": [
+          {
+            "id": "claude-opus-4-6",
+            "name": "Claude Opus 4.6 (Nekocode Alpha)",
+            "reasoning": true,
+            "input": ["text", "image"],
+            "contextWindow": 200000,
+            "maxTokens": 16384
+          },
+          {
+            "id": "claude-sonnet-4-6",
+            "name": "Claude Sonnet 4.6 (Nekocode Alpha)",
+            "reasoning": true,
+            "input": ["text", "image"],
+            "contextWindow": 200000,
+            "maxTokens": 16384
+          },
+          {
+            "id": "claude-haiku-4-5",
+            "name": "Claude Haiku 4.5 (Nekocode Alpha)",
+            "reasoning": false,
+            "input": ["text", "image"],
+            "contextWindow": 200000,
+            "maxTokens": 8192
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+Switch model in chat: `/model neko-sonnet` or `/model neko-opus`.
+baseUrl does NOT end with `/v1`.
+
+## CONFIG — CURSOR
+
+Anthropic models:
+1. Settings (`Cmd+,`) → Models → Anthropic
+2. Override Anthropic Base URL: `https://gateway.nekocode.app/alpha`
+3. Anthropic API Key: `sk_live_YOUR_KEY`
+
+OpenAI models:
+1. Settings (`Cmd+,`) → Models → OpenAI
+2. Override OpenAI Base URL: `https://gateway.nekocode.app/alpha/v1`
+3. API Key: `sk_live_YOUR_KEY`
+
+## CONFIG — AIDER
+
+Method 1 — env vars:
+
+```bash
+export ANTHROPIC_API_KEY="sk_live_YOUR_KEY"
+export ANTHROPIC_API_BASE="https://gateway.nekocode.app/alpha"
+aider --model claude-sonnet-4-6
+```
+
+Method 2 — flags:
+
+```bash
+aider --api-base anthropic=https://gateway.nekocode.app/alpha \
+      --api-key anthropic=sk_live_YOUR_KEY \
+      --model claude-sonnet-4-6
+```
+
+Method 3 — `.aider.conf.yml`:
+
+```yaml
+api-base:
+  anthropic: https://gateway.nekocode.app/alpha
+api-key:
+  anthropic: sk_live_YOUR_KEY
+model: claude-sonnet-4-6
+```
+
+## CONFIG — WINDSURF
+
+1. Settings → AI Provider
+2. Custom Anthropic Base URL: `https://gateway.nekocode.app/alpha`
+3. API Key: `sk_live_YOUR_KEY`
+4. Select model: `claude-sonnet-4-6` or `claude-opus-4-6`
+
+## CONFIG — CONTINUE.DEV
+
+File: `~/.continue/config.json`
+
+```json
+{
+  "models": [
+    {
+      "title": "Claude Sonnet 4.6 (Nekocode)",
+      "provider": "anthropic",
+      "model": "claude-sonnet-4-6",
+      "apiBase": "https://gateway.nekocode.app/alpha",
+      "apiKey": "sk_live_YOUR_KEY"
+    }
+  ]
+}
+```
+
+## CONFIG — ANTHROPIC SDK
+
+Python:
+
+```python
+import anthropic
+
+client = anthropic.Anthropic(
+    api_key="sk_live_YOUR_KEY",
+    base_url="https://gateway.nekocode.app/alpha"
+)
+
+message = client.messages.create(
+    model="claude-sonnet-4-6",
+    max_tokens=1024,
+    messages=[{"role": "user", "content": "Hello!"}]
+)
+```
+
+TypeScript:
+
+```typescript
+import Anthropic from '@anthropic-ai/sdk';
+
+const client = new Anthropic({
+  apiKey: 'sk_live_YOUR_KEY',
+  baseURL: 'https://gateway.nekocode.app/alpha',
+});
+
+const message = await client.messages.create({
+  model: 'claude-sonnet-4-6',
+  max_tokens: 1024,
+  messages: [{ role: 'user', content: 'Hello!' }],
+});
+```
+
+OpenAI SDK (for GPT models) — add `/v1` to URL:
+
+Python: `base_url="https://gateway.nekocode.app/alpha/v1"`
+TypeScript: `baseURL: 'https://gateway.nekocode.app/alpha/v1'`
+
+## CONFIG — CURL
+
+Anthropic (Claude):
+
+```bash
+curl https://gateway.nekocode.app/alpha/v1/messages \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: sk_live_YOUR_KEY" \
+  -H "anthropic-version: 2023-06-01" \
+  -d '{"model":"claude-sonnet-4-6","max_tokens":1024,"messages":[{"role":"user","content":"Hello!"}]}'
+```
+
+OpenAI (GPT):
+
+```bash
+curl https://gateway.nekocode.app/alpha/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer sk_live_YOUR_KEY" \
+  -d '{"model":"gpt-5","messages":[{"role":"user","content":"Hello!"}]}'
+```
+
+Streaming: add `"stream": true` to request body.
+
+## REVERT
+
+| Tool | How to revert |
+|------|---------------|
+| Claude Code | Remove `ANTHROPIC_AUTH_TOKEN`, `ANTHROPIC_BASE_URL`, `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` from `env` in `~/.claude/settings.json` |
+| Codex CLI | `unset OPENAI_BASE_URL OPENAI_API_KEY` or remove `[model_providers.nekocode]` from `config.toml` |
+| OpenCode | Remove `"provider"` block from `opencode.json`, use `/connect` to reconfigure |
+| OpenClaw | Remove `nekocode` from `models.providers`, `agents.defaults.model.fallbacks`, `agents.defaults.models` |
+| Cursor | Clear Override Base URL fields in Settings → Models for both Anthropic and OpenAI |
+| Aider | `unset ANTHROPIC_API_KEY ANTHROPIC_API_BASE` or remove `api-base`/`api-key` from `.aider.conf.yml` |
+| Windsurf | Clear Custom Anthropic Base URL field, re-enter standard Anthropic API key |
+| Continue.dev | Remove Nekocode model object from `models` array or change `apiBase` to `https://api.anthropic.com` |
+| Anthropic SDK | Remove `base_url`/`baseURL` parameter (defaults to `https://api.anthropic.com`) |
+| OpenAI SDK | Remove `base_url`/`baseURL` parameter (defaults to `https://api.openai.com/v1`) |
+
+## TROUBLESHOOTING
+
+| Problem | Solution |
+|---------|----------|
+| 429 Too Many Requests | Wait, retry. Switch gateway or channel. Reduce concurrent requests. |
+| Gateway unreachable from Russia | Use `ru.gateway.nekocode.app`, then `ru-2`, then `ru-3`. Check status.nekocode.app. |
+| Connection timeout | Check status.nekocode.app. Try different gateway. Increase client timeout. Check firewall. |
+| Invalid API key (401) | Key must start with `sk_live_`. Check dashboard. No extra spaces. Create new key if compromised. |
+| Model not found | Use exact model ID (e.g. `claude-sonnet-4-6`, not `claude-sonnet`). IDs are case-sensitive. |
+| High latency | Use Alpha channel. Choose nearest gateway. Reduce `max_tokens`. |
+| CORS errors | API is server-side only. Proxy through your backend. |
+| Claude Code "extra usage required" | Switch to Spark channel. Reduce context. Use `/compact`. Check balance. |
+| OpenCode "provider not found" | `baseURL` must end with `/v1`. Restart OpenCode after config change. |
+| Codex CLI "missing API key" | Check env var name matches provider: `OPENAI_API_KEY` for OpenAI mode, `ANTHROPIC_API_KEY` for Anthropic mode. Restart terminal. |
+| 502/503 | Gateway temporarily down. Switch to alternate gateway. Check status.nekocode.app. |
+
+
+============================================================
+FILE: docs/quickstart.md
+============================================================
+# Быстрый старт
+
+> Последнее обновление: 24 марта 2026
+
+Nekocode — единый AI-шлюз, который предоставляет доступ к моделям Anthropic Claude и OpenAI GPT через один API-ключ. Ниже — пошаговая инструкция от регистрации до первого запроса.
+
+## 1. Регистрация
+
+Перейди на [nekocode.app](https://nekocode.app) и создай аккаунт. Доступна авторизация через Telegram.
+
+## 2. Получи API-ключ
+
+Открой [Dashboard → API Keys](https://nekocode.app/dashboard/api-keys) и создай новый ключ. Формат ключа:
+
+```
+sk_live_your_api_key_here
+```
+
+> **Важно:** ключ показывается только один раз. Сохрани его в безопасном месте. Если потерял — отзови старый и создай новый.
+
+## 3. Выбери канал
+
+| Канал | Множитель цены | Контекст | Для чего |
+|-------|---------------|----------|----------|
+| **Alpha** | x0.3 | 200K токенов | Ежедневная работа, экономия бюджета |
+| **Spark** | x1 | 1M токенов | Большие контексты, сложные задачи |
+
+Подробнее: [channels.md](channels.md)
+
+## 4. Выбери gateway
+
+| Gateway | URL | Для кого |
+|---------|-----|----------|
+| Default | `gateway.nekocode.app` | Глобальный доступ (EU/US) |
+| Russia | `ru.gateway.nekocode.app` | Пользователи из РФ/СНГ |
+| Russia #2 | `ru-2.gateway.nekocode.app` | Резервный РФ |
+| Russia #3 | `ru-3.gateway.nekocode.app` | Резервный РФ |
+
+Если ты в России — используй `ru.gateway.nekocode.app`. Если не работает — переключись на `ru-2` или `ru-3`. Подробнее: [gateways.md](gateways.md)
+
+## 5. Настрой свой инструмент
+
+Nekocode работает с любым инструментом, поддерживающим Anthropic или OpenAI API. Полные инструкции по настройке:
+
+- [Claude Code](switching.md#claude-code)
+- [Codex CLI](switching.md#codex-cli)
+- [OpenCode](switching.md#opencode)
+- [OpenClaw](switching.md#openclaw)
+- [Cursor](switching.md#cursor)
+- [Aider](switching.md#aider)
+- [Windsurf](switching.md#windsurf)
+- [Continue.dev](switching.md#continuedev)
+- [Anthropic SDK](switching.md#anthropic-sdk)
+- [Terminal / curl](switching.md#terminal--curl)
+
+Подробнее: [switching.md](switching.md)
+
+## 6. Проверь подключение
+
+Выполни тестовый запрос через curl, подставив свой ключ и выбранный gateway/канал:
+
+### Alpha канал (x0.3 цена)
+
+```bash
+curl https://ru.gateway.nekocode.app/alpha/v1/messages \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: sk_live_YOUR_KEY_HERE" \
+  -H "anthropic-version: 2023-06-01" \
+  -d '{
+    "model": "claude-sonnet-4-20250514",
+    "max_tokens": 256,
+    "messages": [
+      {"role": "user", "content": "Привет! Скажи одно предложение."}
+    ]
+  }'
+```
+
+### Spark канал (1M контекст)
+
+```bash
+curl https://ru.gateway.nekocode.app/spark/v1/messages \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: sk_live_YOUR_KEY_HERE" \
+  -H "anthropic-version: 2023-06-01" \
+  -d '{
+    "model": "claude-sonnet-4-20250514",
+    "max_tokens": 256,
+    "messages": [
+      {"role": "user", "content": "Hello! Say one sentence."}
+    ]
+  }'
+```
+
+Если получил ответ с `"content"` — всё работает. Если ошибка — см. [troubleshooting.md](troubleshooting.md).
+
+## Что дальше
+
+- [Каналы и тарификация](channels.md)
+- [Гейтвеи и регионы](gateways.md)
+- [Переключение инструментов](switching.md)
+- [Мониторинг статуса](status.md)
+- [Решение проблем](troubleshooting.md)
+
+---
+
+# Quick Start
+
+> Last updated: March 24, 2026
+
+Nekocode is a unified AI gateway that provides access to Anthropic Claude and OpenAI GPT models through a single API key. Below is a step-by-step guide from registration to your first request.
+
+## 1. Sign Up
+
+Go to [nekocode.app](https://nekocode.app) and create an account. Telegram authorization is available.
+
+## 2. Get Your API Key
+
+Open [Dashboard → API Keys](https://nekocode.app/dashboard/api-keys) and create a new key. Key format:
+
+```
+sk_live_your_api_key_here
+```
+
+> **Important:** the key is shown only once. Save it in a secure location. If lost — revoke the old one and create a new key.
+
+## 3. Choose a Channel
+
+| Channel | Price multiplier | Context | Use case |
+|---------|-----------------|---------|----------|
+| **Alpha** | x0.3 | 200K tokens | Daily work, budget-friendly |
+| **Spark** | x1 | 1M tokens | Large contexts, complex tasks |
+
+Details: [channels.md](channels.md)
+
+## 4. Choose a Gateway
+
+| Gateway | URL | For whom |
+|---------|-----|----------|
+| Default | `gateway.nekocode.app` | Global access (EU/US) |
+| Russia | `ru.gateway.nekocode.app` | Users in Russia/CIS |
+| Russia #2 | `ru-2.gateway.nekocode.app` | Backup (Russia) |
+| Russia #3 | `ru-3.gateway.nekocode.app` | Backup (Russia) |
+
+If you're in Russia — use `ru.gateway.nekocode.app`. If it's down — switch to `ru-2` or `ru-3`. Details: [gateways.md](gateways.md)
+
+## 5. Configure Your Tool
+
+Nekocode works with any tool that supports the Anthropic or OpenAI API. Full setup instructions:
+
+- [Claude Code](switching.md#claude-code)
+- [Codex CLI](switching.md#codex-cli)
+- [OpenCode](switching.md#opencode)
+- [OpenClaw](switching.md#openclaw)
+- [Cursor](switching.md#cursor)
+- [Aider](switching.md#aider)
+- [Windsurf](switching.md#windsurf)
+- [Continue.dev](switching.md#continuedev)
+- [Anthropic SDK](switching.md#anthropic-sdk)
+- [Terminal / curl](switching.md#terminal--curl)
+
+Details: [switching.md](switching.md)
+
+## 6. Verify Connection
+
+Run a test request via curl, substituting your key and chosen gateway/channel:
+
+### Alpha channel (x0.3 price)
+
+```bash
+curl https://gateway.nekocode.app/alpha/v1/messages \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: sk_live_YOUR_KEY_HERE" \
+  -H "anthropic-version: 2023-06-01" \
+  -d '{
+    "model": "claude-sonnet-4-20250514",
+    "max_tokens": 256,
+    "messages": [
+      {"role": "user", "content": "Hello! Say one sentence."}
+    ]
+  }'
+```
+
+### Spark channel (1M context)
+
+```bash
+curl https://gateway.nekocode.app/spark/v1/messages \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: sk_live_YOUR_KEY_HERE" \
+  -H "anthropic-version: 2023-06-01" \
+  -d '{
+    "model": "claude-sonnet-4-20250514",
+    "max_tokens": 256,
+    "messages": [
+      {"role": "user", "content": "Hello! Say one sentence."}
+    ]
+  }'
+```
+
+If you received a response with `"content"` — everything works. If there's an error — see [troubleshooting.md](troubleshooting.md).
+
+## What's Next
+
+- [Channels and pricing](channels.md)
+- [Gateways and regions](gateways.md)
+- [Switching tools](switching.md)
+- [Status monitoring](status.md)
+- [Troubleshooting](troubleshooting.md)
+
+
+============================================================
+FILE: docs/channels.md
+============================================================
+# Каналы
+
+> Последнее обновление: 24 марта 2026
+
+Каналы определяют тарификацию и лимиты контекстного окна. Канал выбирается как часть URL-пути при обращении к API.
+
+## Формат URL
+
+```
+https://{gateway}/{channel}/v1/messages
+```
+
+Пример:
+
+```
+https://ru.gateway.nekocode.app/alpha/v1/messages
+```
+
+## Alpha
+
+| Параметр | Значение |
+|----------|----------|
+| Суффикс URL | `/alpha` |
+| Множитель цены | **x0.3** (70% скидка) |
+| Контекстное окно | 200K токенов |
+| Модели | Все модели Anthropic + OpenAI |
+| Назначение | Ежедневная работа, разработка, код-ревью |
+
+Alpha — основной канал для повседневного использования. Цена составляет 30% от стандартной стоимости API, что делает его идеальным для:
+
+- Написания и рефакторинга кода
+- Ежедневного взаимодействия с AI-ассистентами (Claude Code, Cursor, Aider)
+- Задач, не требующих сверхбольшого контекста
+- Прототипирования и экспериментов
+
+### Пример использования
+
+```bash
+curl https://ru.gateway.nekocode.app/alpha/v1/messages \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: sk_live_YOUR_KEY" \
+  -H "anthropic-version: 2023-06-01" \
+  -d '{
+    "model": "claude-sonnet-4-20250514",
+    "max_tokens": 1024,
+    "messages": [
+      {"role": "user", "content": "Напиши функцию сортировки на Python"}
+    ]
+  }'
+```
+
+## Spark
+
+| Параметр | Значение |
+|----------|----------|
+| Суффикс URL | `/spark` |
+| Множитель цены | **x1** (стандартная цена) |
+| Контекстное окно | **1M токенов** (для моделей Claude) |
+| Модели | Все модели Anthropic + OpenAI |
+| Назначение | Большие кодовые базы, длинные документы, сложный анализ |
+
+Spark предоставляет полный доступ к расширенному контекстному окну в 1 миллион токенов для моделей Claude. Это критически важно для:
+
+- Работы с большими кодовыми базами (Claude Code на крупных проектах)
+- Анализа длинных документов и отчётов
+- Сложных задач, требующих обширного контекста
+- Случаев, когда Alpha выдаёт ошибку "context too large"
+
+### Модели с расширенным контекстом [1m]
+
+Для использования 1M контекстного окна на канале Spark доступны специальные варианты моделей с суффиксом `[1m]`. Тарификация для `[1m]` вариантов — **x2** от стандартной цены модели.
+
+| Модель | Контекст | Цена (Spark) |
+|--------|----------|-------------|
+| `claude-sonnet-4-20250514` | 200K | x1 |
+| `claude-sonnet-4-20250514 [1m]` | 1M | x2 |
+| `claude-opus-4-20250514` | 200K | x1 |
+| `claude-opus-4-20250514 [1m]` | 1M | x2 |
+
+### Пример использования
+
+```bash
+curl https://ru.gateway.nekocode.app/spark/v1/messages \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: sk_live_YOUR_KEY" \
+  -H "anthropic-version: 2023-06-01" \
+  -d '{
+    "model": "claude-sonnet-4-20250514",
+    "max_tokens": 4096,
+    "messages": [
+      {"role": "user", "content": "Проанализируй эту кодовую базу и предложи архитектурные улучшения..."}
+    ]
+  }'
+```
+
+## Delta
+
+| Параметр | Значение |
+|----------|----------|
+| Статус | **Не доступен** |
+| Доступ | Закрытый канал |
+
+Delta — непубличный канал, который в настоящий момент недоступен. Информация будет опубликована позднее.
+
+## Сравнение каналов
+
+| | Alpha | Spark |
+|--|-------|-------|
+| Цена | x0.3 | x1 |
+| Контекст | 200K | 1M |
+| [1m] модели | Нет | Да (x2) |
+| Anthropic модели | Все | Все |
+| OpenAI модели | Все | Все |
+| Лучше для | Ежедневная работа | Большие задачи |
+
+## Как выбрать
+
+1. **Начни с Alpha.** Для 90% задач хватает 200K контекста, а цена в 3 раза ниже.
+2. **Переключись на Spark**, если получаешь ошибку "context too large" или работаешь с большой кодовой базой.
+3. **Используй [1m] модели на Spark**, когда нужен максимальный контекст (анализ репозиториев, длинные документы).
+
+Переключение между каналами — это просто смена `/alpha` на `/spark` в URL. Никаких дополнительных настроек не требуется.
+
+---
+
+# Channels
+
+> Last updated: March 24, 2026
+
+Channels determine pricing and context window limits. The channel is selected as part of the URL path when calling the API.
+
+## URL Format
+
+```
+https://{gateway}/{channel}/v1/messages
+```
+
+Example:
+
+```
+https://gateway.nekocode.app/alpha/v1/messages
+```
+
+## Alpha
+
+| Parameter | Value |
+|-----------|-------|
+| URL suffix | `/alpha` |
+| Price multiplier | **x0.3** (70% discount) |
+| Context window | 200K tokens |
+| Models | All Anthropic + OpenAI models |
+| Purpose | Daily work, development, code review |
+
+Alpha is the primary channel for everyday use. The price is 30% of the standard API cost, making it ideal for:
+
+- Writing and refactoring code
+- Daily interaction with AI assistants (Claude Code, Cursor, Aider)
+- Tasks that don't require extremely large context
+- Prototyping and experimentation
+
+### Usage Example
+
+```bash
+curl https://gateway.nekocode.app/alpha/v1/messages \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: sk_live_YOUR_KEY" \
+  -H "anthropic-version: 2023-06-01" \
+  -d '{
+    "model": "claude-sonnet-4-20250514",
+    "max_tokens": 1024,
+    "messages": [
+      {"role": "user", "content": "Write a sorting function in Python"}
+    ]
+  }'
+```
+
+## Spark
+
+| Parameter | Value |
+|-----------|-------|
+| URL suffix | `/spark` |
+| Price multiplier | **x1** (standard price) |
+| Context window | **1M tokens** (for Claude models) |
+| Models | All Anthropic + OpenAI models |
+| Purpose | Large codebases, long documents, complex analysis |
+
+Spark provides full access to the extended 1 million token context window for Claude models. This is critical for:
+
+- Working with large codebases (Claude Code on big projects)
+- Analyzing long documents and reports
+- Complex tasks requiring extensive context
+- Cases where Alpha returns "context too large" error
+
+### Extended Context [1m] Models
+
+To use the 1M context window on the Spark channel, special model variants with the `[1m]` suffix are available. Pricing for `[1m]` variants is **x2** the standard model price.
+
+| Model | Context | Price (Spark) |
+|-------|---------|---------------|
+| `claude-sonnet-4-20250514` | 200K | x1 |
+| `claude-sonnet-4-20250514 [1m]` | 1M | x2 |
+| `claude-opus-4-20250514` | 200K | x1 |
+| `claude-opus-4-20250514 [1m]` | 1M | x2 |
+
+### Usage Example
+
+```bash
+curl https://gateway.nekocode.app/spark/v1/messages \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: sk_live_YOUR_KEY" \
+  -H "anthropic-version: 2023-06-01" \
+  -d '{
+    "model": "claude-sonnet-4-20250514",
+    "max_tokens": 4096,
+    "messages": [
+      {"role": "user", "content": "Analyze this codebase and suggest architectural improvements..."}
+    ]
+  }'
+```
+
+## Delta
+
+| Parameter | Value |
+|-----------|-------|
+| Status | **Not available** |
+| Access | Private channel |
+
+Delta is a non-public channel that is currently unavailable. More information will be published later.
+
+## Channel Comparison
+
+| | Alpha | Spark |
+|--|-------|-------|
+| Price | x0.3 | x1 |
+| Context | 200K | 1M |
+| [1m] models | No | Yes (x2) |
+| Anthropic models | All | All |
+| OpenAI models | All | All |
+| Best for | Daily work | Large tasks |
+
+## How to Choose
+
+1. **Start with Alpha.** For 90% of tasks, 200K context is enough, and the price is 3x lower.
+2. **Switch to Spark** if you get a "context too large" error or work with a large codebase.
+3. **Use [1m] models on Spark** when you need maximum context (repository analysis, long documents).
+
+Switching between channels is simply changing `/alpha` to `/spark` in the URL. No additional configuration required.
+
+
+============================================================
+FILE: docs/gateways.md
+============================================================
+# Гейтвеи
+
+> Последнее обновление: 24 марта 2026
+
+Гейтвеи — это точки входа в Nekocode API, расположенные в разных регионах. Выбор гейтвея влияет на задержку (latency) и доступность сервиса из вашего региона.
+
+## Формат URL
+
+```
+https://{gateway}/{channel}/v1/messages
+```
+
+Где:
+- `{gateway}` — домен гейтвея (см. таблицу ниже)
+- `{channel}` — канал: `alpha` или `spark`
+
+Пример полного URL:
+
+```
+https://ru.gateway.nekocode.app/alpha/v1/messages
+```
+
+## Список гейтвеев
+
+| Gateway | Base URL | Регион | Uptime |
+|---------|----------|--------|--------|
+| **Default (Main)** | `gateway.nekocode.app` | Глобальный (EU/US) | 99.96% |
+| **Russia (Primary)** | `ru.gateway.nekocode.app` | Россия | 99.94% |
+| **Russia #2** | `ru-2.gateway.nekocode.app` | Россия | 99.99% |
+| **Russia #3** | `ru-3.gateway.nekocode.app` | Россия | 99.96% |
+
+## Зачем нужны российские гейтвеи
+
+Nekocode предоставляет три отдельных гейтвея для России по нескольким причинам:
+
+### 1. Обход потенциальных блокировок
+
+Прямой доступ к API Anthropic и OpenAI из России может быть затруднён или невозможен. Российские гейтвеи Nekocode расположены на инфраструктуре, доступной из РФ, и проксируют запросы к провайдерам.
+
+### 2. Низкая задержка для РФ/СНГ
+
+Гейтвей Default оптимизирован для EU/US. Для пользователей из России и стран СНГ российские гейтвеи обеспечивают значительно меньшую задержку (latency), что критично при работе с AI-ассистентами в реальном времени.
+
+### 3. Три сервера для надёжности
+
+Три резервных российских сервера (`ru`, `ru-2`, `ru-3`) обеспечивают отказоустойчивость:
+
+- Если `ru.gateway.nekocode.app` недоступен — переключайся на `ru-2.gateway.nekocode.app`
+- Если `ru-2` тоже недоступен — используй `ru-3.gateway.nekocode.app`
+- Актуальный статус всех гейтвеев: [status.nekocode.app](https://status.nekocode.app)
+
+## Какой гейтвей выбрать
+
+```
+Ты в России/СНГ?
+├── Да → ru.gateway.nekocode.app (основной)
+│         ├── Не работает? → ru-2.gateway.nekocode.app
+│         └── Тоже не работает? → ru-3.gateway.nekocode.app
+└── Нет → gateway.nekocode.app (глобальный)
+```
+
+**Правило простое:** если ты в РФ — начинай с `ru`, если за пределами — используй `gateway`.
+
+## Примеры полных URL
+
+### Default gateway + Alpha канал
+
+```
+https://gateway.nekocode.app/alpha/v1/messages
+```
+
+### Russian gateway + Alpha канал
+
+```
+https://ru.gateway.nekocode.app/alpha/v1/messages
+```
+
+### Russian #2 gateway + Spark канал
+
+```
+https://ru-2.gateway.nekocode.app/spark/v1/messages
+```
+
+### Russian #3 gateway + Spark канал
+
+```
+https://ru-3.gateway.nekocode.app/spark/v1/messages
+```
+
+## Переключение между гейтвеями
+
+Переключение гейтвея — это замена доменной части URL. API-ключ и остальные параметры запроса остаются без изменений.
+
+```bash
+# Было (Default):
+export ANTHROPIC_BASE_URL="https://gateway.nekocode.app/alpha"
+
+# Стало (Russia):
+export ANTHROPIC_BASE_URL="https://ru.gateway.nekocode.app/alpha"
+```
+
+Для инструментов, использующих конфигурационные файлы (Claude Code, OpenCode, и т.д.), достаточно изменить `baseURL` в настройках. Подробнее: [switching.md](switching.md)
+
+## Мониторинг
+
+Актуальный статус всех гейтвеев доступен на:
+
+- **Status page:** [status.nekocode.app](https://status.nekocode.app)
+- **Telegram:** [@nekocode_status](https://t.me/nekocode_status) (алерты в реальном времени)
+- **Dashboard:** [nekocode.app/dashboard](https://nekocode.app/dashboard) (персональная статистика)
+
+Подробнее: [status.md](status.md)
+
+---
+
+# Gateways
+
+> Last updated: March 24, 2026
+
+Gateways are entry points to the Nekocode API located in different regions. Your gateway choice affects latency and service availability from your region.
+
+## URL Format
+
+```
+https://{gateway}/{channel}/v1/messages
+```
+
+Where:
+- `{gateway}` — gateway domain (see table below)
+- `{channel}` — channel: `alpha` or `spark`
+
+Full URL example:
+
+```
+https://ru.gateway.nekocode.app/alpha/v1/messages
+```
+
+## Gateway List
+
+| Gateway | Base URL | Region | Uptime |
+|---------|----------|--------|--------|
+| **Default (Main)** | `gateway.nekocode.app` | Global (EU/US) | 99.96% |
+| **Russia (Primary)** | `ru.gateway.nekocode.app` | Russia | 99.94% |
+| **Russia #2** | `ru-2.gateway.nekocode.app` | Russia | 99.99% |
+| **Russia #3** | `ru-3.gateway.nekocode.app` | Russia | 99.96% |
+
+## Why Russian Gateways Exist
+
+Nekocode provides three separate gateways for Russia for several reasons:
+
+### 1. Bypassing Potential Blocks
+
+Direct access to Anthropic and OpenAI APIs from Russia may be difficult or impossible. Nekocode's Russian gateways are hosted on infrastructure accessible from Russia and proxy requests to the providers.
+
+### 2. Lower Latency for Russia/CIS
+
+The Default gateway is optimized for EU/US. For users in Russia and CIS countries, Russian gateways provide significantly lower latency, which is critical when working with AI assistants in real time.
+
+### 3. Three Servers for Reliability
+
+Three redundant Russian servers (`ru`, `ru-2`, `ru-3`) ensure fault tolerance:
+
+- If `ru.gateway.nekocode.app` is down — switch to `ru-2.gateway.nekocode.app`
+- If `ru-2` is also down — use `ru-3.gateway.nekocode.app`
+- Current status of all gateways: [status.nekocode.app](https://status.nekocode.app)
+
+## Which Gateway to Choose
+
+```
+Are you in Russia/CIS?
+├── Yes → ru.gateway.nekocode.app (primary)
+│          ├── Down? → ru-2.gateway.nekocode.app
+│          └── Also down? → ru-3.gateway.nekocode.app
+└── No → gateway.nekocode.app (global)
+```
+
+**Simple rule:** if you're in Russia — start with `ru`, if outside — use `gateway`.
+
+## Full URL Examples
+
+### Default gateway + Alpha channel
+
+```
+https://gateway.nekocode.app/alpha/v1/messages
+```
+
+### Russian gateway + Alpha channel
+
+```
+https://ru.gateway.nekocode.app/alpha/v1/messages
+```
+
+### Russian #2 gateway + Spark channel
+
+```
+https://ru-2.gateway.nekocode.app/spark/v1/messages
+```
+
+### Russian #3 gateway + Spark channel
+
+```
+https://ru-3.gateway.nekocode.app/spark/v1/messages
+```
+
+## Switching Between Gateways
+
+Switching gateways means replacing the domain part of the URL. The API key and other request parameters remain unchanged.
+
+```bash
+# Before (Default):
+export ANTHROPIC_BASE_URL="https://gateway.nekocode.app/alpha"
+
+# After (Russia):
+export ANTHROPIC_BASE_URL="https://ru.gateway.nekocode.app/alpha"
+```
+
+For tools using configuration files (Claude Code, OpenCode, etc.), just change the `baseURL` in settings. Details: [switching.md](switching.md)
+
+## Monitoring
+
+Current status of all gateways is available at:
+
+- **Status page:** [status.nekocode.app](https://status.nekocode.app)
+- **Telegram:** [@nekocode_status](https://t.me/nekocode_status) (real-time alerts)
+- **Dashboard:** [nekocode.app/dashboard](https://nekocode.app/dashboard) (personal statistics)
+
+Details: [status.md](status.md)
+
+
+============================================================
+FILE: docs/switching.md
+============================================================
+# Переключение и возврат
+
+> Дата: 24 марта 2026
+
+Полное руководство по подключению Nekocode ко всем поддерживаемым инструментам и возврату к стандартным подпискам/API.
+
+## Шлюзы (Gateways)
+
+| Шлюз | URL |
+|---|---|
+| Default | `gateway.nekocode.app` |
+| Russia Primary | `ru.gateway.nekocode.app` |
+| Russia #2 | `ru-2.gateway.nekocode.app` |
+| Russia #3 | `ru-3.gateway.nekocode.app` |
+
+## Каналы (Channels)
+
+| Канал | Путь | Множитель |
+|---|---|---|
+| Alpha | `/alpha` | x0.3 |
+| Spark | `/spark` | x1 |
+
+---
+
+## 1. Claude Code
+
+### Как подключить Nekocode
+
+Откройте файл `~/.claude/settings.json` и добавьте переменные окружения:
+
+```json
+{
+  "env": {
+    "ANTHROPIC_AUTH_TOKEN": "sk_live_ВАШ_КЛЮЧ",
+    "ANTHROPIC_BASE_URL": "https://gateway.nekocode.app/alpha",
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"
+  }
+}
+```
+
+### Как переключить gateway
+
+Измените `ANTHROPIC_BASE_URL`:
+
+```json
+"ANTHROPIC_BASE_URL": "https://ru.gateway.nekocode.app/alpha"
+```
+
+Другие варианты:
+- `https://ru-2.gateway.nekocode.app/alpha`
+- `https://ru-3.gateway.nekocode.app/alpha`
+
+### Как переключить channel
+
+Замените последний сегмент пути:
+
+```json
+"ANTHROPIC_BASE_URL": "https://gateway.nekocode.app/spark"
+```
+
+### Как выбрать модель
+
+Claude Code автоматически использует доступные модели. Выбор модели происходит через интерфейс Claude Code (`/model` команда).
+
+### Как вернуть стандартную подписку (REVERT)
+
+Удалите три переменные из `~/.claude/settings.json`:
+
+```json
+{
+  "env": {}
+}
+```
+
+Удалите `ANTHROPIC_AUTH_TOKEN`, `ANTHROPIC_BASE_URL` и `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC`. Claude Code вернётся к стандартному API Anthropic.
+
+### Как проверить что работает
+
+```bash
+claude --version
+# Запустите Claude Code и отправьте тестовое сообщение
+# В логах должен отображаться gateway.nekocode.app
+```
+
+---
+
+## 2. Codex CLI
+
+### Как подключить Nekocode
+
+Вариант A — через переменные окружения:
+
+```bash
+export OPENAI_BASE_URL="https://gateway.nekocode.app/alpha"
+export OPENAI_API_KEY="sk_live_ВАШ_КЛЮЧ"
+```
+
+Вариант B — через `config.toml`:
+
+```toml
+[provider]
+name = "nekocode"
+base_url = "https://gateway.nekocode.app/alpha"
+api_key = "sk_live_ВАШ_КЛЮЧ"
+```
+
+### Как переключить gateway
+
+```bash
+export OPENAI_BASE_URL="https://ru.gateway.nekocode.app/alpha"
+```
+
+### Как переключить channel
+
+```bash
+export OPENAI_BASE_URL="https://gateway.nekocode.app/spark"
+```
+
+### Как выбрать модель
+
+```bash
+codex --model claude-sonnet-4-20250514
+```
+
+### Как вернуть стандартную подписку (REVERT)
+
+```bash
+unset OPENAI_BASE_URL
+unset OPENAI_API_KEY
+```
+
+Или удалите секцию `[provider]` из `config.toml`.
+
+### Как проверить что работает
+
+```bash
+echo $OPENAI_BASE_URL
+# Должно показать URL nekocode или быть пустым после revert
+codex "test message"
+```
+
+---
+
+## 3. OpenCode
+
+### Как подключить Nekocode
+
+Отредактируйте `opencode.json`:
+
+```json
+{
+  "provider": {
+    "anthropic": {
+      "options": {
+        "apiKey": "sk_live_ВАШ_КЛЮЧ",
+        "baseURL": "https://gateway.nekocode.app/alpha/v1",
+        "headers": {
+          "X-Provider": "nekocode"
+        }
+      }
+    }
+  }
+}
+```
+
+> Важно: `baseURL` должен заканчиваться на `/v1`.
+
+### Как переключить gateway
+
+```json
+"baseURL": "https://ru.gateway.nekocode.app/alpha/v1"
+```
+
+### Как переключить channel
+
+```json
+"baseURL": "https://gateway.nekocode.app/spark/v1"
+```
+
+### Как выбрать модель
+
+Укажите модель в секции конфига или через интерфейс OpenCode.
+
+### Как вернуть стандартную подписку (REVERT)
+
+Удалите секцию `provider` из `opencode.json`:
+
+```json
+{
+}
+```
+
+OpenCode вернётся к стандартным настройкам провайдера.
+
+### Как проверить что работает
+
+Запустите OpenCode и проверьте, что запросы идут через nekocode gateway. Если видите ошибку "provider not found", убедитесь что `baseURL` заканчивается на `/v1`.
+
+---
+
+## 4. OpenClaw
+
+### Как подключить Nekocode
+
+Отредактируйте `openclaw.json`:
+
+```json
+{
+  "models": {
+    "providers": {
+      "nekocode": {
+        "baseURL": "https://gateway.nekocode.app/alpha",
+        "apiKey": "sk_live_ВАШ_КЛЮЧ",
+        "type": "anthropic"
+      }
+    },
+    "fallbacks": ["nekocode", "anthropic"]
+  }
+}
+```
+
+### Как переключить gateway
+
+```json
+"baseURL": "https://ru.gateway.nekocode.app/alpha"
+```
+
+### Как переключить channel
+
+```json
+"baseURL": "https://gateway.nekocode.app/spark"
+```
+
+### Как выбрать модель
+
+Модель указывается в конфигурации модели или выбирается в интерфейсе OpenClaw.
+
+### Как вернуть стандартную подписку (REVERT)
+
+Удалите `nekocode` из `providers` и `fallbacks` в `openclaw.json`:
+
+```json
+{
+  "models": {
+    "providers": {
+      "anthropic": { ... }
+    },
+    "fallbacks": ["anthropic"]
+  }
+}
+```
+
+### Как проверить что работает
+
+```bash
+# Проверьте openclaw.json
+cat openclaw.json | grep nekocode
+# Запустите OpenClaw и отправьте тестовый запрос
+```
+
+---
+
+## 5. Cursor
+
+### Как подключить Nekocode
+
+1. Откройте Cursor
+2. Перейдите в **Settings** > **Models**
+3. В поле **Override Base URL** введите: `https://gateway.nekocode.app/alpha`
+4. В поле **API Key** введите: `sk_live_ВАШ_КЛЮЧ`
+5. Сохраните настройки
+
+### Как переключить gateway
+
+Измените **Override Base URL** на:
+- `https://ru.gateway.nekocode.app/alpha`
+- `https://ru-2.gateway.nekocode.app/alpha`
+- `https://ru-3.gateway.nekocode.app/alpha`
+
+### Как переключить channel
+
+Измените последний сегмент в **Override Base URL**:
+- `https://gateway.nekocode.app/spark`
+
+### Как выбрать модель
+
+В настройках Cursor выберите нужную модель из списка или введите ID модели вручную.
+
+### Как вернуть стандартную подписку (REVERT)
+
+1. Откройте **Settings** > **Models**
+2. Очистите поле **Override Base URL** (оставьте пустым)
+3. Очистите поле **API Key** (или введите свой ключ Anthropic)
+4. Сохраните настройки
+
+Cursor вернётся к использованию стандартного API.
+
+### Как проверить что работает
+
+Отправьте тестовый запрос в Cursor. В статус-баре должна отображаться подключённая модель.
+
+---
+
+## 6. Aider
+
+### Как подключить Nekocode
+
+Вариант A — через переменную окружения:
+
+```bash
+export ANTHROPIC_API_BASE="https://gateway.nekocode.app/alpha"
+export ANTHROPIC_API_KEY="sk_live_ВАШ_КЛЮЧ"
+```
+
+Вариант B — через флаг:
+
+```bash
+aider --api-base "https://gateway.nekocode.app/alpha" --api-key "sk_live_ВАШ_КЛЮЧ"
+```
+
+### Как переключить gateway
+
+```bash
+export ANTHROPIC_API_BASE="https://ru.gateway.nekocode.app/alpha"
+```
+
+### Как переключить channel
+
+```bash
+export ANTHROPIC_API_BASE="https://gateway.nekocode.app/spark"
+```
+
+### Как выбрать модель
+
+```bash
+aider --model claude-sonnet-4-20250514
+```
+
+### Как вернуть стандартную подписку (REVERT)
+
+```bash
+unset ANTHROPIC_API_BASE
+unset ANTHROPIC_API_KEY
+```
+
+Или уберите флаги `--api-base` и `--api-key` из команды запуска. Aider вернётся к стандартному API Anthropic.
+
+### Как проверить что работает
+
+```bash
+echo $ANTHROPIC_API_BASE
+aider --version
+# Запустите aider и проверьте подключение
+```
+
+---
+
+## 7. Windsurf
+
+### Как подключить Nekocode
+
+1. Откройте Windsurf
+2. Перейдите в **Settings** > **AI Provider** > **Custom**
+3. Введите **Base URL**: `https://gateway.nekocode.app/alpha`
+4. Введите **API Key**: `sk_live_ВАШ_КЛЮЧ`
+5. Сохраните настройки
+
+### Как переключить gateway
+
+Измените **Base URL** на один из российских шлюзов:
+- `https://ru.gateway.nekocode.app/alpha`
+- `https://ru-2.gateway.nekocode.app/alpha`
+- `https://ru-3.gateway.nekocode.app/alpha`
+
+### Как переключить channel
+
+Измените последний сегмент **Base URL**:
+- `https://gateway.nekocode.app/spark`
+
+### Как выбрать модель
+
+Выберите модель в настройках Windsurf AI Provider.
+
+### Как вернуть стандартную подписку (REVERT)
+
+1. Перейдите в **Settings** > **AI Provider**
+2. Переключите обратно на встроенный провайдер (сбросьте Custom)
+3. Сохраните
+
+### Как проверить что работает
+
+Отправьте тестовый запрос через Windsurf и убедитесь, что ответ приходит.
+
+---
+
+## 8. Continue.dev
+
+### Как подключить Nekocode
+
+Отредактируйте `config.json`:
+
+```json
+{
+  "models": [
+    {
+      "title": "Nekocode Claude",
+      "provider": "anthropic",
+      "model": "claude-sonnet-4-20250514",
+      "apiBase": "https://gateway.nekocode.app/alpha",
+      "apiKey": "sk_live_ВАШ_КЛЮЧ"
+    }
+  ]
+}
+```
+
+### Как переключить gateway
+
+```json
+"apiBase": "https://ru.gateway.nekocode.app/alpha"
+```
+
+### Как переключить channel
+
+```json
+"apiBase": "https://gateway.nekocode.app/spark"
+```
+
+### Как выбрать модель
+
+Измените поле `model`:
+
+```json
+"model": "claude-sonnet-4-20250514"
+```
+
+### Как вернуть стандартную подписку (REVERT)
+
+Удалите модель Nekocode из массива `models` в `config.json` или замените на стандартного провайдера:
+
+```json
+{
+  "models": [
+    {
+      "title": "Claude",
+      "provider": "anthropic",
+      "model": "claude-sonnet-4-20250514",
+      "apiKey": "ВАШ_КЛЮЧ_ANTHROPIC"
+    }
+  ]
+}
+```
+
+### Как проверить что работает
+
+В VS Code откройте панель Continue и отправьте тестовое сообщение. Проверьте, что модель "Nekocode Claude" доступна в списке.
+
+---
+
+## 9. Anthropic SDK
+
+### Как подключить Nekocode
+
+Python:
+
+```python
+import anthropic
+
+client = anthropic.Anthropic(
+    api_key="sk_live_ВАШ_КЛЮЧ",
+    base_url="https://gateway.nekocode.app/alpha"
+)
+
+response = client.messages.create(
+    model="claude-sonnet-4-20250514",
+    max_tokens=1024,
+    messages=[{"role": "user", "content": "Привет!"}]
+)
+```
+
+TypeScript/JavaScript:
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: "sk_live_ВАШ_КЛЮЧ",
+  baseURL: "https://gateway.nekocode.app/alpha",
+});
+
+const response = await client.messages.create({
+  model: "claude-sonnet-4-20250514",
+  max_tokens: 1024,
+  messages: [{ role: "user", content: "Привет!" }],
+});
+```
+
+### Как переключить gateway
+
+```python
+base_url="https://ru.gateway.nekocode.app/alpha"
+```
+
+### Как переключить channel
+
+```python
+base_url="https://gateway.nekocode.app/spark"
+```
+
+### Как выбрать модель
+
+Измените параметр `model`:
+
+```python
+model="claude-sonnet-4-20250514"
+```
+
+### Как вернуть стандартную подписку (REVERT)
+
+Удалите параметр `base_url`:
+
+```python
+client = anthropic.Anthropic(
+    api_key="ВАШ_КЛЮЧ_ANTHROPIC"
+)
+```
+
+```typescript
+const client = new Anthropic({
+  apiKey: "ВАШ_КЛЮЧ_ANTHROPIC",
+});
+```
+
+SDK вернётся к стандартному `api.anthropic.com`.
+
+### Как проверить что работает
+
+```python
+response = client.messages.create(
+    model="claude-sonnet-4-20250514",
+    max_tokens=128,
+    messages=[{"role": "user", "content": "ping"}]
+)
+print(response.content[0].text)
+```
+
+---
+
+## 10. Terminal / curl
+
+### Как подключить Nekocode
+
+```bash
+export ANTHROPIC_BASE_URL="https://gateway.nekocode.app/alpha"
+export ANTHROPIC_API_KEY="sk_live_ВАШ_КЛЮЧ"
+```
+
+Пример запроса:
+
+```bash
+curl -X POST "${ANTHROPIC_BASE_URL}/v1/messages" \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: ${ANTHROPIC_API_KEY}" \
+  -H "anthropic-version: 2023-06-01" \
+  -d '{
+    "model": "claude-sonnet-4-20250514",
+    "max_tokens": 1024,
+    "messages": [{"role": "user", "content": "Привет!"}]
+  }'
+```
+
+### Как переключить gateway
+
+```bash
+export ANTHROPIC_BASE_URL="https://ru.gateway.nekocode.app/alpha"
+```
+
+### Как переключить channel
+
+```bash
+export ANTHROPIC_BASE_URL="https://gateway.nekocode.app/spark"
+```
+
+### Как выбрать модель
+
+Измените `model` в теле JSON-запроса.
+
+### Как вернуть стандартную подписку (REVERT)
+
+```bash
+unset ANTHROPIC_BASE_URL
+unset ANTHROPIC_API_KEY
+```
+
+Или установите стандартный URL:
+
+```bash
+export ANTHROPIC_BASE_URL="https://api.anthropic.com"
+```
+
+### Как проверить что работает
+
+```bash
+echo $ANTHROPIC_BASE_URL
+curl -s "${ANTHROPIC_BASE_URL}/v1/messages" \
+  -H "x-api-key: ${ANTHROPIC_API_KEY}" \
+  -H "anthropic-version: 2023-06-01" \
+  -H "Content-Type: application/json" \
+  -d '{"model":"claude-sonnet-4-20250514","max_tokens":64,"messages":[{"role":"user","content":"ping"}]}' | head -c 200
+```
+
+---
+
+---
+
+# Switching and Reverting
+
+> Date: March 24, 2026
+
+Complete guide for connecting Nekocode to all supported tools and reverting back to standard subscriptions/APIs.
+
+## Gateways
+
+| Gateway | URL |
+|---|---|
+| Default | `gateway.nekocode.app` |
+| Russia Primary | `ru.gateway.nekocode.app` |
+| Russia #2 | `ru-2.gateway.nekocode.app` |
+| Russia #3 | `ru-3.gateway.nekocode.app` |
+
+## Channels
+
+| Channel | Path | Multiplier |
+|---|---|---|
+| Alpha | `/alpha` | x0.3 |
+| Spark | `/spark` | x1 |
+
+---
+
+## 1. Claude Code
+
+### How to connect Nekocode
+
+Edit `~/.claude/settings.json` and add environment variables:
+
+```json
+{
+  "env": {
+    "ANTHROPIC_AUTH_TOKEN": "sk_live_YOUR_KEY",
+    "ANTHROPIC_BASE_URL": "https://gateway.nekocode.app/alpha",
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"
+  }
+}
+```
+
+### How to switch gateway
+
+Change `ANTHROPIC_BASE_URL`:
+
+```json
+"ANTHROPIC_BASE_URL": "https://ru.gateway.nekocode.app/alpha"
+```
+
+Other options:
+- `https://ru-2.gateway.nekocode.app/alpha`
+- `https://ru-3.gateway.nekocode.app/alpha`
+
+### How to switch channel
+
+Replace the last path segment:
+
+```json
+"ANTHROPIC_BASE_URL": "https://gateway.nekocode.app/spark"
+```
+
+### How to choose a model
+
+Claude Code automatically uses available models. Choose the model via the Claude Code interface (`/model` command).
+
+### How to revert to standard subscription (REVERT)
+
+Remove the three variables from `~/.claude/settings.json`:
+
+```json
+{
+  "env": {}
+}
+```
+
+Remove `ANTHROPIC_AUTH_TOKEN`, `ANTHROPIC_BASE_URL`, and `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC`. Claude Code will revert to the standard Anthropic API.
+
+### How to verify it works
+
+```bash
+claude --version
+# Launch Claude Code and send a test message
+# Logs should show gateway.nekocode.app
+```
+
+---
+
+## 2. Codex CLI
+
+### How to connect Nekocode
+
+Option A — via environment variables:
+
+```bash
+export OPENAI_BASE_URL="https://gateway.nekocode.app/alpha"
+export OPENAI_API_KEY="sk_live_YOUR_KEY"
+```
+
+Option B — via `config.toml`:
+
+```toml
+[provider]
+name = "nekocode"
+base_url = "https://gateway.nekocode.app/alpha"
+api_key = "sk_live_YOUR_KEY"
+```
+
+### How to switch gateway
+
+```bash
+export OPENAI_BASE_URL="https://ru.gateway.nekocode.app/alpha"
+```
+
+### How to switch channel
+
+```bash
+export OPENAI_BASE_URL="https://gateway.nekocode.app/spark"
+```
+
+### How to choose a model
+
+```bash
+codex --model claude-sonnet-4-20250514
+```
+
+### How to revert to standard subscription (REVERT)
+
+```bash
+unset OPENAI_BASE_URL
+unset OPENAI_API_KEY
+```
+
+Or remove the `[provider]` section from `config.toml`.
+
+### How to verify it works
+
+```bash
+echo $OPENAI_BASE_URL
+# Should show nekocode URL or be empty after revert
+codex "test message"
+```
+
+---
+
+## 3. OpenCode
+
+### How to connect Nekocode
+
+Edit `opencode.json`:
+
+```json
+{
+  "provider": {
+    "anthropic": {
+      "options": {
+        "apiKey": "sk_live_YOUR_KEY",
+        "baseURL": "https://gateway.nekocode.app/alpha/v1",
+        "headers": {
+          "X-Provider": "nekocode"
+        }
+      }
+    }
+  }
+}
+```
+
+> Important: `baseURL` must end with `/v1`.
+
+### How to switch gateway
+
+```json
+"baseURL": "https://ru.gateway.nekocode.app/alpha/v1"
+```
+
+### How to switch channel
+
+```json
+"baseURL": "https://gateway.nekocode.app/spark/v1"
+```
+
+### How to choose a model
+
+Specify the model in the config section or through the OpenCode interface.
+
+### How to revert to standard subscription (REVERT)
+
+Remove the `provider` section from `opencode.json`:
+
+```json
+{
+}
+```
+
+OpenCode will revert to default provider settings.
+
+### How to verify it works
+
+Launch OpenCode and verify that requests go through the nekocode gateway. If you see a "provider not found" error, make sure `baseURL` ends with `/v1`.
+
+---
+
+## 4. OpenClaw
+
+### How to connect Nekocode
+
+Edit `openclaw.json`:
+
+```json
+{
+  "models": {
+    "providers": {
+      "nekocode": {
+        "baseURL": "https://gateway.nekocode.app/alpha",
+        "apiKey": "sk_live_YOUR_KEY",
+        "type": "anthropic"
+      }
+    },
+    "fallbacks": ["nekocode", "anthropic"]
+  }
+}
+```
+
+### How to switch gateway
+
+```json
+"baseURL": "https://ru.gateway.nekocode.app/alpha"
+```
+
+### How to switch channel
+
+```json
+"baseURL": "https://gateway.nekocode.app/spark"
+```
+
+### How to choose a model
+
+The model is specified in the model configuration or selected in the OpenClaw interface.
+
+### How to revert to standard subscription (REVERT)
+
+Remove `nekocode` from `providers` and `fallbacks` in `openclaw.json`:
+
+```json
+{
+  "models": {
+    "providers": {
+      "anthropic": { ... }
+    },
+    "fallbacks": ["anthropic"]
+  }
+}
+```
+
+### How to verify it works
+
+```bash
+# Check openclaw.json
+cat openclaw.json | grep nekocode
+# Launch OpenClaw and send a test request
+```
+
+---
+
+## 5. Cursor
+
+### How to connect Nekocode
+
+1. Open Cursor
+2. Go to **Settings** > **Models**
+3. In the **Override Base URL** field, enter: `https://gateway.nekocode.app/alpha`
+4. In the **API Key** field, enter: `sk_live_YOUR_KEY`
+5. Save settings
+
+### How to switch gateway
+
+Change **Override Base URL** to:
+- `https://ru.gateway.nekocode.app/alpha`
+- `https://ru-2.gateway.nekocode.app/alpha`
+- `https://ru-3.gateway.nekocode.app/alpha`
+
+### How to switch channel
+
+Change the last segment of **Override Base URL**:
+- `https://gateway.nekocode.app/spark`
+
+### How to choose a model
+
+Select the desired model in Cursor's model settings or enter the model ID manually.
+
+### How to revert to standard subscription (REVERT)
+
+1. Go to **Settings** > **Models**
+2. Clear the **Override Base URL** field (leave empty)
+3. Clear the **API Key** field (or enter your Anthropic key)
+4. Save settings
+
+Cursor will revert to using the standard API.
+
+### How to verify it works
+
+Send a test request in Cursor. The connected model should appear in the status bar.
+
+---
+
+## 6. Aider
+
+### How to connect Nekocode
+
+Option A — via environment variable:
+
+```bash
+export ANTHROPIC_API_BASE="https://gateway.nekocode.app/alpha"
+export ANTHROPIC_API_KEY="sk_live_YOUR_KEY"
+```
+
+Option B — via flag:
+
+```bash
+aider --api-base "https://gateway.nekocode.app/alpha" --api-key "sk_live_YOUR_KEY"
+```
+
+### How to switch gateway
+
+```bash
+export ANTHROPIC_API_BASE="https://ru.gateway.nekocode.app/alpha"
+```
+
+### How to switch channel
+
+```bash
+export ANTHROPIC_API_BASE="https://gateway.nekocode.app/spark"
+```
+
+### How to choose a model
+
+```bash
+aider --model claude-sonnet-4-20250514
+```
+
+### How to revert to standard subscription (REVERT)
+
+```bash
+unset ANTHROPIC_API_BASE
+unset ANTHROPIC_API_KEY
+```
+
+Or remove the `--api-base` and `--api-key` flags from your launch command. Aider will revert to the standard Anthropic API.
+
+### How to verify it works
+
+```bash
+echo $ANTHROPIC_API_BASE
+aider --version
+# Launch aider and verify the connection
+```
+
+---
+
+## 7. Windsurf
+
+### How to connect Nekocode
+
+1. Open Windsurf
+2. Go to **Settings** > **AI Provider** > **Custom**
+3. Enter **Base URL**: `https://gateway.nekocode.app/alpha`
+4. Enter **API Key**: `sk_live_YOUR_KEY`
+5. Save settings
+
+### How to switch gateway
+
+Change **Base URL** to one of the Russian gateways:
+- `https://ru.gateway.nekocode.app/alpha`
+- `https://ru-2.gateway.nekocode.app/alpha`
+- `https://ru-3.gateway.nekocode.app/alpha`
+
+### How to switch channel
+
+Change the last segment of **Base URL**:
+- `https://gateway.nekocode.app/spark`
+
+### How to choose a model
+
+Select the model in Windsurf AI Provider settings.
+
+### How to revert to standard subscription (REVERT)
+
+1. Go to **Settings** > **AI Provider**
+2. Switch back to the built-in provider (reset Custom)
+3. Save
+
+### How to verify it works
+
+Send a test request through Windsurf and verify that a response is received.
+
+---
+
+## 8. Continue.dev
+
+### How to connect Nekocode
+
+Edit `config.json`:
+
+```json
+{
+  "models": [
+    {
+      "title": "Nekocode Claude",
+      "provider": "anthropic",
+      "model": "claude-sonnet-4-20250514",
+      "apiBase": "https://gateway.nekocode.app/alpha",
+      "apiKey": "sk_live_YOUR_KEY"
+    }
+  ]
+}
+```
+
+### How to switch gateway
+
+```json
+"apiBase": "https://ru.gateway.nekocode.app/alpha"
+```
+
+### How to switch channel
+
+```json
+"apiBase": "https://gateway.nekocode.app/spark"
+```
+
+### How to choose a model
+
+Change the `model` field:
+
+```json
+"model": "claude-sonnet-4-20250514"
+```
+
+### How to revert to standard subscription (REVERT)
+
+Remove the Nekocode model from the `models` array in `config.json` or replace it with a standard provider:
+
+```json
+{
+  "models": [
+    {
+      "title": "Claude",
+      "provider": "anthropic",
+      "model": "claude-sonnet-4-20250514",
+      "apiKey": "YOUR_ANTHROPIC_KEY"
+    }
+  ]
+}
+```
+
+### How to verify it works
+
+In VS Code, open the Continue panel and send a test message. Verify that the "Nekocode Claude" model is available in the list.
+
+---
+
+## 9. Anthropic SDK
+
+### How to connect Nekocode
+
+Python:
+
+```python
+import anthropic
+
+client = anthropic.Anthropic(
+    api_key="sk_live_YOUR_KEY",
+    base_url="https://gateway.nekocode.app/alpha"
+)
+
+response = client.messages.create(
+    model="claude-sonnet-4-20250514",
+    max_tokens=1024,
+    messages=[{"role": "user", "content": "Hello!"}]
+)
+```
+
+TypeScript/JavaScript:
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: "sk_live_YOUR_KEY",
+  baseURL: "https://gateway.nekocode.app/alpha",
+});
+
+const response = await client.messages.create({
+  model: "claude-sonnet-4-20250514",
+  max_tokens: 1024,
+  messages: [{ role: "user", content: "Hello!" }],
+});
+```
+
+### How to switch gateway
+
+```python
+base_url="https://ru.gateway.nekocode.app/alpha"
+```
+
+### How to switch channel
+
+```python
+base_url="https://gateway.nekocode.app/spark"
+```
+
+### How to choose a model
+
+Change the `model` parameter:
+
+```python
+model="claude-sonnet-4-20250514"
+```
+
+### How to revert to standard subscription (REVERT)
+
+Remove the `base_url` parameter:
+
+```python
+client = anthropic.Anthropic(
+    api_key="YOUR_ANTHROPIC_KEY"
+)
+```
+
+```typescript
+const client = new Anthropic({
+  apiKey: "YOUR_ANTHROPIC_KEY",
+});
+```
+
+The SDK will revert to the standard `api.anthropic.com`.
+
+### How to verify it works
+
+```python
+response = client.messages.create(
+    model="claude-sonnet-4-20250514",
+    max_tokens=128,
+    messages=[{"role": "user", "content": "ping"}]
+)
+print(response.content[0].text)
+```
+
+---
+
+## 10. Terminal / curl
+
+### How to connect Nekocode
+
+```bash
+export ANTHROPIC_BASE_URL="https://gateway.nekocode.app/alpha"
+export ANTHROPIC_API_KEY="sk_live_YOUR_KEY"
+```
+
+Example request:
+
+```bash
+curl -X POST "${ANTHROPIC_BASE_URL}/v1/messages" \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: ${ANTHROPIC_API_KEY}" \
+  -H "anthropic-version: 2023-06-01" \
+  -d '{
+    "model": "claude-sonnet-4-20250514",
+    "max_tokens": 1024,
+    "messages": [{"role": "user", "content": "Hello!"}]
+  }'
+```
+
+### How to switch gateway
+
+```bash
+export ANTHROPIC_BASE_URL="https://ru.gateway.nekocode.app/alpha"
+```
+
+### How to switch channel
+
+```bash
+export ANTHROPIC_BASE_URL="https://gateway.nekocode.app/spark"
+```
+
+### How to choose a model
+
+Change `model` in the JSON request body.
+
+### How to revert to standard subscription (REVERT)
+
+```bash
+unset ANTHROPIC_BASE_URL
+unset ANTHROPIC_API_KEY
+```
+
+Or set the standard URL:
+
+```bash
+export ANTHROPIC_BASE_URL="https://api.anthropic.com"
+```
+
+### How to verify it works
+
+```bash
+echo $ANTHROPIC_BASE_URL
+curl -s "${ANTHROPIC_BASE_URL}/v1/messages" \
+  -H "x-api-key: ${ANTHROPIC_API_KEY}" \
+  -H "anthropic-version: 2023-06-01" \
+  -H "Content-Type: application/json" \
+  -d '{"model":"claude-sonnet-4-20250514","max_tokens":64,"messages":[{"role":"user","content":"ping"}]}' | head -c 200
+```
+
+
+============================================================
+FILE: docs/models/anthropic.md
+============================================================
+# Модели Anthropic Claude
+
+> Последнее обновление: 24 марта 2026
+
+Все модели семейства Anthropic Claude, доступные через Nekocode API. Модели представлены в двух каналах: **Alpha** (множитель x0.3, самый экономичный) и **Spark** (множитель x1, полная поддержка контекста 1M токенов).
+
+## Обзор моделей
+
+- **Claude Opus** — самая мощная модель семейства. Максимальное качество рассуждений, сложный анализ, генерация кода уровня senior-разработчика. Подходит для задач, где качество важнее скорости.
+- **Claude Sonnet** — сбалансированная модель. Оптимальное соотношение качества, скорости и стоимости. Рекомендуется как модель по умолчанию для большинства задач.
+- **Claude Haiku** — самая быстрая и дешёвая модель. Идеальна для классификации, извлечения данных, простых чат-ботов и задач с высоким объёмом запросов.
+
+Суффикс **[1m]** в идентификаторе модели означает режим с контекстным окном в 1 миллион токенов. Без суффикса используется стандартное контекстное окно (200K токенов).
+
+## Канал Alpha (x0.3)
+
+Самый экономичный канал. Все цены указаны в USD за 1M токенов.
+
+| Модель | Полный ID | Input | Output | Cache Write | Cache Read | tok/s | Latency |
+|--------|-----------|-------|--------|-------------|------------|-------|---------|
+| Claude Opus 4.6 | `claude-opus-4-6` | $5.00 | $25.00 | $6.25 | $0.50 | 37.8 | 4.9s |
+| Claude Opus 4.6 [1M] | `claude-opus-4-6[1m]` | $5.00 | $25.00 | $6.25 | $0.50 | 38.3 | 5.2s |
+| Claude Sonnet 4.6 | `claude-sonnet-4-6` | $3.00 | $15.00 | $3.75 | $0.30 | 24.1 | 3.8s |
+| Claude Sonnet 4.6 [1M] | `claude-sonnet-4-6[1m]` | $3.00 | $15.00 | $3.75 | $0.30 | 9.6 | 9.3s |
+| Claude Haiku 4.5 | `claude-haiku-4-5-20251001` | $1.00 | $5.00 | $1.25 | $0.10 | 74.5 | 2.7s |
+| Claude Sonnet 4.5 | `claude-sonnet-4-5-20250929` | $3.00 | $15.00 | $3.75 | $0.30 | 47.1 | 2.4s |
+| Claude Opus 4.5 | `claude-opus-4-5-20251101` | $5.00 | $25.00 | $6.25 | $0.50 | 43.4 | 2.0s |
+
+### Алиасы (Alpha)
+
+| Алиас | Указывает на |
+|-------|-------------|
+| `claude-haiku-4-5` | `claude-haiku-4-5-20251001` |
+| `claude-sonnet-4-5` | `claude-sonnet-4-5-20250929` |
+| `claude-opus-4-5` | `claude-opus-4-5-20251101` |
+
+## Канал Spark (x1)
+
+Канал с полной поддержкой контекста 1M токенов. Модели с суффиксом `[1m]` имеют удвоенную стоимость. Все цены указаны в USD за 1M токенов.
+
+| Модель | Полный ID | Input | Output | Cache Write | Cache Read | tok/s | Latency |
+|--------|-----------|-------|--------|-------------|------------|-------|---------|
+| Claude Opus 4.6 | `claude-opus-4-6` | $5.00 | $25.00 | $6.25 | $0.50 | 42.6 | 3.6s |
+| Claude Opus 4.6 [1M] | `claude-opus-4-6[1m]` | $10.00 | $37.50 | $12.50 | $1.00 | 37.2 | 5.8s |
+| Claude Sonnet 4.6 | `claude-sonnet-4-6` | $3.00 | $15.00 | $3.75 | $0.30 | — | — |
+| Claude Sonnet 4.6 [1M] | `claude-sonnet-4-6[1m]` | $6.00 | $22.50 | $7.50 | $0.60 | 41.7 | 4.2s |
+| Claude Haiku 4.5 | `claude-haiku-4-5` | $1.00 | $5.00 | $1.25 | $0.10 | 54.5 | 2.9s |
+| Claude Sonnet 4.5 | `claude-sonnet-4-5` | $3.00 | $15.00 | $3.75 | $0.30 | — | — |
+| Claude Opus 4.5 | `claude-opus-4-5` | $5.00 | $25.00 | $6.25 | $0.50 | — | — |
+
+> **Примечание:** Прочерк (—) в колонках tok/s и Latency означает, что бенчмарк для данной модели в этом канале пока не проведён.
+
+## Рекомендации по выбору
+
+| Задача | Рекомендуемая модель | Канал |
+|--------|---------------------|-------|
+| Сложный анализ, исследования | Claude Opus 4.6 | Alpha |
+| Кодинг, рефакторинг | Claude Opus 4.6 или Sonnet 4.6 | Alpha |
+| Чат-боты, саммаризация | Claude Sonnet 4.5 / 4.6 | Alpha |
+| Классификация, извлечение данных | Claude Haiku 4.5 | Alpha |
+| Анализ больших документов (>200K токенов) | Claude Opus 4.6 [1M] | Spark |
+| Работа с длинным контекстом при экономии | Claude Sonnet 4.6 [1M] | Spark |
+
+---
+
+# Anthropic Claude Models
+
+> Last updated: March 24, 2026
+
+All Anthropic Claude family models available through Nekocode API. Models are offered in two channels: **Alpha** (x0.3 multiplier, most cost-effective) and **Spark** (x1 multiplier, full 1M token context support).
+
+## Model Overview
+
+- **Claude Opus** — the most capable model in the family. Maximum reasoning quality, complex analysis, senior-level code generation. Best for tasks where quality matters more than speed.
+- **Claude Sonnet** — balanced model. Optimal quality-to-speed-to-cost ratio. Recommended as the default model for most tasks.
+- **Claude Haiku** — the fastest and cheapest model. Ideal for classification, data extraction, simple chatbots, and high-volume workloads.
+
+The **[1m]** suffix in a model identifier indicates the 1 million token context window mode. Without the suffix, the standard context window (200K tokens) is used.
+
+## Alpha Channel (x0.3)
+
+The most cost-effective channel. All prices in USD per 1M tokens.
+
+| Model | Full ID | Input | Output | Cache Write | Cache Read | tok/s | Latency |
+|-------|---------|-------|--------|-------------|------------|-------|---------|
+| Claude Opus 4.6 | `claude-opus-4-6` | $5.00 | $25.00 | $6.25 | $0.50 | 37.8 | 4.9s |
+| Claude Opus 4.6 [1M] | `claude-opus-4-6[1m]` | $5.00 | $25.00 | $6.25 | $0.50 | 38.3 | 5.2s |
+| Claude Sonnet 4.6 | `claude-sonnet-4-6` | $3.00 | $15.00 | $3.75 | $0.30 | 24.1 | 3.8s |
+| Claude Sonnet 4.6 [1M] | `claude-sonnet-4-6[1m]` | $3.00 | $15.00 | $3.75 | $0.30 | 9.6 | 9.3s |
+| Claude Haiku 4.5 | `claude-haiku-4-5-20251001` | $1.00 | $5.00 | $1.25 | $0.10 | 74.5 | 2.7s |
+| Claude Sonnet 4.5 | `claude-sonnet-4-5-20250929` | $3.00 | $15.00 | $3.75 | $0.30 | 47.1 | 2.4s |
+| Claude Opus 4.5 | `claude-opus-4-5-20251101` | $5.00 | $25.00 | $6.25 | $0.50 | 43.4 | 2.0s |
+
+### Aliases (Alpha)
+
+| Alias | Points to |
+|-------|-----------|
+| `claude-haiku-4-5` | `claude-haiku-4-5-20251001` |
+| `claude-sonnet-4-5` | `claude-sonnet-4-5-20250929` |
+| `claude-opus-4-5` | `claude-opus-4-5-20251101` |
+
+## Spark Channel (x1)
+
+Channel with full 1M token context support. Models with the `[1m]` suffix have doubled pricing. All prices in USD per 1M tokens.
+
+| Model | Full ID | Input | Output | Cache Write | Cache Read | tok/s | Latency |
+|-------|---------|-------|--------|-------------|------------|-------|---------|
+| Claude Opus 4.6 | `claude-opus-4-6` | $5.00 | $25.00 | $6.25 | $0.50 | 42.6 | 3.6s |
+| Claude Opus 4.6 [1M] | `claude-opus-4-6[1m]` | $10.00 | $37.50 | $12.50 | $1.00 | 37.2 | 5.8s |
+| Claude Sonnet 4.6 | `claude-sonnet-4-6` | $3.00 | $15.00 | $3.75 | $0.30 | — | — |
+| Claude Sonnet 4.6 [1M] | `claude-sonnet-4-6[1m]` | $6.00 | $22.50 | $7.50 | $0.60 | 41.7 | 4.2s |
+| Claude Haiku 4.5 | `claude-haiku-4-5` | $1.00 | $5.00 | $1.25 | $0.10 | 54.5 | 2.9s |
+| Claude Sonnet 4.5 | `claude-sonnet-4-5` | $3.00 | $15.00 | $3.75 | $0.30 | — | — |
+| Claude Opus 4.5 | `claude-opus-4-5` | $5.00 | $25.00 | $6.25 | $0.50 | — | — |
+
+> **Note:** A dash (—) in the tok/s and Latency columns means the benchmark for that model on this channel has not been run yet.
+
+## Selection Guide
+
+| Task | Recommended Model | Channel |
+|------|-------------------|---------|
+| Complex analysis, research | Claude Opus 4.6 | Alpha |
+| Coding, refactoring | Claude Opus 4.6 or Sonnet 4.6 | Alpha |
+| Chatbots, summarization | Claude Sonnet 4.5 / 4.6 | Alpha |
+| Classification, data extraction | Claude Haiku 4.5 | Alpha |
+| Large document analysis (>200K tokens) | Claude Opus 4.6 [1M] | Spark |
+| Long context on a budget | Claude Sonnet 4.6 [1M] | Spark |
+
+
+============================================================
+FILE: docs/models/openai.md
+============================================================
+# Модели OpenAI GPT
+
+> Последнее обновление: 24 марта 2026
+
+Все модели семейства OpenAI GPT, доступные через Nekocode API. Модели OpenAI доступны **только в канале Alpha** (множитель x0.3). Канал Spark предназначен исключительно для моделей Anthropic.
+
+## Обзор линейки
+
+- **GPT-5** — базовая модель пятого поколения. Существенный скачок качества по сравнению с GPT-4o. Хорошая скорость генерации.
+- **GPT-5 Mini** — компактная версия GPT-5. Самая дешёвая модель OpenAI в каталоге. Высокая скорость (77.5 tok/s), но повышенная задержка первого токена.
+- **GPT-5 Codex** — модификация GPT-5, оптимизированная для генерации и анализа кода.
+- **GPT-5.1** — улучшенная версия GPT-5 с повышенной точностью рассуждений.
+- **GPT-5.1 Codex** — кодовая модификация GPT-5.1.
+- **GPT-5.2** — следующая итерация с улучшенным следованием инструкциям и расширенными знаниями.
+- **GPT-5.2 Codex** — кодовая модификация GPT-5.2.
+- **GPT-5.3 Codex** — кодовая модель на базе GPT-5.3. Доступны бенчмарки: 41.1 tok/s, задержка 2.5s.
+- **GPT-5.4** — новейшая модель в линейке (март 2026). Самая дорогая, но и самая качественная модель OpenAI.
+
+> **Примечание:** Модели OpenAI не имеют стоимости Cache Write (всегда $0). Кэширование на стороне OpenAI — бесплатная запись, платное чтение.
+
+## Канал Alpha (x0.3)
+
+Все цены указаны в USD за 1M токенов.
+
+| Модель | Полный ID | Алиас | Input | Output | Cache Write | Cache Read | tok/s | Latency |
+|--------|-----------|-------|-------|--------|-------------|------------|-------|---------|
+| GPT-5 | `gpt-5` | — | $1.07 | $8.50 | $0 | $0.11 | 55.2 | 4.4s |
+| GPT-5 Mini | `gpt-5-mini-2025-08-07` | `gpt-5-mini` | $0.25 | $2.00 | $0 | $0.03 | 77.5 | 19.2s |
+| GPT-5 Codex | `gpt-5-codex` | — | $1.25 | $10.00 | $0 | $0.13 | — | — |
+| GPT-5.1 | `gpt-5.1-2025-11-13` | `gpt-5.1` | $1.25 | $10.00 | $0 | $0.13 | — | — |
+| GPT-5.1 Codex | `gpt-5.1-codex` | — | $1.25 | $10.00 | $0 | $0.13 | — | — |
+| GPT-5.2 | `gpt-5.2-2025-12-11` | `gpt-5.2` | $1.75 | $14.00 | $0 | $0.17 | — | — |
+| GPT-5.2 Codex | `gpt-5.2-codex` | — | $1.75 | $14.00 | $0 | $0.17 | — | — |
+| GPT-5.3 Codex | `gpt-5.3-codex` | — | $1.74 | $14.00 | $0 | $0.17 | 41.1 | 2.5s |
+| GPT-5.4 | `gpt-5.4-2026-03-05` | `gpt-5.4` | $2.50 | $15.00 | $0 | $0.25 | 50.4 | 21.3s |
+
+## Варианты Codex
+
+Модели с суффиксом **Codex** специально оптимизированы для задач программирования:
+
+- Улучшенная генерация кода на популярных языках (Python, TypeScript, Rust, Go и др.)
+- Более точное следование техническим инструкциям
+- Лучшее понимание структуры кодовой базы
+- Цена обычно совпадает с базовой моделью того же поколения
+
+> **КРИТИЧЕСКИ ВАЖНО:**
+> 1. Codex модели работают **ТОЛЬКО** через OpenAI Responses API (`/v1/responses`). Через `/v1/chat/completions` вернётся `model_not_found`.
+> 2. `max_output_tokens` для Codex моделей должен быть **>= 16**, иначе ошибка.
+> 3. Codex модели доступны **только в Alpha канале**. На Spark вернётся ошибка 400/500.
+
+### Эндпоинты по типам моделей
+
+| Тип модели | Эндпоинт | Пример |
+|-----------|----------|--------|
+| GPT обычные (gpt-5, gpt-5-mini, gpt-5.1, gpt-5.2, gpt-5.4) | `/v1/chat/completions` | `POST /alpha/v1/chat/completions` |
+| GPT Codex (gpt-5-codex, gpt-5.1-codex и т.д.) | `/v1/responses` | `POST /alpha/v1/responses` |
+
+## Алиасы
+
+Для удобства доступны короткие алиасы:
+
+| Алиас | Указывает на |
+|-------|-------------|
+| `gpt-5-mini` | `gpt-5-mini-2025-08-07` |
+| `gpt-5.1` | `gpt-5.1-2025-11-13` |
+| `gpt-5.2` | `gpt-5.2-2025-12-11` |
+| `gpt-5.4` | `gpt-5.4-2026-03-05` |
+
+## Рекомендации по выбору
+
+| Задача | Рекомендуемая модель | Обоснование |
+|--------|---------------------|-------------|
+| Общие задачи, чат | GPT-5 | Лучшее соотношение цена/качество |
+| Высоконагруженные чат-боты | GPT-5 Mini | Самая дешёвая, высокий tok/s |
+| Генерация кода | GPT-5.3 Codex | Быстрая, оптимизирована под код |
+| Максимальное качество | GPT-5.4 | Новейшая, самая точная |
+| Кодинг при ограниченном бюджете | GPT-5 Codex | Дешевле, чем 5.2/5.3 Codex |
+
+---
+
+# OpenAI GPT Models
+
+> Last updated: March 24, 2026
+
+All OpenAI GPT family models available through Nekocode API. OpenAI models are available **only on the Alpha channel** (x0.3 multiplier). The Spark channel is exclusively for Anthropic models.
+
+## Model Lineup
+
+- **GPT-5** — fifth-generation base model. Significant quality leap over GPT-4o. Good generation speed.
+- **GPT-5 Mini** — compact version of GPT-5. Cheapest OpenAI model in the catalog. High speed (77.5 tok/s) but elevated time-to-first-token latency.
+- **GPT-5 Codex** — GPT-5 variant optimized for code generation and analysis.
+- **GPT-5.1** — improved GPT-5 with enhanced reasoning accuracy.
+- **GPT-5.1 Codex** — code-optimized variant of GPT-5.1.
+- **GPT-5.2** — next iteration with improved instruction following and expanded knowledge.
+- **GPT-5.2 Codex** — code-optimized variant of GPT-5.2.
+- **GPT-5.3 Codex** — code model based on GPT-5.3. Benchmarks available: 41.1 tok/s, 2.5s latency.
+- **GPT-5.4** — the newest model in the lineup (March 2026). The most expensive but highest-quality OpenAI model.
+
+> **Note:** OpenAI models have no Cache Write pricing (always $0). Caching on OpenAI's side means free writes, paid reads.
+
+## Alpha Channel (x0.3)
+
+All prices in USD per 1M tokens.
+
+| Model | Full ID | Alias | Input | Output | Cache Write | Cache Read | tok/s | Latency |
+|-------|---------|-------|-------|--------|-------------|------------|-------|---------|
+| GPT-5 | `gpt-5` | — | $1.07 | $8.50 | $0 | $0.11 | 55.2 | 4.4s |
+| GPT-5 Mini | `gpt-5-mini-2025-08-07` | `gpt-5-mini` | $0.25 | $2.00 | $0 | $0.03 | 77.5 | 19.2s |
+| GPT-5 Codex | `gpt-5-codex` | — | $1.25 | $10.00 | $0 | $0.13 | — | — |
+| GPT-5.1 | `gpt-5.1-2025-11-13` | `gpt-5.1` | $1.25 | $10.00 | $0 | $0.13 | — | — |
+| GPT-5.1 Codex | `gpt-5.1-codex` | — | $1.25 | $10.00 | $0 | $0.13 | — | — |
+| GPT-5.2 | `gpt-5.2-2025-12-11` | `gpt-5.2` | $1.75 | $14.00 | $0 | $0.17 | — | — |
+| GPT-5.2 Codex | `gpt-5.2-codex` | — | $1.75 | $14.00 | $0 | $0.17 | — | — |
+| GPT-5.3 Codex | `gpt-5.3-codex` | — | $1.74 | $14.00 | $0 | $0.17 | 41.1 | 2.5s |
+| GPT-5.4 | `gpt-5.4-2026-03-05` | `gpt-5.4` | $2.50 | $15.00 | $0 | $0.25 | 50.4 | 21.3s |
+
+## Codex Variants
+
+Models with the **Codex** suffix are specifically optimized for programming tasks:
+
+- Improved code generation across popular languages (Python, TypeScript, Rust, Go, etc.)
+- More precise technical instruction following
+- Better understanding of codebase structure
+- Pricing typically matches the base model of the same generation
+
+## Aliases
+
+Short aliases are available for convenience:
+
+| Alias | Points to |
+|-------|-----------|
+| `gpt-5-mini` | `gpt-5-mini-2025-08-07` |
+| `gpt-5.1` | `gpt-5.1-2025-11-13` |
+| `gpt-5.2` | `gpt-5.2-2025-12-11` |
+| `gpt-5.4` | `gpt-5.4-2026-03-05` |
+
+## Selection Guide
+
+| Task | Recommended Model | Reasoning |
+|------|-------------------|-----------|
+| General tasks, chat | GPT-5 | Best price/quality ratio |
+| High-volume chatbots | GPT-5 Mini | Cheapest, high tok/s |
+| Code generation | GPT-5.3 Codex | Fast, code-optimized |
+| Maximum quality | GPT-5.4 | Newest, most accurate |
+| Coding on a budget | GPT-5 Codex | Cheaper than 5.2/5.3 Codex |
+
+
+============================================================
+FILE: docs/pricing/alpha.md
+============================================================
+# Прайсинг: Канал Alpha (x0.3)
+
+> Последнее обновление: 24 марта 2026
+
+**Alpha** — самый экономичный канал Nekocode API с множителем **x0.3** от стоимости провайдера. Включает все модели Anthropic Claude и OpenAI GPT. Это оптимальный выбор для большинства задач, когда не требуется контекстное окно свыше 200K токенов.
+
+## Почему Alpha
+
+- **Самые низкие цены** — множитель x0.3 обеспечивает минимальную стоимость на рынке
+- **Все провайдеры** — доступны и Anthropic, и OpenAI в одном канале
+- **Стандартный контекст** — до 200K токенов (достаточно для 99% задач)
+- **Простые алиасы** — используйте короткие идентификаторы без запоминания дат
+
+## Полная таблица цен
+
+Все цены указаны в USD за 1M токенов.
+
+### Модели Anthropic Claude
+
+| Модель | ID | Input | Output | Cache Write | Cache Read | tok/s | Latency |
+|--------|----|-------|--------|-------------|------------|-------|---------|
+| Claude Opus 4.6 | `claude-opus-4-6` | $5.00 | $25.00 | $6.25 | $0.50 | 37.8 | 4.9s |
+| Claude Opus 4.6 [1M] | `claude-opus-4-6[1m]` | $5.00 | $25.00 | $6.25 | $0.50 | 38.3 | 5.2s |
+| Claude Sonnet 4.6 | `claude-sonnet-4-6` | $3.00 | $15.00 | $3.75 | $0.30 | 24.1 | 3.8s |
+| Claude Sonnet 4.6 [1M] | `claude-sonnet-4-6[1m]` | $3.00 | $15.00 | $3.75 | $0.30 | 9.6 | 9.3s |
+| Claude Haiku 4.5 | `claude-haiku-4-5` | $1.00 | $5.00 | $1.25 | $0.10 | 74.5 | 2.7s |
+| Claude Sonnet 4.5 | `claude-sonnet-4-5` | $3.00 | $15.00 | $3.75 | $0.30 | 47.1 | 2.4s |
+| Claude Opus 4.5 | `claude-opus-4-5` | $5.00 | $25.00 | $6.25 | $0.50 | 43.4 | 2.0s |
+
+### Модели OpenAI GPT
+
+| Модель | ID | Алиас | Input | Output | Cache Write | Cache Read | tok/s | Latency |
+|--------|----|-------|-------|--------|-------------|------------|-------|---------|
+| GPT-5 | `gpt-5` | — | $1.07 | $8.50 | $0 | $0.11 | 55.2 | 4.4s |
+| GPT-5 Mini | `gpt-5-mini-2025-08-07` | `gpt-5-mini` | $0.25 | $2.00 | $0 | $0.03 | 77.5 | 19.2s |
+| GPT-5 Codex | `gpt-5-codex` | — | $1.25 | $10.00 | $0 | $0.13 | — | — |
+| GPT-5.1 | `gpt-5.1-2025-11-13` | `gpt-5.1` | $1.25 | $10.00 | $0 | $0.13 | — | — |
+| GPT-5.1 Codex | `gpt-5.1-codex` | — | $1.25 | $10.00 | $0 | $0.13 | — | — |
+| GPT-5.2 | `gpt-5.2-2025-12-11` | `gpt-5.2` | $1.75 | $14.00 | $0 | $0.17 | — | — |
+| GPT-5.2 Codex | `gpt-5.2-codex` | — | $1.75 | $14.00 | $0 | $0.17 | — | — |
+| GPT-5.3 Codex | `gpt-5.3-codex` | — | $1.74 | $14.00 | $0 | $0.17 | 41.1 | 2.5s |
+| GPT-5.4 | `gpt-5.4-2026-03-05` | `gpt-5.4` | $2.50 | $15.00 | $0 | $0.25 | 50.4 | 21.3s |
+
+## Сравнение по стоимости
+
+### Самые дешёвые модели (по Input)
+
+| # | Модель | Input / 1M | Output / 1M |
+|---|--------|------------|-------------|
+| 1 | GPT-5 Mini | $0.25 | $2.00 |
+| 2 | Claude Haiku 4.5 | $1.00 | $5.00 |
+| 3 | GPT-5 | $1.07 | $8.50 |
+
+### Самые дорогие модели (по Input)
+
+| # | Модель | Input / 1M | Output / 1M |
+|---|--------|------------|-------------|
+| 1 | Claude Opus 4.6 | $5.00 | $25.00 |
+| 2 | Claude Opus 4.5 | $5.00 | $25.00 |
+| 3 | GPT-5.4 | $2.50 | $15.00 |
+
+## Особенности кэширования
+
+- **Anthropic**: платные Cache Write и Cache Read. Кэширование промптов экономит деньги при повторных запросах с одинаковым системным промптом.
+- **OpenAI**: Cache Write всегда $0. Оплачивается только Cache Read. Кэширование включается автоматически на стороне OpenAI.
+
+## Когда использовать Alpha
+
+- Стандартные задачи с контекстом до 200K токенов
+- Нужен доступ к моделям обоих провайдеров
+- Приоритет — минимизация расходов
+- Прототипирование и разработка
+
+> Если вам нужен контекст 1M токенов, рассмотрите [канал Spark](./spark.md) (только модели Anthropic).
+
+---
+
+# Pricing: Alpha Channel (x0.3)
+
+> Last updated: March 24, 2026
+
+**Alpha** is the most cost-effective Nekocode API channel with an **x0.3** multiplier against provider pricing. Includes all Anthropic Claude and OpenAI GPT models. This is the optimal choice for most tasks when you don't need a context window exceeding 200K tokens.
+
+## Why Alpha
+
+- **Lowest prices** — x0.3 multiplier delivers the minimum cost on the market
+- **All providers** — both Anthropic and OpenAI in a single channel
+- **Standard context** — up to 200K tokens (sufficient for 99% of tasks)
+- **Simple aliases** — use short identifiers without memorizing dates
+
+## Full Pricing Table
+
+All prices in USD per 1M tokens.
+
+### Anthropic Claude Models
+
+| Model | ID | Input | Output | Cache Write | Cache Read | tok/s | Latency |
+|-------|----|-------|--------|-------------|------------|-------|---------|
+| Claude Opus 4.6 | `claude-opus-4-6` | $5.00 | $25.00 | $6.25 | $0.50 | 37.8 | 4.9s |
+| Claude Opus 4.6 [1M] | `claude-opus-4-6[1m]` | $5.00 | $25.00 | $6.25 | $0.50 | 38.3 | 5.2s |
+| Claude Sonnet 4.6 | `claude-sonnet-4-6` | $3.00 | $15.00 | $3.75 | $0.30 | 24.1 | 3.8s |
+| Claude Sonnet 4.6 [1M] | `claude-sonnet-4-6[1m]` | $3.00 | $15.00 | $3.75 | $0.30 | 9.6 | 9.3s |
+| Claude Haiku 4.5 | `claude-haiku-4-5` | $1.00 | $5.00 | $1.25 | $0.10 | 74.5 | 2.7s |
+| Claude Sonnet 4.5 | `claude-sonnet-4-5` | $3.00 | $15.00 | $3.75 | $0.30 | 47.1 | 2.4s |
+| Claude Opus 4.5 | `claude-opus-4-5` | $5.00 | $25.00 | $6.25 | $0.50 | 43.4 | 2.0s |
+
+### OpenAI GPT Models
+
+| Model | ID | Alias | Input | Output | Cache Write | Cache Read | tok/s | Latency |
+|-------|----|-------|-------|--------|-------------|------------|-------|---------|
+| GPT-5 | `gpt-5` | — | $1.07 | $8.50 | $0 | $0.11 | 55.2 | 4.4s |
+| GPT-5 Mini | `gpt-5-mini-2025-08-07` | `gpt-5-mini` | $0.25 | $2.00 | $0 | $0.03 | 77.5 | 19.2s |
+| GPT-5 Codex | `gpt-5-codex` | — | $1.25 | $10.00 | $0 | $0.13 | — | — |
+| GPT-5.1 | `gpt-5.1-2025-11-13` | `gpt-5.1` | $1.25 | $10.00 | $0 | $0.13 | — | — |
+| GPT-5.1 Codex | `gpt-5.1-codex` | — | $1.25 | $10.00 | $0 | $0.13 | — | — |
+| GPT-5.2 | `gpt-5.2-2025-12-11` | `gpt-5.2` | $1.75 | $14.00 | $0 | $0.17 | — | — |
+| GPT-5.2 Codex | `gpt-5.2-codex` | — | $1.75 | $14.00 | $0 | $0.17 | — | — |
+| GPT-5.3 Codex | `gpt-5.3-codex` | — | $1.74 | $14.00 | $0 | $0.17 | 41.1 | 2.5s |
+| GPT-5.4 | `gpt-5.4-2026-03-05` | `gpt-5.4` | $2.50 | $15.00 | $0 | $0.25 | 50.4 | 21.3s |
+
+## Cost Comparison
+
+### Cheapest Models (by Input)
+
+| # | Model | Input / 1M | Output / 1M |
+|---|-------|------------|-------------|
+| 1 | GPT-5 Mini | $0.25 | $2.00 |
+| 2 | Claude Haiku 4.5 | $1.00 | $5.00 |
+| 3 | GPT-5 | $1.07 | $8.50 |
+
+### Most Expensive Models (by Input)
+
+| # | Model | Input / 1M | Output / 1M |
+|---|-------|------------|-------------|
+| 1 | Claude Opus 4.6 | $5.00 | $25.00 |
+| 2 | Claude Opus 4.5 | $5.00 | $25.00 |
+| 3 | GPT-5.4 | $2.50 | $15.00 |
+
+## Caching Specifics
+
+- **Anthropic**: Paid Cache Write and Cache Read. Prompt caching saves money on repeated requests with the same system prompt.
+- **OpenAI**: Cache Write is always $0. Only Cache Read is billed. Caching is enabled automatically on OpenAI's side.
+
+## When to Use Alpha
+
+- Standard tasks with context up to 200K tokens
+- Need access to models from both providers
+- Priority is cost minimization
+- Prototyping and development
+
+> If you need 1M token context, consider the [Spark channel](./spark.md) (Anthropic models only).
+
+
+============================================================
+FILE: docs/pricing/spark.md
+============================================================
+# Прайсинг: Канал Spark (x1)
+
+> Последнее обновление: 24 марта 2026
+
+**Spark** — канал Nekocode API с множителем **x1** (стандартная стоимость провайдера). Включает **только модели Anthropic Claude**. Основное преимущество — полноценная поддержка контекстного окна в **1 миллион токенов** через варианты `[1m]`.
+
+## Когда выбирать Spark
+
+- **Анализ больших документов** — загрузите в контекст целую кодовую базу, книгу или корпус документов (до 1M токенов)
+- **Длинные диалоги** — сессии, которые выходят за рамки 200K токенов стандартного контекста
+- **Работа с [1m] моделями** — варианты с расширенным контекстом доступны только в этом канале с полным качеством
+- **Когда нужна Anthropic** — если ваш воркфлоу завязан на Claude и нужен стандартный прайсинг
+
+## Ценообразование [1m] вариантов
+
+Варианты с суффиксом **[1m]** имеют **удвоенную стоимость** (x2) по всем категориям (Input, Output, Cache Write, Cache Read) по сравнению с базовой моделью. Это плата за расширенное контекстное окно.
+
+**Формула:**
+```
+Цена [1m] = Цена базовой модели × 2
+```
+
+**Пример (Claude Opus 4.6):**
+- Базовая: Input $5.00 → [1m]: Input $10.00
+- Базовая: Output $25.00 → [1m]: Output $37.50
+- Базовая: Cache Write $6.25 → [1m]: Cache Write $12.50
+- Базовая: Cache Read $0.50 → [1m]: Cache Read $1.00
+
+## Полная таблица цен
+
+Все цены указаны в USD за 1M токенов.
+
+| Модель | ID | Input | Output | Cache Write | Cache Read | tok/s | Latency |
+|--------|----|-------|--------|-------------|------------|-------|---------|
+| Claude Opus 4.6 | `claude-opus-4-6` | $5.00 | $25.00 | $6.25 | $0.50 | 42.6 | 3.6s |
+| Claude Opus 4.6 [1M] | `claude-opus-4-6[1m]` | $10.00 | $37.50 | $12.50 | $1.00 | 37.2 | 5.8s |
+| Claude Sonnet 4.6 | `claude-sonnet-4-6` | $3.00 | $15.00 | $3.75 | $0.30 | — | — |
+| Claude Sonnet 4.6 [1M] | `claude-sonnet-4-6[1m]` | $6.00 | $22.50 | $7.50 | $0.60 | 41.7 | 4.2s |
+| Claude Haiku 4.5 | `claude-haiku-4-5` | $1.00 | $5.00 | $1.25 | $0.10 | 54.5 | 2.9s |
+| Claude Sonnet 4.5 | `claude-sonnet-4-5` | $3.00 | $15.00 | $3.75 | $0.30 | — | — |
+| Claude Opus 4.5 | `claude-opus-4-5` | $5.00 | $25.00 | $6.25 | $0.50 | — | — |
+
+> **Примечание:** Прочерк (—) означает, что бенчмарк для данной модели в канале Spark пока не проведён.
+
+## Сравнение базовых и [1m] вариантов
+
+| Модель | Вариант | Input | Output | Cache Write | Cache Read |
+|--------|---------|-------|--------|-------------|------------|
+| Claude Opus 4.6 | Базовая | $5.00 | $25.00 | $6.25 | $0.50 |
+| Claude Opus 4.6 | [1M] | $10.00 (+100%) | $37.50 (+50%) | $12.50 (+100%) | $1.00 (+100%) |
+| Claude Sonnet 4.6 | Базовая | $3.00 | $15.00 | $3.75 | $0.30 |
+| Claude Sonnet 4.6 | [1M] | $6.00 (+100%) | $22.50 (+50%) | $7.50 (+100%) | $0.60 (+100%) |
+
+## Spark vs Alpha: когда что выбирать
+
+| Критерий | Alpha (x0.3) | Spark (x1) |
+|----------|-------------|------------|
+| Множитель | x0.3 (самый дешёвый) | x1 (стандартный) |
+| Провайдеры | Anthropic + OpenAI | Только Anthropic |
+| Контекстное окно | До 200K | До 1M (через [1m]) |
+| Лучше для | 99% задач, экономия | Анализ огромных документов |
+| Базовые цены | Идентичны | Идентичны |
+| Цены [1m] | Идентичны базовым | Удвоенные (x2) |
+
+### Когда оставаться на Alpha
+
+- Контекст до 200K токенов
+- Нужны модели OpenAI
+- Приоритет — экономия
+
+### Когда переходить на Spark
+
+- Нужен контекст свыше 200K токенов
+- Работаете только с Claude
+- Анализируете большие кодовые базы или документы целиком
+
+## Рекомендации по [1m] моделям
+
+| Задача | Рекомендуемая модель | Стоимость (Input) |
+|--------|---------------------|-------------------|
+| Анализ большой кодовой базы | `claude-opus-4-6[1m]` | $10.00 / 1M |
+| Суммаризация длинных документов | `claude-sonnet-4-6[1m]` | $6.00 / 1M |
+| Работа с полным репозиторием | `claude-opus-4-6[1m]` | $10.00 / 1M |
+| Длинный технический диалог | `claude-sonnet-4-6[1m]` | $6.00 / 1M |
+
+> Для стандартных задач без потребности в длинном контексте рекомендуется [канал Alpha](./alpha.md).
+
+---
+
+# Pricing: Spark Channel (x1)
+
+> Last updated: March 24, 2026
+
+**Spark** is a Nekocode API channel with an **x1** multiplier (standard provider pricing). Includes **Anthropic Claude models only**. The primary advantage is full support for a **1 million token** context window through `[1m]` variants.
+
+## When to Choose Spark
+
+- **Large document analysis** — load an entire codebase, book, or document corpus into context (up to 1M tokens)
+- **Long conversations** — sessions that exceed the 200K token standard context limit
+- **Working with [1m] models** — extended context variants are available in this channel at full quality
+- **When you need Anthropic** — if your workflow is built around Claude and you need standard pricing
+
+## [1m] Variant Pricing
+
+Variants with the **[1m]** suffix have **doubled pricing** (x2) across all categories (Input, Output, Cache Write, Cache Read) compared to the base model. This is the cost of the extended context window.
+
+**Formula:**
+```
+[1m] price = Base model price × 2
+```
+
+**Example (Claude Opus 4.6):**
+- Base: Input $5.00 → [1m]: Input $10.00
+- Base: Output $25.00 → [1m]: Output $37.50
+- Base: Cache Write $6.25 → [1m]: Cache Write $12.50
+- Base: Cache Read $0.50 → [1m]: Cache Read $1.00
+
+## Full Pricing Table
+
+All prices in USD per 1M tokens.
+
+| Model | ID | Input | Output | Cache Write | Cache Read | tok/s | Latency |
+|-------|----|-------|--------|-------------|------------|-------|---------|
+| Claude Opus 4.6 | `claude-opus-4-6` | $5.00 | $25.00 | $6.25 | $0.50 | 42.6 | 3.6s |
+| Claude Opus 4.6 [1M] | `claude-opus-4-6[1m]` | $10.00 | $37.50 | $12.50 | $1.00 | 37.2 | 5.8s |
+| Claude Sonnet 4.6 | `claude-sonnet-4-6` | $3.00 | $15.00 | $3.75 | $0.30 | — | — |
+| Claude Sonnet 4.6 [1M] | `claude-sonnet-4-6[1m]` | $6.00 | $22.50 | $7.50 | $0.60 | 41.7 | 4.2s |
+| Claude Haiku 4.5 | `claude-haiku-4-5` | $1.00 | $5.00 | $1.25 | $0.10 | 54.5 | 2.9s |
+| Claude Sonnet 4.5 | `claude-sonnet-4-5` | $3.00 | $15.00 | $3.75 | $0.30 | — | — |
+| Claude Opus 4.5 | `claude-opus-4-5` | $5.00 | $25.00 | $6.25 | $0.50 | — | — |
+
+> **Note:** A dash (—) means the benchmark for that model on the Spark channel has not been run yet.
+
+## Base vs [1m] Variant Comparison
+
+| Model | Variant | Input | Output | Cache Write | Cache Read |
+|-------|---------|-------|--------|-------------|------------|
+| Claude Opus 4.6 | Base | $5.00 | $25.00 | $6.25 | $0.50 |
+| Claude Opus 4.6 | [1M] | $10.00 (+100%) | $37.50 (+50%) | $12.50 (+100%) | $1.00 (+100%) |
+| Claude Sonnet 4.6 | Base | $3.00 | $15.00 | $3.75 | $0.30 |
+| Claude Sonnet 4.6 | [1M] | $6.00 (+100%) | $22.50 (+50%) | $7.50 (+100%) | $0.60 (+100%) |
+
+## Spark vs Alpha: When to Use Which
+
+| Criterion | Alpha (x0.3) | Spark (x1) |
+|-----------|-------------|------------|
+| Multiplier | x0.3 (cheapest) | x1 (standard) |
+| Providers | Anthropic + OpenAI | Anthropic only |
+| Context window | Up to 200K | Up to 1M (via [1m]) |
+| Best for | 99% of tasks, cost savings | Massive document analysis |
+| Base prices | Identical | Identical |
+| [1m] prices | Same as base | Doubled (x2) |
+
+### When to Stay on Alpha
+
+- Context up to 200K tokens
+- Need OpenAI models
+- Priority is cost savings
+
+### When to Switch to Spark
+
+- Need context exceeding 200K tokens
+- Working exclusively with Claude
+- Analyzing large codebases or full documents
+
+## [1m] Model Recommendations
+
+| Task | Recommended Model | Cost (Input) |
+|------|-------------------|--------------|
+| Large codebase analysis | `claude-opus-4-6[1m]` | $10.00 / 1M |
+| Long document summarization | `claude-sonnet-4-6[1m]` | $6.00 / 1M |
+| Full repository work | `claude-opus-4-6[1m]` | $10.00 / 1M |
+| Extended technical conversation | `claude-sonnet-4-6[1m]` | $6.00 / 1M |
+
+> For standard tasks without long context needs, the [Alpha channel](./alpha.md) is recommended.
+
+
+============================================================
+FILE: docs/integrations/claude-code.md
+============================================================
+# Claude Code + Nekocode
+
+> Дата обновления: 24 марта 2026
+
+## Что такое Claude Code
+
+[Claude Code](https://docs.anthropic.com/en/docs/claude-code) — CLI-инструмент от Anthropic для работы с кодом через терминал. Поддерживает все модели Claude.
+
+## Подключение через Nekocode
+
+Конфигурация задаётся в файле `~/.claude/settings.json`.
+
+### Настройка
+
+Добавьте (или замените) блок `env`:
+
+```json
+{
+  "env": {
+    "ANTHROPIC_AUTH_TOKEN": "sk_live_your_api_key",
+    "ANTHROPIC_BASE_URL": "https://gateway.nekocode.app/alpha",
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"
+  }
+}
+```
+
+### Каналы
+
+| Канал | URL | Особенности |
+|-------|-----|-------------|
+| Alpha | `https://gateway.nekocode.app/alpha` | x0.3 от стоимости |
+| Spark | `https://gateway.nekocode.app/spark` | x1, контекст до 1M токенов |
+
+Для канала Spark замените `/alpha` на `/spark` в URL.
+
+### Шлюз для России
+
+Замените базовый URL на:
+
+```
+https://ru.gateway.nekocode.app/alpha
+```
+
+### Выбор модели
+
+Claude Code автоматически использует модель, доступную по подписке. Через Nekocode вы получаете доступ ко всем моделям Claude без ограничений подписки.
+
+## Откат к стандартной подписке Anthropic
+
+Удалите три переменные окружения из `env` в `settings.json`, либо установите их значения в пустую строку:
+
+```json
+{
+  "env": {
+    "ANTHROPIC_AUTH_TOKEN": "",
+    "ANTHROPIC_BASE_URL": "",
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": ""
+  }
+}
+```
+
+---
+
+# Claude Code + Nekocode
+
+> Updated: March 24, 2026
+
+## What is Claude Code
+
+[Claude Code](https://docs.anthropic.com/en/docs/claude-code) is a CLI tool by Anthropic for working with code via the terminal. Supports all Claude models.
+
+## Connecting via Nekocode
+
+Configuration is set in `~/.claude/settings.json`.
+
+### Setup
+
+Add (or replace) the `env` block:
+
+```json
+{
+  "env": {
+    "ANTHROPIC_AUTH_TOKEN": "sk_live_your_api_key",
+    "ANTHROPIC_BASE_URL": "https://gateway.nekocode.app/alpha",
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"
+  }
+}
+```
+
+### Channels
+
+| Channel | URL | Details |
+|---------|-----|---------|
+| Alpha | `https://gateway.nekocode.app/alpha` | x0.3 price multiplier |
+| Spark | `https://gateway.nekocode.app/spark` | x1 price, up to 1M context |
+
+For the Spark channel, replace `/alpha` with `/spark` in the URL.
+
+### Russia gateway
+
+Replace the base URL with:
+
+```
+https://ru.gateway.nekocode.app/alpha
+```
+
+### Model selection
+
+Claude Code automatically uses the model available under your subscription. Through Nekocode you get access to all Claude models without subscription restrictions.
+
+## Reverting to standard Anthropic subscription
+
+Remove the three environment variables from `env` in `settings.json`, or set their values to empty strings:
+
+```json
+{
+  "env": {
+    "ANTHROPIC_AUTH_TOKEN": "",
+    "ANTHROPIC_BASE_URL": "",
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": ""
+  }
+}
+```
+
+
+============================================================
+FILE: docs/integrations/codex-cli.md
+============================================================
+# Codex CLI + Nekocode
+
+> Дата обновления: 24 марта 2026
+
+## Что такое Codex CLI
+
+[Codex CLI](https://github.com/openai/codex) — терминальный AI-агент от OpenAI. Работает с OpenAI-совместимыми API.
+
+## Подключение через Nekocode
+
+Два способа настройки.
+
+### Способ 1 — Переменные окружения
+
+```bash
+export OPENAI_BASE_URL="https://gateway.nekocode.app/alpha/v1"
+export OPENAI_API_KEY="sk_live_your_api_key"
+codex
+```
+
+### Способ 2 — config.toml
+
+Файл: `~/.config/codex/config.toml`
+
+```toml
+model_provider = "nekocode"
+
+[model_providers.nekocode]
+name = "Nekocode Gateway"
+base_url = "https://gateway.nekocode.app/alpha/v1"
+env_key_api_key = "NEKOCODE_API_KEY"
+wire_api = "responses"
+```
+
+Затем задайте ключ и запустите:
+
+```bash
+export NEKOCODE_API_KEY="sk_live_your_api_key"
+codex --provider nekocode
+```
+
+### Каналы
+
+| Канал | URL | Особенности |
+|-------|-----|-------------|
+| Alpha | `https://gateway.nekocode.app/alpha/v1` | x0.3 от стоимости, все модели |
+| Spark | `https://gateway.nekocode.app/spark/v1` | x1, только Claude (GPT/Codex **не работают**) |
+
+> **Важно:** Codex CLI по умолчанию использует Codex модели, которые работают через Responses API (`/v1/responses`). Конфигурация `wire_api = "responses"` в config.toml обеспечивает это. GPT и Codex модели доступны **только на Alpha канале**.
+
+### Шлюз для России
+
+Замените `gateway.nekocode.app` на `ru.gateway.nekocode.app`:
+
+```
+https://ru.gateway.nekocode.app/alpha/v1
+```
+
+> **Важно:** URL для Codex CLI должен заканчиваться на `/v1`.
+
+## Откат к стандартному OpenAI
+
+- **Способ 1:** удалите переменные окружения:
+  ```bash
+  unset OPENAI_BASE_URL
+  unset OPENAI_API_KEY
+  ```
+- **Способ 2:** удалите секцию `[model_providers.nekocode]` из `config.toml`, либо запускайте `codex` без флага `--provider` (используется OpenAI по умолчанию).
+
+---
+
+# Codex CLI + Nekocode
+
+> Updated: March 24, 2026
+
+## What is Codex CLI
+
+[Codex CLI](https://github.com/openai/codex) is a terminal AI agent by OpenAI. Works with OpenAI-compatible APIs.
+
+## Connecting via Nekocode
+
+Two configuration methods.
+
+### Method 1 — Environment variables
+
+```bash
+export OPENAI_BASE_URL="https://gateway.nekocode.app/alpha/v1"
+export OPENAI_API_KEY="sk_live_your_api_key"
+codex
+```
+
+### Method 2 — config.toml
+
+File: `~/.config/codex/config.toml`
+
+```toml
+model_provider = "nekocode"
+
+[model_providers.nekocode]
+name = "Nekocode Gateway"
+base_url = "https://gateway.nekocode.app/alpha/v1"
+env_key_api_key = "NEKOCODE_API_KEY"
+wire_api = "responses"
+```
+
+Then set the key and run:
+
+```bash
+export NEKOCODE_API_KEY="sk_live_your_api_key"
+codex --provider nekocode
+```
+
+### Channels
+
+| Channel | URL | Details |
+|---------|-----|---------|
+| Alpha | `https://gateway.nekocode.app/alpha/v1` | x0.3 price multiplier |
+| Spark | `https://gateway.nekocode.app/spark/v1` | x1 price, up to 1M context |
+
+### Russia gateway
+
+Replace `gateway.nekocode.app` with `ru.gateway.nekocode.app`:
+
+```
+https://ru.gateway.nekocode.app/alpha/v1
+```
+
+> **Important:** The URL for Codex CLI must end with `/v1`.
+
+## Reverting to standard OpenAI
+
+- **Method 1:** unset environment variables:
+  ```bash
+  unset OPENAI_BASE_URL
+  unset OPENAI_API_KEY
+  ```
+- **Method 2:** remove the `[model_providers.nekocode]` section from `config.toml`, or run `codex` without the `--provider` flag (defaults to OpenAI).
+
+
+============================================================
+FILE: docs/integrations/opencode.md
+============================================================
+# OpenCode + Nekocode
+
+> Дата обновления: 24 марта 2026
+
+## Что такое OpenCode
+
+[OpenCode](https://opencode.ai) — open-source AI-агент для кодинга в терминале.
+
+## Подключение через Nekocode
+
+Конфигурация задаётся в файле `opencode.json` (корень проекта или `~/.config/opencode/`).
+
+### Настройка (Claude модели)
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "anthropic": {
+      "options": {
+        "apiKey": "sk_live_your_api_key",
+        "baseURL": "https://gateway.nekocode.app/alpha/v1",
+        "headers": {
+          "anthropic-beta": "claude-code-20250219,interleaved-thinking-2025-05-14,fine-grained-tool-streaming-2025-05-14,adaptive-thinking-2026-01-28"
+        }
+      }
+    }
+  }
+}
+```
+
+### Настройка (Claude + GPT + Codex — полная)
+
+Для доступа ко всем моделям используйте два провайдера:
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "nekocode": {
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "apiKey": "sk_live_your_api_key",
+        "baseURL": "https://gateway.nekocode.app/alpha/v1"
+      }
+    },
+    "nekocode-codex": {
+      "npm": "@ai-sdk/openai",
+      "options": {
+        "apiKey": "sk_live_your_api_key",
+        "baseURL": "https://gateway.nekocode.app/alpha/v1"
+      }
+    }
+  }
+}
+```
+
+> **Зачем два провайдера?**
+> - `nekocode` (`@ai-sdk/openai-compatible`) — для Claude и обычных GPT моделей (Chat Completions API)
+> - `nekocode-codex` (`@ai-sdk/openai`) — для Codex моделей (Responses API `/v1/responses`)
+>
+> Codex модели (gpt-5-codex, gpt-5.1-codex и т.д.) работают **ТОЛЬКО** через Responses API.
+
+> **Важно:** `baseURL` для OpenCode обязательно должен заканчиваться на `/v1`.
+
+### Каналы
+
+| Канал | URL | Особенности |
+|-------|-----|-------------|
+| Alpha | `https://gateway.nekocode.app/alpha/v1` | x0.3 от стоимости |
+| Spark | `https://gateway.nekocode.app/spark/v1` | x1, контекст до 1M токенов |
+
+### Шлюз для России
+
+Замените `gateway.nekocode.app` на `ru.gateway.nekocode.app`:
+
+```
+https://ru.gateway.nekocode.app/alpha/v1
+```
+
+## Откат к стандартному Anthropic API
+
+Удалите весь блок `"provider"` из `opencode.json`. Затем настройте стандартный API-ключ Anthropic через команду `/connect` в интерфейсе OpenCode.
+
+---
+
+# OpenCode + Nekocode
+
+> Updated: March 24, 2026
+
+## What is OpenCode
+
+[OpenCode](https://opencode.ai) is an open-source AI coding agent for the terminal.
+
+## Connecting via Nekocode
+
+Configuration is set in `opencode.json` (project root or `~/.config/opencode/`).
+
+### Setup (Claude models only)
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "anthropic": {
+      "options": {
+        "apiKey": "sk_live_your_api_key",
+        "baseURL": "https://gateway.nekocode.app/alpha/v1",
+        "headers": {
+          "anthropic-beta": "claude-code-20250219,interleaved-thinking-2025-05-14,fine-grained-tool-streaming-2025-05-14,adaptive-thinking-2026-01-28"
+        }
+      }
+    }
+  }
+}
+```
+
+### Setup (Claude + GPT + Codex — full)
+
+For access to all models, use two providers:
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "nekocode": {
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "apiKey": "sk_live_your_api_key",
+        "baseURL": "https://gateway.nekocode.app/alpha/v1"
+      }
+    },
+    "nekocode-codex": {
+      "npm": "@ai-sdk/openai",
+      "options": {
+        "apiKey": "sk_live_your_api_key",
+        "baseURL": "https://gateway.nekocode.app/alpha/v1"
+      }
+    }
+  }
+}
+```
+
+> **Why two providers?**
+> - `nekocode` (`@ai-sdk/openai-compatible`) — for Claude and regular GPT models (Chat Completions API)
+> - `nekocode-codex` (`@ai-sdk/openai`) — for Codex models (Responses API `/v1/responses`)
+>
+> Codex models (gpt-5-codex, gpt-5.1-codex, etc.) work **ONLY** through the Responses API.
+
+> **Important:** `baseURL` for OpenCode must end with `/v1`.
+
+### Channels
+
+| Channel | URL | Details |
+|---------|-----|---------|
+| Alpha | `https://gateway.nekocode.app/alpha/v1` | x0.3 price multiplier |
+| Spark | `https://gateway.nekocode.app/spark/v1` | x1 price, up to 1M context |
+
+### Russia gateway
+
+Replace `gateway.nekocode.app` with `ru.gateway.nekocode.app`:
+
+```
+https://ru.gateway.nekocode.app/alpha/v1
+```
+
+## Reverting to standard Anthropic API
+
+Remove the entire `"provider"` block from `opencode.json`. Then configure a standard Anthropic API key via the `/connect` command in the OpenCode interface.
+
+
+============================================================
+FILE: docs/integrations/openclaw.md
+============================================================
+# OpenClaw + Nekocode
+
+> Дата обновления: 24 марта 2026
+
+## Что такое OpenClaw
+
+[OpenClaw](https://openclaw.ai) — персональный AI-ассистент от @steipete. Поддерживает кастомных провайдеров через конфигурацию.
+
+## Подключение через Nekocode
+
+Конфигурация задаётся в файле `~/.openclaw/openclaw.json`.
+
+### Шаг 1 — Добавить провайдер Nekocode
+
+Добавьте `nekocode` в секцию `models.providers`:
+
+```json
+{
+  "models": {
+    "mode": "merge",
+    "providers": {
+      "nekocode": {
+        "baseUrl": "https://gateway.nekocode.app/alpha",
+        "apiKey": "sk_live_your_api_key",
+        "api": "anthropic-messages",
+        "models": [
+          {
+            "id": "claude-opus-4-6",
+            "name": "Claude Opus 4.6 (Nekocode Alpha)",
+            "reasoning": true,
+            "input": ["text", "image"],
+            "contextWindow": 200000,
+            "maxTokens": 16384
+          },
+          {
+            "id": "claude-sonnet-4-6",
+            "name": "Claude Sonnet 4.6 (Nekocode Alpha)",
+            "reasoning": true,
+            "input": ["text", "image"],
+            "contextWindow": 200000,
+            "maxTokens": 16384
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+### Шаг 2 — Настроить модели и фоллбэки
+
+Добавьте модели Nekocode в allowlist агентов и настройте фоллбэки:
+
+```json
+{
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "anthropic/claude-sonnet-4-6",
+        "fallbacks": [
+          "nekocode/claude-sonnet-4-6",
+          "nekocode/claude-opus-4-6",
+          "anthropic/claude-opus-4-6"
+        ]
+      },
+      "models": {
+        "nekocode/claude-sonnet-4-6": { "alias": "neko-sonnet" },
+        "nekocode/claude-opus-4-6": { "alias": "neko-opus" }
+      }
+    }
+  }
+}
+```
+
+### Переключение модели в чате
+
+```
+/model neko-sonnet
+/model neko-opus
+```
+
+### Каналы
+
+| Канал | URL | Особенности |
+|-------|-----|-------------|
+| Alpha | `https://gateway.nekocode.app/alpha` | x0.3 от стоимости |
+| Spark | `https://gateway.nekocode.app/spark` | x1, контекст до 1M токенов |
+
+### Шлюз для России
+
+Замените `gateway.nekocode.app` на `ru.gateway.nekocode.app`:
+
+```
+https://ru.gateway.nekocode.app/alpha
+```
+
+## Откат
+
+Удалите `nekocode` из:
+1. `models.providers` — убрать весь блок провайдера
+2. `agents.defaults.model.fallbacks` — убрать `nekocode/*` записи
+3. `agents.defaults.models` — убрать `nekocode/*` алиасы
+
+---
+
+# OpenClaw + Nekocode
+
+> Updated: March 24, 2026
+
+## What is OpenClaw
+
+[OpenClaw](https://openclaw.ai) is a personal AI assistant by @steipete. Supports custom providers via configuration.
+
+## Connecting via Nekocode
+
+Configuration is set in `~/.openclaw/openclaw.json`.
+
+### Step 1 — Add Nekocode provider
+
+Add `nekocode` to the `models.providers` section:
+
+```json
+{
+  "models": {
+    "mode": "merge",
+    "providers": {
+      "nekocode": {
+        "baseUrl": "https://gateway.nekocode.app/alpha",
+        "apiKey": "sk_live_your_api_key",
+        "api": "anthropic-messages",
+        "models": [
+          {
+            "id": "claude-opus-4-6",
+            "name": "Claude Opus 4.6 (Nekocode Alpha)",
+            "reasoning": true,
+            "input": ["text", "image"],
+            "contextWindow": 200000,
+            "maxTokens": 16384
+          },
+          {
+            "id": "claude-sonnet-4-6",
+            "name": "Claude Sonnet 4.6 (Nekocode Alpha)",
+            "reasoning": true,
+            "input": ["text", "image"],
+            "contextWindow": 200000,
+            "maxTokens": 16384
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+### Step 2 — Configure models and fallbacks
+
+Add Nekocode models to the agents allowlist and configure fallbacks:
+
+```json
+{
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "anthropic/claude-sonnet-4-6",
+        "fallbacks": [
+          "nekocode/claude-sonnet-4-6",
+          "nekocode/claude-opus-4-6",
+          "anthropic/claude-opus-4-6"
+        ]
+      },
+      "models": {
+        "nekocode/claude-sonnet-4-6": { "alias": "neko-sonnet" },
+        "nekocode/claude-opus-4-6": { "alias": "neko-opus" }
+      }
+    }
+  }
+}
+```
+
+### Switching models in chat
+
+```
+/model neko-sonnet
+/model neko-opus
+```
+
+### Channels
+
+| Channel | URL | Details |
+|---------|-----|---------|
+| Alpha | `https://gateway.nekocode.app/alpha` | x0.3 price multiplier |
+| Spark | `https://gateway.nekocode.app/spark` | x1 price, up to 1M context |
+
+### Russia gateway
+
+Replace `gateway.nekocode.app` with `ru.gateway.nekocode.app`:
+
+```
+https://ru.gateway.nekocode.app/alpha
+```
+
+## Reverting
+
+Remove `nekocode` from:
+1. `models.providers` — remove the entire provider block
+2. `agents.defaults.model.fallbacks` — remove `nekocode/*` entries
+3. `agents.defaults.models` — remove `nekocode/*` aliases
+
+
+============================================================
+FILE: docs/integrations/cursor.md
+============================================================
+# Cursor + Nekocode
+
+> Дата обновления: 24 марта 2026
+
+## Что такое Cursor
+
+[Cursor](https://cursor.com) — AI-powered IDE на базе VS Code. Поддерживает кастомные API-эндпоинты для OpenAI и Anthropic моделей.
+
+## Подключение через Nekocode
+
+### Для моделей Anthropic (Claude)
+
+1. Откройте Settings (`Cmd+,` / `Ctrl+,`)
+2. Перейдите в раздел **Models**
+3. В секции Anthropic:
+   - **Override Anthropic Base URL:** `https://gateway.nekocode.app/alpha`
+   - **Anthropic API Key:** `sk_live_your_api_key`
+4. Выберите модель из списка доступных
+
+### Для моделей OpenAI
+
+1. Откройте Settings (`Cmd+,` / `Ctrl+,`)
+2. Перейдите в раздел **Models**
+3. В секции OpenAI:
+   - **Override OpenAI Base URL:** `https://gateway.nekocode.app/alpha/v1`
+   - **API Key:** `sk_live_your_api_key`
+4. Выберите модель из списка доступных
+
+### Каналы
+
+| Канал | Anthropic URL | OpenAI URL |
+|-------|---------------|------------|
+| Alpha | `https://gateway.nekocode.app/alpha` | `https://gateway.nekocode.app/alpha/v1` |
+| Spark | `https://gateway.nekocode.app/spark` | `https://gateway.nekocode.app/spark/v1` |
+
+### Шлюз для России
+
+Замените `gateway.nekocode.app` на `ru.gateway.nekocode.app` в соответствующих URL.
+
+## Откат к стандартным API
+
+1. Откройте Settings
+2. Очистите поля Override Base URL (и для OpenAI, и для Anthropic)
+3. Введите стандартные API-ключи ваших провайдеров
+
+---
+
+# Cursor + Nekocode
+
+> Updated: March 24, 2026
+
+## What is Cursor
+
+[Cursor](https://cursor.com) is an AI-powered IDE based on VS Code. Supports custom API endpoints for OpenAI and Anthropic models.
+
+## Connecting via Nekocode
+
+### For Anthropic models (Claude)
+
+1. Open Settings (`Cmd+,` / `Ctrl+,`)
+2. Go to the **Models** section
+3. In the Anthropic section:
+   - **Override Anthropic Base URL:** `https://gateway.nekocode.app/alpha`
+   - **Anthropic API Key:** `sk_live_your_api_key`
+4. Select a model from the available list
+
+### For OpenAI models
+
+1. Open Settings (`Cmd+,` / `Ctrl+,`)
+2. Go to the **Models** section
+3. In the OpenAI section:
+   - **Override OpenAI Base URL:** `https://gateway.nekocode.app/alpha/v1`
+   - **API Key:** `sk_live_your_api_key`
+4. Select a model from the available list
+
+### Channels
+
+| Channel | Anthropic URL | OpenAI URL |
+|---------|---------------|------------|
+| Alpha | `https://gateway.nekocode.app/alpha` | `https://gateway.nekocode.app/alpha/v1` |
+| Spark | `https://gateway.nekocode.app/spark` | `https://gateway.nekocode.app/spark/v1` |
+
+### Russia gateway
+
+Replace `gateway.nekocode.app` with `ru.gateway.nekocode.app` in the respective URLs.
+
+## Reverting to standard APIs
+
+1. Open Settings
+2. Clear the Override Base URL fields (both OpenAI and Anthropic)
+3. Enter your standard provider API keys
+
+
+============================================================
+FILE: docs/integrations/aider.md
+============================================================
+# Aider + Nekocode
+
+> Дата обновления: 24 марта 2026
+
+## Что такое Aider
+
+[Aider](https://aider.chat) — open-source AI-инструмент для кодинга в терминале. Работает с репозиторием через git.
+
+## Подключение через Nekocode
+
+Три способа настройки.
+
+### Способ 1 — Переменные окружения
+
+```bash
+export ANTHROPIC_API_KEY="sk_live_your_api_key"
+export ANTHROPIC_API_BASE="https://gateway.nekocode.app/alpha"
+aider --model claude-sonnet-4-6
+```
+
+### Способ 2 — Флаги командной строки
+
+```bash
+aider --api-base anthropic=https://gateway.nekocode.app/alpha \
+      --api-key anthropic=sk_live_your_api_key \
+      --model claude-sonnet-4-6
+```
+
+### Способ 3 — .aider.conf.yml
+
+Файл: `.aider.conf.yml` (корень проекта или домашняя директория)
+
+```yaml
+api-base:
+  anthropic: https://gateway.nekocode.app/alpha
+api-key:
+  anthropic: sk_live_your_api_key
+model: claude-sonnet-4-6
+```
+
+### Каналы
+
+| Канал | URL | Особенности |
+|-------|-----|-------------|
+| Alpha | `https://gateway.nekocode.app/alpha` | x0.3 от стоимости |
+| Spark | `https://gateway.nekocode.app/spark` | x1, контекст до 1M токенов |
+
+### Шлюз для России
+
+Замените `gateway.nekocode.app` на `ru.gateway.nekocode.app`:
+
+```
+https://ru.gateway.nekocode.app/alpha
+```
+
+## Откат к стандартному Anthropic API
+
+- **Способ 1:** удалите переменные окружения:
+  ```bash
+  unset ANTHROPIC_API_KEY
+  unset ANTHROPIC_API_BASE
+  ```
+- **Способ 2:** запускайте aider без флагов `--api-base` и `--api-key`.
+- **Способ 3:** удалите секции `api-base` и `api-key` из `.aider.conf.yml`, либо укажите стандартный API-ключ Anthropic.
+
+---
+
+# Aider + Nekocode
+
+> Updated: March 24, 2026
+
+## What is Aider
+
+[Aider](https://aider.chat) is an open-source AI coding tool for the terminal. Works with repositories via git.
+
+## Connecting via Nekocode
+
+Three configuration methods.
+
+### Method 1 — Environment variables
+
+```bash
+export ANTHROPIC_API_KEY="sk_live_your_api_key"
+export ANTHROPIC_API_BASE="https://gateway.nekocode.app/alpha"
+aider --model claude-sonnet-4-6
+```
+
+### Method 2 — Command line flags
+
+```bash
+aider --api-base anthropic=https://gateway.nekocode.app/alpha \
+      --api-key anthropic=sk_live_your_api_key \
+      --model claude-sonnet-4-6
+```
+
+### Method 3 — .aider.conf.yml
+
+File: `.aider.conf.yml` (project root or home directory)
+
+```yaml
+api-base:
+  anthropic: https://gateway.nekocode.app/alpha
+api-key:
+  anthropic: sk_live_your_api_key
+model: claude-sonnet-4-6
+```
+
+### Channels
+
+| Channel | URL | Details |
+|---------|-----|---------|
+| Alpha | `https://gateway.nekocode.app/alpha` | x0.3 price multiplier |
+| Spark | `https://gateway.nekocode.app/spark` | x1 price, up to 1M context |
+
+### Russia gateway
+
+Replace `gateway.nekocode.app` with `ru.gateway.nekocode.app`:
+
+```
+https://ru.gateway.nekocode.app/alpha
+```
+
+## Reverting to standard Anthropic API
+
+- **Method 1:** unset environment variables:
+  ```bash
+  unset ANTHROPIC_API_KEY
+  unset ANTHROPIC_API_BASE
+  ```
+- **Method 2:** run aider without `--api-base` and `--api-key` flags.
+- **Method 3:** remove the `api-base` and `api-key` sections from `.aider.conf.yml`, or specify a standard Anthropic API key.
+
+
+============================================================
+FILE: docs/integrations/windsurf.md
+============================================================
+# Интеграция с Windsurf IDE
+
+> Дата обновления: 24 марта 2026
+
+## О Windsurf
+
+[Windsurf](https://windsurf.com) — AI-powered IDE от Codeium. Поддерживает подключение кастомных AI-провайдеров через настройки.
+
+## Настройка
+
+1. Откройте **Settings > AI Provider**
+2. В поле **Custom Anthropic Base URL** укажите:
+   ```
+   https://gateway.nekocode.app/alpha
+   ```
+3. В поле **API Key** введите ваш ключ:
+   ```
+   sk_live_your_api_key
+   ```
+4. Выберите модель: `claude-sonnet-4-6` или `claude-opus-4-6`
+
+## Шлюз для России
+
+Замените Base URL на:
+
+```
+https://ru.gateway.nekocode.app/alpha
+```
+
+Все остальные настройки остаются прежними.
+
+## Доступные каналы
+
+| Канал   | URL                                          |
+|---------|----------------------------------------------|
+| alpha   | `https://gateway.nekocode.app/alpha`         |
+| spark   | `https://gateway.nekocode.app/spark`         |
+
+Для SDK-совместимого доступа добавьте `/v1`:
+
+```
+https://gateway.nekocode.app/alpha/v1
+```
+
+## Откат к стандартным настройкам
+
+Чтобы вернуться к стандартному Anthropic API:
+
+1. Очистите поле **Custom Anthropic Base URL** (оставьте пустым)
+2. Удалите текущий API-ключ Nekocode
+3. Введите ваш стандартный API-ключ Anthropic
+
+После этого Windsurf будет обращаться напрямую к `api.anthropic.com`.
+
+---
+
+# Windsurf IDE Integration
+
+> Updated: March 24, 2026
+
+## About Windsurf
+
+[Windsurf](https://windsurf.com) — AI-powered IDE by Codeium. Supports connecting custom AI providers through settings.
+
+## Setup
+
+1. Open **Settings > AI Provider**
+2. Set **Custom Anthropic Base URL** to:
+   ```
+   https://gateway.nekocode.app/alpha
+   ```
+3. Set **API Key** to your Nekocode key:
+   ```
+   sk_live_your_api_key
+   ```
+4. Select model: `claude-sonnet-4-6` or `claude-opus-4-6`
+
+## Russia Gateway
+
+Change the Base URL to:
+
+```
+https://ru.gateway.nekocode.app/alpha
+```
+
+All other settings remain the same.
+
+## Available Channels
+
+| Channel | URL                                          |
+|---------|----------------------------------------------|
+| alpha   | `https://gateway.nekocode.app/alpha`         |
+| spark   | `https://gateway.nekocode.app/spark`         |
+
+For SDK-compatible access, append `/v1`:
+
+```
+https://gateway.nekocode.app/alpha/v1
+```
+
+## Reverting to Default Settings
+
+To revert to the standard Anthropic API:
+
+1. Clear the **Custom Anthropic Base URL** field (leave empty)
+2. Remove your current Nekocode API key
+3. Re-enter your standard Anthropic API key
+
+Windsurf will then connect directly to `api.anthropic.com`.
+
+
+============================================================
+FILE: docs/integrations/continue-dev.md
+============================================================
+# Интеграция с Continue.dev
+
+> Дата обновления: 24 марта 2026
+
+## О Continue.dev
+
+[Continue.dev](https://continue.dev) — open-source расширение для AI-автодополнения и чата в VSCode и JetBrains. Позволяет подключать любые LLM-провайдеры через файл конфигурации.
+
+## Настройка
+
+Отредактируйте файл `~/.continue/config.json` и добавьте модель Nekocode в массив `models`:
+
+```json
+{
+  "models": [
+    {
+      "title": "Claude Sonnet 4.6 (Nekocode)",
+      "provider": "anthropic",
+      "model": "claude-sonnet-4-6",
+      "apiBase": "https://gateway.nekocode.app/alpha",
+      "apiKey": "sk_live_your_api_key"
+    }
+  ]
+}
+```
+
+### Несколько моделей
+
+Вы можете добавить несколько моделей и переключаться между ними в интерфейсе Continue:
+
+```json
+{
+  "models": [
+    {
+      "title": "Claude Sonnet 4.6 (Nekocode)",
+      "provider": "anthropic",
+      "model": "claude-sonnet-4-6",
+      "apiBase": "https://gateway.nekocode.app/alpha",
+      "apiKey": "sk_live_your_api_key"
+    },
+    {
+      "title": "Claude Opus 4.6 (Nekocode)",
+      "provider": "anthropic",
+      "model": "claude-opus-4-6",
+      "apiBase": "https://gateway.nekocode.app/alpha",
+      "apiKey": "sk_live_your_api_key"
+    }
+  ]
+}
+```
+
+## Шлюз для России
+
+Замените `apiBase` на:
+
+```
+https://ru.gateway.nekocode.app/alpha
+```
+
+## Доступные каналы
+
+| Канал   | apiBase                                      |
+|---------|----------------------------------------------|
+| alpha   | `https://gateway.nekocode.app/alpha`         |
+| spark   | `https://gateway.nekocode.app/spark`         |
+
+## Откат к стандартным настройкам
+
+Чтобы вернуться к стандартному Anthropic API:
+
+- Удалите объект модели Nekocode из массива `models`, или
+- Замените `apiBase` на стандартный URL Anthropic: `https://api.anthropic.com`
+- Укажите ваш стандартный API-ключ Anthropic в поле `apiKey`
+
+---
+
+# Continue.dev Integration
+
+> Updated: March 24, 2026
+
+## About Continue.dev
+
+[Continue.dev](https://continue.dev) — open-source AI autocomplete and chat extension for VSCode and JetBrains. Supports connecting any LLM provider via configuration file.
+
+## Setup
+
+Edit `~/.continue/config.json` and add a Nekocode model to the `models` array:
+
+```json
+{
+  "models": [
+    {
+      "title": "Claude Sonnet 4.6 (Nekocode)",
+      "provider": "anthropic",
+      "model": "claude-sonnet-4-6",
+      "apiBase": "https://gateway.nekocode.app/alpha",
+      "apiKey": "sk_live_your_api_key"
+    }
+  ]
+}
+```
+
+### Multiple Models
+
+You can add multiple models and switch between them in the Continue interface:
+
+```json
+{
+  "models": [
+    {
+      "title": "Claude Sonnet 4.6 (Nekocode)",
+      "provider": "anthropic",
+      "model": "claude-sonnet-4-6",
+      "apiBase": "https://gateway.nekocode.app/alpha",
+      "apiKey": "sk_live_your_api_key"
+    },
+    {
+      "title": "Claude Opus 4.6 (Nekocode)",
+      "provider": "anthropic",
+      "model": "claude-opus-4-6",
+      "apiBase": "https://gateway.nekocode.app/alpha",
+      "apiKey": "sk_live_your_api_key"
+    }
+  ]
+}
+```
+
+## Russia Gateway
+
+Change `apiBase` to:
+
+```
+https://ru.gateway.nekocode.app/alpha
+```
+
+## Available Channels
+
+| Channel | apiBase                                      |
+|---------|----------------------------------------------|
+| alpha   | `https://gateway.nekocode.app/alpha`         |
+| spark   | `https://gateway.nekocode.app/spark`         |
+
+## Reverting to Default Settings
+
+To revert to the standard Anthropic API:
+
+- Remove the Nekocode model object from the `models` array, or
+- Change `apiBase` back to the default Anthropic URL: `https://api.anthropic.com`
+- Set your standard Anthropic API key in the `apiKey` field
+
+
+============================================================
+FILE: docs/integrations/anthropic-sdk.md
+============================================================
+# Anthropic SDK (Python & TypeScript)
+
+> Дата обновления: 24 марта 2026
+
+## Обзор
+
+Официальные SDK Anthropic для Python и TypeScript/Node.js поддерживают параметр `base_url` / `baseURL`, что позволяет направить запросы через шлюз Nekocode без изменения логики приложения.
+
+## Python
+
+### Установка
+
+```bash
+pip install anthropic
+```
+
+### Использование
+
+```python
+import anthropic
+
+client = anthropic.Anthropic(
+    api_key="sk_live_your_api_key",
+    base_url="https://gateway.nekocode.app/alpha"
+)
+
+message = client.messages.create(
+    model="claude-sonnet-4-6",
+    max_tokens=1024,
+    messages=[{"role": "user", "content": "Hello!"}]
+)
+
+print(message.content[0].text)
+```
+
+### Стриминг (Python)
+
+```python
+with client.messages.stream(
+    model="claude-sonnet-4-6",
+    max_tokens=1024,
+    messages=[{"role": "user", "content": "Расскажи о квантовых вычислениях"}]
+) as stream:
+    for text in stream.text_stream:
+        print(text, end="", flush=True)
+```
+
+## TypeScript / Node.js
+
+### Установка
+
+```bash
+npm install @anthropic-ai/sdk
+```
+
+### Использование
+
+```typescript
+import Anthropic from '@anthropic-ai/sdk';
+
+const client = new Anthropic({
+  apiKey: 'sk_live_your_api_key',
+  baseURL: 'https://gateway.nekocode.app/alpha',
+});
+
+const message = await client.messages.create({
+  model: 'claude-sonnet-4-6',
+  max_tokens: 1024,
+  messages: [{ role: 'user', content: 'Hello!' }],
+});
+
+console.log(message.content[0].text);
+```
+
+### Стриминг (TypeScript)
+
+```typescript
+const stream = client.messages.stream({
+  model: 'claude-sonnet-4-6',
+  max_tokens: 1024,
+  messages: [{ role: 'user', content: 'Hello!' }],
+});
+
+for await (const event of stream) {
+  if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
+    process.stdout.write(event.delta.text);
+  }
+}
+```
+
+## OpenAI SDK (для GPT-моделей через Nekocode)
+
+Nekocode поддерживает OpenAI-совместимый эндпоинт. Для работы с GPT-моделями используйте OpenAI SDK с `/v1` в URL.
+
+### Python
+
+```python
+from openai import OpenAI
+
+client = OpenAI(
+    api_key="sk_live_your_api_key",
+    base_url="https://gateway.nekocode.app/alpha/v1"
+)
+
+response = client.chat.completions.create(
+    model="gpt-5",
+    messages=[{"role": "user", "content": "Hello!"}]
+)
+
+print(response.choices[0].message.content)
+```
+
+### TypeScript
+
+```typescript
+import OpenAI from 'openai';
+
+const client = new OpenAI({
+  apiKey: 'sk_live_your_api_key',
+  baseURL: 'https://gateway.nekocode.app/alpha/v1',
+});
+
+const response = await client.chat.completions.create({
+  model: 'gpt-5',
+  messages: [{ role: 'user', content: 'Hello!' }],
+});
+
+console.log(response.choices[0].message.content);
+```
+
+## Шлюз для России
+
+Замените base URL на:
+
+| SDK        | Параметр   | Значение                                  |
+|------------|------------|-------------------------------------------|
+| Anthropic  | `base_url` | `https://ru.gateway.nekocode.app/alpha`   |
+| OpenAI     | `base_url` | `https://ru.gateway.nekocode.app/alpha/v1`|
+
+## Доступные каналы
+
+| Канал | Anthropic base_url                        | OpenAI base_url                               |
+|-------|-------------------------------------------|-----------------------------------------------|
+| alpha | `https://gateway.nekocode.app/alpha`      | `https://gateway.nekocode.app/alpha/v1`       |
+| spark | `https://gateway.nekocode.app/spark`      | `https://gateway.nekocode.app/spark/v1`       |
+
+## Откат к стандартным настройкам
+
+Чтобы вернуться к прямому подключению:
+
+- **Anthropic SDK**: удалите параметр `base_url` / `baseURL` — SDK автоматически будет использовать `https://api.anthropic.com`
+- **OpenAI SDK**: удалите параметр `base_url` / `baseURL` — SDK автоматически будет использовать `https://api.openai.com/v1`
+- Замените API-ключ Nekocode на ваш стандартный ключ провайдера
+
+---
+
+# Anthropic SDK (Python & TypeScript)
+
+> Updated: March 24, 2026
+
+## Overview
+
+The official Anthropic SDKs for Python and TypeScript/Node.js support a `base_url` / `baseURL` parameter, allowing you to route requests through the Nekocode gateway without changing your application logic.
+
+## Python
+
+### Installation
+
+```bash
+pip install anthropic
+```
+
+### Usage
+
+```python
+import anthropic
+
+client = anthropic.Anthropic(
+    api_key="sk_live_your_api_key",
+    base_url="https://gateway.nekocode.app/alpha"
+)
+
+message = client.messages.create(
+    model="claude-sonnet-4-6",
+    max_tokens=1024,
+    messages=[{"role": "user", "content": "Hello!"}]
+)
+
+print(message.content[0].text)
+```
+
+### Streaming (Python)
+
+```python
+with client.messages.stream(
+    model="claude-sonnet-4-6",
+    max_tokens=1024,
+    messages=[{"role": "user", "content": "Tell me about quantum computing"}]
+) as stream:
+    for text in stream.text_stream:
+        print(text, end="", flush=True)
+```
+
+## TypeScript / Node.js
+
+### Installation
+
+```bash
+npm install @anthropic-ai/sdk
+```
+
+### Usage
+
+```typescript
+import Anthropic from '@anthropic-ai/sdk';
+
+const client = new Anthropic({
+  apiKey: 'sk_live_your_api_key',
+  baseURL: 'https://gateway.nekocode.app/alpha',
+});
+
+const message = await client.messages.create({
+  model: 'claude-sonnet-4-6',
+  max_tokens: 1024,
+  messages: [{ role: 'user', content: 'Hello!' }],
+});
+
+console.log(message.content[0].text);
+```
+
+### Streaming (TypeScript)
+
+```typescript
+const stream = client.messages.stream({
+  model: 'claude-sonnet-4-6',
+  max_tokens: 1024,
+  messages: [{ role: 'user', content: 'Hello!' }],
+});
+
+for await (const event of stream) {
+  if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
+    process.stdout.write(event.delta.text);
+  }
+}
+```
+
+## OpenAI SDK (for GPT Models via Nekocode)
+
+Nekocode supports an OpenAI-compatible endpoint. To use GPT models, use the OpenAI SDK with `/v1` appended to the URL.
+
+### Python
+
+```python
+from openai import OpenAI
+
+client = OpenAI(
+    api_key="sk_live_your_api_key",
+    base_url="https://gateway.nekocode.app/alpha/v1"
+)
+
+response = client.chat.completions.create(
+    model="gpt-5",
+    messages=[{"role": "user", "content": "Hello!"}]
+)
+
+print(response.choices[0].message.content)
+```
+
+### TypeScript
+
+```typescript
+import OpenAI from 'openai';
+
+const client = new OpenAI({
+  apiKey: 'sk_live_your_api_key',
+  baseURL: 'https://gateway.nekocode.app/alpha/v1',
+});
+
+const response = await client.chat.completions.create({
+  model: 'gpt-5',
+  messages: [{ role: 'user', content: 'Hello!' }],
+});
+
+console.log(response.choices[0].message.content);
+```
+
+## Russia Gateway
+
+Change the base URL to:
+
+| SDK        | Parameter  | Value                                     |
+|------------|------------|-------------------------------------------|
+| Anthropic  | `base_url` | `https://ru.gateway.nekocode.app/alpha`   |
+| OpenAI     | `base_url` | `https://ru.gateway.nekocode.app/alpha/v1`|
+
+## Available Channels
+
+| Channel | Anthropic base_url                        | OpenAI base_url                               |
+|---------|-------------------------------------------|-----------------------------------------------|
+| alpha   | `https://gateway.nekocode.app/alpha`      | `https://gateway.nekocode.app/alpha/v1`       |
+| spark   | `https://gateway.nekocode.app/spark`      | `https://gateway.nekocode.app/spark/v1`       |
+
+## Reverting to Default Settings
+
+To revert to direct provider connections:
+
+- **Anthropic SDK**: remove the `base_url` / `baseURL` parameter — the SDK will default to `https://api.anthropic.com`
+- **OpenAI SDK**: remove the `base_url` / `baseURL` parameter — the SDK will default to `https://api.openai.com/v1`
+- Replace your Nekocode API key with your standard provider key
+
+
+============================================================
+FILE: docs/integrations/curl.md
+============================================================
+# cURL / HTTP-запросы
+
+> Дата обновления: 24 марта 2026
+
+## Обзор
+
+Примеры прямых HTTP-запросов к Nekocode через cURL. Подходит для тестирования, отладки и интеграции на любом языке программирования.
+
+## Anthropic API (модели Claude)
+
+### Базовый запрос
+
+```bash
+curl https://gateway.nekocode.app/alpha/v1/messages \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: sk_live_your_api_key" \
+  -H "anthropic-version: 2023-06-01" \
+  -d '{
+    "model": "claude-sonnet-4-6",
+    "max_tokens": 1024,
+    "messages": [{"role": "user", "content": "Hello!"}]
+  }'
+```
+
+### Стриминг (Anthropic)
+
+```bash
+curl https://gateway.nekocode.app/alpha/v1/messages \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: sk_live_your_api_key" \
+  -H "anthropic-version: 2023-06-01" \
+  -d '{
+    "model": "claude-sonnet-4-6",
+    "max_tokens": 1024,
+    "stream": true,
+    "messages": [{"role": "user", "content": "Hello!"}]
+  }'
+```
+
+Ответ приходит в формате SSE (Server-Sent Events). Каждая строка начинается с `data: `.
+
+## OpenAI API (модели GPT — обычные)
+
+> Для обычных GPT моделей (gpt-5, gpt-5-mini, gpt-5.1, gpt-5.2, gpt-5.4) используйте `/v1/chat/completions`.
+
+### Базовый запрос
+
+```bash
+curl https://gateway.nekocode.app/alpha/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer sk_live_your_api_key" \
+  -d '{
+    "model": "gpt-5",
+    "messages": [{"role": "user", "content": "Hello!"}]
+  }'
+```
+
+## OpenAI Responses API (модели Codex)
+
+> **ВАЖНО:** Codex модели (gpt-5-codex, gpt-5.1-codex, gpt-5.2-codex, gpt-5.3-codex) работают **ТОЛЬКО** через `/v1/responses`. Через `/v1/chat/completions` вернётся `model_not_found`.
+
+```bash
+curl https://gateway.nekocode.app/alpha/v1/responses \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer sk_live_your_api_key" \
+  -d '{
+    "model": "gpt-5.3-codex",
+    "max_output_tokens": 4096,
+    "input": "Write a Python function to sort a list of dictionaries by key"
+  }'
+```
+
+> `max_output_tokens` для Codex должен быть **>= 16**, иначе ошибка.
+
+### Стриминг (OpenAI)
+
+```bash
+curl https://gateway.nekocode.app/alpha/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer sk_live_your_api_key" \
+  -d '{
+    "model": "gpt-5",
+    "stream": true,
+    "messages": [{"role": "user", "content": "Hello!"}]
+  }'
+```
+
+## Шлюз для России
+
+Замените `gateway.nekocode.app` на `ru.gateway.nekocode.app`:
+
+```bash
+# Anthropic (Claude)
+curl https://ru.gateway.nekocode.app/alpha/v1/messages \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: sk_live_your_api_key" \
+  -H "anthropic-version: 2023-06-01" \
+  -d '{
+    "model": "claude-sonnet-4-6",
+    "max_tokens": 1024,
+    "messages": [{"role": "user", "content": "Привет!"}]
+  }'
+
+# OpenAI (GPT)
+curl https://ru.gateway.nekocode.app/alpha/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer sk_live_your_api_key" \
+  -d '{
+    "model": "gpt-5",
+    "messages": [{"role": "user", "content": "Привет!"}]
+  }'
+```
+
+## Проверка соединения
+
+Быстрый тест, что ваш ключ работает и шлюз доступен:
+
+```bash
+curl -s -o /dev/null -w "%{http_code}" \
+  https://gateway.nekocode.app/alpha/v1/messages \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: sk_live_your_api_key" \
+  -H "anthropic-version: 2023-06-01" \
+  -d '{
+    "model": "claude-sonnet-4-6",
+    "max_tokens": 10,
+    "messages": [{"role": "user", "content": "ping"}]
+  }'
+```
+
+- `200` — всё работает
+- `401` — неверный API-ключ
+- `403` — ключ заблокирован или нет доступа к модели
+- `429` — превышен лимит запросов
+- `502` / `503` — шлюз временно недоступен
+
+## Доступные каналы
+
+| Канал | Base URL                                       |
+|-------|------------------------------------------------|
+| alpha | `https://gateway.nekocode.app/alpha/v1`        |
+| spark | `https://gateway.nekocode.app/spark/v1`        |
+
+## Заголовки аутентификации
+
+| API       | Заголовок                               |
+|-----------|-----------------------------------------|
+| Anthropic | `x-api-key: sk_live_your_api_key`       |
+| OpenAI    | `Authorization: Bearer sk_live_your_api_key` |
+
+---
+
+# cURL / HTTP Requests
+
+> Updated: March 24, 2026
+
+## Overview
+
+Examples of direct HTTP requests to Nekocode via cURL. Suitable for testing, debugging, and integration in any programming language.
+
+## Anthropic API (Claude Models)
+
+### Basic Request
+
+```bash
+curl https://gateway.nekocode.app/alpha/v1/messages \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: sk_live_your_api_key" \
+  -H "anthropic-version: 2023-06-01" \
+  -d '{
+    "model": "claude-sonnet-4-6",
+    "max_tokens": 1024,
+    "messages": [{"role": "user", "content": "Hello!"}]
+  }'
+```
+
+### Streaming (Anthropic)
+
+```bash
+curl https://gateway.nekocode.app/alpha/v1/messages \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: sk_live_your_api_key" \
+  -H "anthropic-version: 2023-06-01" \
+  -d '{
+    "model": "claude-sonnet-4-6",
+    "max_tokens": 1024,
+    "stream": true,
+    "messages": [{"role": "user", "content": "Hello!"}]
+  }'
+```
+
+Response is delivered as SSE (Server-Sent Events). Each line starts with `data: `.
+
+## OpenAI API (GPT Models)
+
+### Basic Request
+
+```bash
+curl https://gateway.nekocode.app/alpha/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer sk_live_your_api_key" \
+  -d '{
+    "model": "gpt-5",
+    "messages": [{"role": "user", "content": "Hello!"}]
+  }'
+```
+
+### Streaming (OpenAI)
+
+```bash
+curl https://gateway.nekocode.app/alpha/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer sk_live_your_api_key" \
+  -d '{
+    "model": "gpt-5",
+    "stream": true,
+    "messages": [{"role": "user", "content": "Hello!"}]
+  }'
+```
+
+## Russia Gateway
+
+Replace `gateway.nekocode.app` with `ru.gateway.nekocode.app`:
+
+```bash
+# Anthropic (Claude)
+curl https://ru.gateway.nekocode.app/alpha/v1/messages \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: sk_live_your_api_key" \
+  -H "anthropic-version: 2023-06-01" \
+  -d '{
+    "model": "claude-sonnet-4-6",
+    "max_tokens": 1024,
+    "messages": [{"role": "user", "content": "Hello!"}]
+  }'
+
+# OpenAI (GPT)
+curl https://ru.gateway.nekocode.app/alpha/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer sk_live_your_api_key" \
+  -d '{
+    "model": "gpt-5",
+    "messages": [{"role": "user", "content": "Hello!"}]
+  }'
+```
+
+## Test Connection
+
+Quick test to verify your key works and the gateway is reachable:
+
+```bash
+curl -s -o /dev/null -w "%{http_code}" \
+  https://gateway.nekocode.app/alpha/v1/messages \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: sk_live_your_api_key" \
+  -H "anthropic-version: 2023-06-01" \
+  -d '{
+    "model": "claude-sonnet-4-6",
+    "max_tokens": 10,
+    "messages": [{"role": "user", "content": "ping"}]
+  }'
+```
+
+- `200` — everything works
+- `401` — invalid API key
+- `403` — key blocked or no access to model
+- `429` — rate limit exceeded
+- `502` / `503` — gateway temporarily unavailable
+
+## Available Channels
+
+| Channel | Base URL                                       |
+|---------|------------------------------------------------|
+| alpha   | `https://gateway.nekocode.app/alpha/v1`        |
+| spark   | `https://gateway.nekocode.app/spark/v1`        |
+
+## Authentication Headers
+
+| API       | Header                                        |
+|-----------|-----------------------------------------------|
+| Anthropic | `x-api-key: sk_live_your_api_key`             |
+| OpenAI    | `Authorization: Bearer sk_live_your_api_key`  |
+
+
+============================================================
+FILE: docs/integrations/custom.md
+============================================================
+# Кастомная интеграция
+
+> Дата обновления: 24 марта 2026
+
+## Обзор
+
+Руководство по интеграции Nekocode в ваши собственные проекты: веб-приложения, боты, мобильные приложения, серверлесс-функции и другие сценарии.
+
+## Базовые URL
+
+| Шлюз      | Anthropic API                             | OpenAI-совместимый API                        |
+|-----------|-------------------------------------------|-----------------------------------------------|
+| Основной  | `https://gateway.nekocode.app/{channel}`  | `https://gateway.nekocode.app/{channel}/v1`   |
+| Россия    | `https://ru.gateway.nekocode.app/{channel}` | `https://ru.gateway.nekocode.app/{channel}/v1` |
+
+Каналы: `alpha`, `spark`
+
+---
+
+## 1. Веб-приложения
+
+### Node.js / Express
+
+```javascript
+import express from 'express';
+import Anthropic from '@anthropic-ai/sdk';
+
+const app = express();
+app.use(express.json());
+
+const client = new Anthropic({
+  apiKey: process.env.NEKOCODE_API_KEY,
+  baseURL: 'https://gateway.nekocode.app/alpha',
+});
+
+app.post('/api/chat', async (req, res) => {
+  const { message } = req.body;
+
+  const response = await client.messages.create({
+    model: 'claude-sonnet-4-6',
+    max_tokens: 1024,
+    messages: [{ role: 'user', content: message }],
+  });
+
+  res.json({ reply: response.content[0].text });
+});
+
+app.listen(3000);
+```
+
+### Next.js API Route
+
+```typescript
+// app/api/chat/route.ts
+import Anthropic from '@anthropic-ai/sdk';
+import { NextRequest, NextResponse } from 'next/server';
+
+const client = new Anthropic({
+  apiKey: process.env.NEKOCODE_API_KEY!,
+  baseURL: 'https://gateway.nekocode.app/alpha',
+});
+
+export async function POST(req: NextRequest) {
+  const { message } = await req.json();
+
+  const response = await client.messages.create({
+    model: 'claude-sonnet-4-6',
+    max_tokens: 1024,
+    messages: [{ role: 'user', content: message }],
+  });
+
+  return NextResponse.json({ reply: response.content[0].text });
+}
+```
+
+### Python / FastAPI
+
+```python
+from fastapi import FastAPI
+from pydantic import BaseModel
+import anthropic
+
+app = FastAPI()
+client = anthropic.Anthropic(
+    api_key="sk_live_your_api_key",
+    base_url="https://gateway.nekocode.app/alpha"
+)
+
+class ChatRequest(BaseModel):
+    message: str
+
+@app.post("/api/chat")
+async def chat(req: ChatRequest):
+    response = client.messages.create(
+        model="claude-sonnet-4-6",
+        max_tokens=1024,
+        messages=[{"role": "user", "content": req.message}]
+    )
+    return {"reply": response.content[0].text}
+```
+
+### Python / Django
+
+```python
+# views.py
+import json
+import anthropic
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.conf import settings
+
+client = anthropic.Anthropic(
+    api_key=settings.NEKOCODE_API_KEY,
+    base_url="https://gateway.nekocode.app/alpha"
+)
+
+@csrf_exempt
+def chat_view(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        response = client.messages.create(
+            model="claude-sonnet-4-6",
+            max_tokens=1024,
+            messages=[{"role": "user", "content": data["message"]}]
+        )
+        return JsonResponse({"reply": response.content[0].text})
+```
+
+---
+
+## 2. Telegram-боты
+
+### python-telegram-bot + Anthropic SDK
+
+```python
+import anthropic
+from telegram import Update
+from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
+
+TELEGRAM_TOKEN = "your_telegram_bot_token"
+NEKOCODE_KEY = "sk_live_your_api_key"
+
+ai_client = anthropic.Anthropic(
+    api_key=NEKOCODE_KEY,
+    base_url="https://gateway.nekocode.app/alpha"
+)
+
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(
+        "Привет! Я бот с AI от Nekocode. Напиши мне что-нибудь!"
+    )
+
+async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    user_message = update.message.text
+
+    response = ai_client.messages.create(
+        model="claude-sonnet-4-6",
+        max_tokens=1024,
+        messages=[{"role": "user", "content": user_message}]
+    )
+
+    await update.message.reply_text(response.content[0].text)
+
+def main():
+    app = Application.builder().token(TELEGRAM_TOKEN).build()
+    app.add_handler(CommandHandler("start", start))
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+    app.run_polling()
+
+if __name__ == "__main__":
+    main()
+```
+
+### Telegraf (Node.js) + Anthropic SDK
+
+```typescript
+import { Telegraf } from 'telegraf';
+import Anthropic from '@anthropic-ai/sdk';
+
+const bot = new Telegraf(process.env.TELEGRAM_TOKEN!);
+const ai = new Anthropic({
+  apiKey: process.env.NEKOCODE_API_KEY!,
+  baseURL: 'https://gateway.nekocode.app/alpha',
+});
+
+bot.start((ctx) => ctx.reply('Привет! Напиши мне что-нибудь.'));
+
+bot.on('text', async (ctx) => {
+  const response = await ai.messages.create({
+    model: 'claude-sonnet-4-6',
+    max_tokens: 1024,
+    messages: [{ role: 'user', content: ctx.message.text }],
+  });
+
+  await ctx.reply(response.content[0].text);
+});
+
+bot.launch();
+```
+
+---
+
+## 3. Discord-боты
+
+### discord.js + Nekocode API
+
+```typescript
+import { Client, GatewayIntentBits } from 'discord.js';
+import Anthropic from '@anthropic-ai/sdk';
+
+const discord = new Client({
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent,
+  ],
+});
+
+const ai = new Anthropic({
+  apiKey: process.env.NEKOCODE_API_KEY!,
+  baseURL: 'https://gateway.nekocode.app/alpha',
+});
+
+discord.on('messageCreate', async (message) => {
+  if (message.author.bot) return;
+  if (!message.content.startsWith('!ask ')) return;
+
+  const query = message.content.slice(5);
+
+  const response = await ai.messages.create({
+    model: 'claude-sonnet-4-6',
+    max_tokens: 1024,
+    messages: [{ role: 'user', content: query }],
+  });
+
+  await message.reply(response.content[0].text);
+});
+
+discord.login(process.env.DISCORD_TOKEN);
+```
+
+---
+
+## 4. Мобильные приложения
+
+> **ВАЖНО**: Никогда не размещайте API-ключ в клиентском коде мобильного приложения. Всегда проксируйте запросы через ваш бэкенд.
+
+### React Native
+
+```typescript
+// Бэкенд (Express) — см. раздел "Веб-приложения" выше
+// Клиент React Native:
+const sendMessage = async (text: string) => {
+  const res = await fetch('https://your-backend.com/api/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message: text }),
+  });
+  const data = await res.json();
+  return data.reply;
+};
+```
+
+### Flutter
+
+```dart
+// Клиент Flutter — запрос к вашему бэкенду:
+Future<String> sendMessage(String text) async {
+  final response = await http.post(
+    Uri.parse('https://your-backend.com/api/chat'),
+    headers: {'Content-Type': 'application/json'},
+    body: jsonEncode({'message': text}),
+  );
+  final data = jsonDecode(response.body);
+  return data['reply'];
+}
+```
+
+---
+
+## 5. Серверлесс-функции
+
+### Vercel Edge Function
+
+```typescript
+// api/chat.ts
+export const config = { runtime: 'edge' };
+
+export default async function handler(req: Request) {
+  const { message } = await req.json();
+
+  const response = await fetch('https://gateway.nekocode.app/alpha/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': process.env.NEKOCODE_API_KEY!,
+      'anthropic-version': '2023-06-01',
+    },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 1024,
+      messages: [{ role: 'user', content: message }],
+    }),
+  });
+
+  return new Response(response.body, {
+    headers: { 'Content-Type': 'application/json' },
+  });
+}
+```
+
+### Cloudflare Worker
+
+```typescript
+export default {
+  async fetch(request: Request, env: Env): Promise<Response> {
+    const { message } = await request.json();
+
+    const response = await fetch('https://gateway.nekocode.app/alpha/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': env.NEKOCODE_API_KEY,
+        'anthropic-version': '2023-06-01',
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1024,
+        messages: [{ role: 'user', content: message }],
+      }),
+    });
+
+    return new Response(response.body, {
+      headers: { 'Content-Type': 'application/json' },
+    });
+  },
+};
+```
+
+---
+
+## 6. OpenAI-совместимый режим
+
+Для GPT-моделей используйте OpenAI SDK с URL Nekocode:
+
+```python
+from openai import OpenAI
+
+client = OpenAI(
+    api_key="sk_live_your_api_key",
+    base_url="https://gateway.nekocode.app/alpha/v1"
+)
+
+response = client.chat.completions.create(
+    model="gpt-5",
+    messages=[{"role": "user", "content": "Hello!"}]
+)
+```
+
+Любая библиотека или инструмент, поддерживающий OpenAI API, будет работать с Nekocode — достаточно указать `base_url`.
+
+---
+
+## 7. REST API (любой язык)
+
+### Эндпоинты
+
+| Протокол  | Метод | Эндпоинт                     | Описание                 |
+|-----------|-------|-------------------------------|--------------------------|
+| Anthropic | POST  | `/v1/messages`                | Создание сообщения       |
+| OpenAI    | POST  | `/v1/chat/completions`        | Чат-комплишн             |
+
+### Аутентификация
+
+| API       | Заголовок                                    |
+|-----------|----------------------------------------------|
+| Anthropic | `x-api-key: sk_live_your_api_key`            |
+| OpenAI    | `Authorization: Bearer sk_live_your_api_key` |
+
+### Пример на Go
+
+```go
+package main
+
+import (
+    "bytes"
+    "encoding/json"
+    "fmt"
+    "io"
+    "net/http"
+)
+
+func main() {
+    body, _ := json.Marshal(map[string]interface{}{
+        "model":      "claude-sonnet-4-6",
+        "max_tokens": 1024,
+        "messages":   []map[string]string{{"role": "user", "content": "Hello!"}},
+    })
+
+    req, _ := http.NewRequest("POST",
+        "https://gateway.nekocode.app/alpha/v1/messages", bytes.NewBuffer(body))
+    req.Header.Set("Content-Type", "application/json")
+    req.Header.Set("x-api-key", "sk_live_your_api_key")
+    req.Header.Set("anthropic-version", "2023-06-01")
+
+    resp, _ := http.DefaultClient.Do(req)
+    defer resp.Body.Close()
+    data, _ := io.ReadAll(resp.Body)
+    fmt.Println(string(data))
+}
+```
+
+---
+
+## 8. Безопасность
+
+### Обязательные правила
+
+- **Никогда** не размещайте API-ключ в клиентском коде (фронтенд, мобильное приложение)
+- Используйте переменные окружения (`NEKOCODE_API_KEY`) для хранения ключа
+- Проксируйте все запросы через ваш бэкенд
+- Настройте rate limiting на вашей стороне, чтобы защитить ключ от злоупотреблений
+- Логируйте запросы для мониторинга использования
+
+### Пример .env
+
+```bash
+NEKOCODE_API_KEY=sk_live_your_api_key
+NEKOCODE_BASE_URL=https://gateway.nekocode.app/alpha
+```
+
+### Пример загрузки в Node.js
+
+```typescript
+import 'dotenv/config';
+
+const client = new Anthropic({
+  apiKey: process.env.NEKOCODE_API_KEY!,
+  baseURL: process.env.NEKOCODE_BASE_URL!,
+});
+```
+
+### Пример загрузки в Python
+
+```python
+import os
+from dotenv import load_dotenv
+import anthropic
+
+load_dotenv()
+
+client = anthropic.Anthropic(
+    api_key=os.environ["NEKOCODE_API_KEY"],
+    base_url=os.environ["NEKOCODE_BASE_URL"]
+)
+```
+
+---
+
+---
+
+# Custom Integration
+
+> Updated: March 24, 2026
+
+## Overview
+
+A guide for integrating Nekocode into your own projects: web apps, bots, mobile apps, serverless functions, and other scenarios.
+
+## Base URLs
+
+| Gateway  | Anthropic API                             | OpenAI-compatible API                         |
+|----------|-------------------------------------------|-----------------------------------------------|
+| Default  | `https://gateway.nekocode.app/{channel}`  | `https://gateway.nekocode.app/{channel}/v1`   |
+| Russia   | `https://ru.gateway.nekocode.app/{channel}` | `https://ru.gateway.nekocode.app/{channel}/v1` |
+
+Channels: `alpha`, `spark`
+
+---
+
+## 1. Web Applications
+
+### Node.js / Express
+
+```javascript
+import express from 'express';
+import Anthropic from '@anthropic-ai/sdk';
+
+const app = express();
+app.use(express.json());
+
+const client = new Anthropic({
+  apiKey: process.env.NEKOCODE_API_KEY,
+  baseURL: 'https://gateway.nekocode.app/alpha',
+});
+
+app.post('/api/chat', async (req, res) => {
+  const { message } = req.body;
+
+  const response = await client.messages.create({
+    model: 'claude-sonnet-4-6',
+    max_tokens: 1024,
+    messages: [{ role: 'user', content: message }],
+  });
+
+  res.json({ reply: response.content[0].text });
+});
+
+app.listen(3000);
+```
+
+### Next.js API Route
+
+```typescript
+// app/api/chat/route.ts
+import Anthropic from '@anthropic-ai/sdk';
+import { NextRequest, NextResponse } from 'next/server';
+
+const client = new Anthropic({
+  apiKey: process.env.NEKOCODE_API_KEY!,
+  baseURL: 'https://gateway.nekocode.app/alpha',
+});
+
+export async function POST(req: NextRequest) {
+  const { message } = await req.json();
+
+  const response = await client.messages.create({
+    model: 'claude-sonnet-4-6',
+    max_tokens: 1024,
+    messages: [{ role: 'user', content: message }],
+  });
+
+  return NextResponse.json({ reply: response.content[0].text });
+}
+```
+
+### Python / FastAPI
+
+```python
+from fastapi import FastAPI
+from pydantic import BaseModel
+import anthropic
+
+app = FastAPI()
+client = anthropic.Anthropic(
+    api_key="sk_live_your_api_key",
+    base_url="https://gateway.nekocode.app/alpha"
+)
+
+class ChatRequest(BaseModel):
+    message: str
+
+@app.post("/api/chat")
+async def chat(req: ChatRequest):
+    response = client.messages.create(
+        model="claude-sonnet-4-6",
+        max_tokens=1024,
+        messages=[{"role": "user", "content": req.message}]
+    )
+    return {"reply": response.content[0].text}
+```
+
+### Python / Django
+
+```python
+# views.py
+import json
+import anthropic
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.conf import settings
+
+client = anthropic.Anthropic(
+    api_key=settings.NEKOCODE_API_KEY,
+    base_url="https://gateway.nekocode.app/alpha"
+)
+
+@csrf_exempt
+def chat_view(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        response = client.messages.create(
+            model="claude-sonnet-4-6",
+            max_tokens=1024,
+            messages=[{"role": "user", "content": data["message"]}]
+        )
+        return JsonResponse({"reply": response.content[0].text})
+```
+
+---
+
+## 2. Telegram Bots
+
+### python-telegram-bot + Anthropic SDK
+
+```python
+import anthropic
+from telegram import Update
+from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
+
+TELEGRAM_TOKEN = "your_telegram_bot_token"
+NEKOCODE_KEY = "sk_live_your_api_key"
+
+ai_client = anthropic.Anthropic(
+    api_key=NEKOCODE_KEY,
+    base_url="https://gateway.nekocode.app/alpha"
+)
+
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(
+        "Hi! I'm an AI bot powered by Nekocode. Send me a message!"
+    )
+
+async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    user_message = update.message.text
+
+    response = ai_client.messages.create(
+        model="claude-sonnet-4-6",
+        max_tokens=1024,
+        messages=[{"role": "user", "content": user_message}]
+    )
+
+    await update.message.reply_text(response.content[0].text)
+
+def main():
+    app = Application.builder().token(TELEGRAM_TOKEN).build()
+    app.add_handler(CommandHandler("start", start))
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+    app.run_polling()
+
+if __name__ == "__main__":
+    main()
+```
+
+### Telegraf (Node.js) + Anthropic SDK
+
+```typescript
+import { Telegraf } from 'telegraf';
+import Anthropic from '@anthropic-ai/sdk';
+
+const bot = new Telegraf(process.env.TELEGRAM_TOKEN!);
+const ai = new Anthropic({
+  apiKey: process.env.NEKOCODE_API_KEY!,
+  baseURL: 'https://gateway.nekocode.app/alpha',
+});
+
+bot.start((ctx) => ctx.reply('Hi! Send me a message.'));
+
+bot.on('text', async (ctx) => {
+  const response = await ai.messages.create({
+    model: 'claude-sonnet-4-6',
+    max_tokens: 1024,
+    messages: [{ role: 'user', content: ctx.message.text }],
+  });
+
+  await ctx.reply(response.content[0].text);
+});
+
+bot.launch();
+```
+
+---
+
+## 3. Discord Bots
+
+### discord.js + Nekocode API
+
+```typescript
+import { Client, GatewayIntentBits } from 'discord.js';
+import Anthropic from '@anthropic-ai/sdk';
+
+const discord = new Client({
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent,
+  ],
+});
+
+const ai = new Anthropic({
+  apiKey: process.env.NEKOCODE_API_KEY!,
+  baseURL: 'https://gateway.nekocode.app/alpha',
+});
+
+discord.on('messageCreate', async (message) => {
+  if (message.author.bot) return;
+  if (!message.content.startsWith('!ask ')) return;
+
+  const query = message.content.slice(5);
+
+  const response = await ai.messages.create({
+    model: 'claude-sonnet-4-6',
+    max_tokens: 1024,
+    messages: [{ role: 'user', content: query }],
+  });
+
+  await message.reply(response.content[0].text);
+});
+
+discord.login(process.env.DISCORD_TOKEN);
+```
+
+---
+
+## 4. Mobile Apps
+
+> **IMPORTANT**: Never put the API key in client-side mobile app code. Always proxy requests through your backend.
+
+### React Native
+
+```typescript
+// Backend (Express) — see "Web Applications" section above
+// React Native client:
+const sendMessage = async (text: string) => {
+  const res = await fetch('https://your-backend.com/api/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message: text }),
+  });
+  const data = await res.json();
+  return data.reply;
+};
+```
+
+### Flutter
+
+```dart
+// Flutter client — request to your backend:
+Future<String> sendMessage(String text) async {
+  final response = await http.post(
+    Uri.parse('https://your-backend.com/api/chat'),
+    headers: {'Content-Type': 'application/json'},
+    body: jsonEncode({'message': text}),
+  );
+  final data = jsonDecode(response.body);
+  return data['reply'];
+}
+```
+
+---
+
+## 5. Serverless Functions
+
+### Vercel Edge Function
+
+```typescript
+// api/chat.ts
+export const config = { runtime: 'edge' };
+
+export default async function handler(req: Request) {
+  const { message } = await req.json();
+
+  const response = await fetch('https://gateway.nekocode.app/alpha/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': process.env.NEKOCODE_API_KEY!,
+      'anthropic-version': '2023-06-01',
+    },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 1024,
+      messages: [{ role: 'user', content: message }],
+    }),
+  });
+
+  return new Response(response.body, {
+    headers: { 'Content-Type': 'application/json' },
+  });
+}
+```
+
+### Cloudflare Worker
+
+```typescript
+export default {
+  async fetch(request: Request, env: Env): Promise<Response> {
+    const { message } = await request.json();
+
+    const response = await fetch('https://gateway.nekocode.app/alpha/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': env.NEKOCODE_API_KEY,
+        'anthropic-version': '2023-06-01',
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1024,
+        messages: [{ role: 'user', content: message }],
+      }),
+    });
+
+    return new Response(response.body, {
+      headers: { 'Content-Type': 'application/json' },
+    });
+  },
+};
+```
+
+---
+
+## 6. OpenAI Compatibility Mode
+
+For GPT models, use the OpenAI SDK with the Nekocode URL:
+
+```python
+from openai import OpenAI
+
+client = OpenAI(
+    api_key="sk_live_your_api_key",
+    base_url="https://gateway.nekocode.app/alpha/v1"
+)
+
+response = client.chat.completions.create(
+    model="gpt-5",
+    messages=[{"role": "user", "content": "Hello!"}]
+)
+```
+
+Any library or tool that supports the OpenAI API will work with Nekocode — just set the `base_url`.
+
+---
+
+## 7. REST API (Any Language)
+
+### Endpoints
+
+| Protocol  | Method | Endpoint                      | Description            |
+|-----------|--------|-------------------------------|------------------------|
+| Anthropic | POST   | `/v1/messages`                | Create a message       |
+| OpenAI    | POST   | `/v1/chat/completions`        | Chat completion        |
+
+### Authentication
+
+| API       | Header                                       |
+|-----------|----------------------------------------------|
+| Anthropic | `x-api-key: sk_live_your_api_key`            |
+| OpenAI    | `Authorization: Bearer sk_live_your_api_key` |
+
+### Go Example
+
+```go
+package main
+
+import (
+    "bytes"
+    "encoding/json"
+    "fmt"
+    "io"
+    "net/http"
+)
+
+func main() {
+    body, _ := json.Marshal(map[string]interface{}{
+        "model":      "claude-sonnet-4-6",
+        "max_tokens": 1024,
+        "messages":   []map[string]string{{"role": "user", "content": "Hello!"}},
+    })
+
+    req, _ := http.NewRequest("POST",
+        "https://gateway.nekocode.app/alpha/v1/messages", bytes.NewBuffer(body))
+    req.Header.Set("Content-Type", "application/json")
+    req.Header.Set("x-api-key", "sk_live_your_api_key")
+    req.Header.Set("anthropic-version", "2023-06-01")
+
+    resp, _ := http.DefaultClient.Do(req)
+    defer resp.Body.Close()
+    data, _ := io.ReadAll(resp.Body)
+    fmt.Println(string(data))
+}
+```
+
+---
+
+## 8. Security
+
+### Mandatory Rules
+
+- **Never** put the API key in client-side code (frontend, mobile app)
+- Use environment variables (`NEKOCODE_API_KEY`) to store the key
+- Proxy all requests through your backend
+- Set up rate limiting on your side to protect the key from abuse
+- Log requests for usage monitoring
+
+### Example .env
+
+```bash
+NEKOCODE_API_KEY=sk_live_your_api_key
+NEKOCODE_BASE_URL=https://gateway.nekocode.app/alpha
+```
+
+### Loading in Node.js
+
+```typescript
+import 'dotenv/config';
+
+const client = new Anthropic({
+  apiKey: process.env.NEKOCODE_API_KEY!,
+  baseURL: process.env.NEKOCODE_BASE_URL!,
+});
+```
+
+### Loading in Python
+
+```python
+import os
+from dotenv import load_dotenv
+import anthropic
+
+load_dotenv()
+
+client = anthropic.Anthropic(
+    api_key=os.environ["NEKOCODE_API_KEY"],
+    base_url=os.environ["NEKOCODE_BASE_URL"]
+)
+```
+
+
+============================================================
+FILE: docs/status.md
+============================================================
+# Статус и сообщество Nekocode
+
+> Дата: 24 марта 2026
+
+## Ссылки
+
+| Ресурс | URL |
+|---|---|
+| Сайт | https://nekocode.app |
+| Личный кабинет | https://nekocode.app/dashboard |
+| Страница статуса | https://status.nekocode.app |
+| Telegram-канал (новости, обновления) | https://t.me/nekocode_app |
+| Оповещения о статусе | @nekocode_status |
+| Telegram Bot ID | 3,777,875,933 |
+
+## Текущий аптайм (Март 2026)
+
+| Сервис | Аптайм |
+|---|---|
+| Main Gateway | 99.96% |
+| Russian Gateway [Primary] | 99.94% |
+| Russian Gateway [#2] | 99.99% |
+| Russian Gateway [#3] | 99.96% |
+| Alpha channel | 99.96% |
+| Delta channel | 99.92% (не публичный) |
+| Spark channel | 99.90% |
+| Hosting | 99.69% |
+| OpenAI external | 100.00% |
+
+## Telegram-канал
+
+Основной канал — [https://t.me/nekocode_app](https://t.me/nekocode_app). Здесь публикуются:
+
+- Новости и обновления сервиса
+- Объявления о новых моделях и каналах
+- Информация о плановых работах и инцидентах
+- Ответы на вопросы пользователей
+
+Для оперативных уведомлений о статусе подпишитесь на **@nekocode_status**.
+
+## Как проверить статус
+
+1. Откройте [status.nekocode.app](https://status.nekocode.app) для просмотра текущего состояния всех сервисов
+2. Проверьте Telegram-канал **@nekocode_status** для оповещений в реальном времени
+3. В личном кабинете [nekocode.app/dashboard](https://nekocode.app/dashboard) доступна информация о вашем использовании и балансе
+
+---
+
+---
+
+# Nekocode Status and Community
+
+> Date: March 24, 2026
+
+## Links
+
+| Resource | URL |
+|---|---|
+| Website | https://nekocode.app |
+| Dashboard | https://nekocode.app/dashboard |
+| Status page | https://status.nekocode.app |
+| Telegram channel (news, updates) | https://t.me/nekocode_app |
+| Status alerts | @nekocode_status |
+| Telegram Bot ID | 3,777,875,933 |
+
+## Current Uptime (March 2026)
+
+| Service | Uptime |
+|---|---|
+| Main Gateway | 99.96% |
+| Russian Gateway [Primary] | 99.94% |
+| Russian Gateway [#2] | 99.99% |
+| Russian Gateway [#3] | 99.96% |
+| Alpha channel | 99.96% |
+| Delta channel | 99.92% (non-public) |
+| Spark channel | 99.90% |
+| Hosting | 99.69% |
+| OpenAI external | 100.00% |
+
+## Telegram Channel
+
+The main channel is [https://t.me/nekocode_app](https://t.me/nekocode_app). It features:
+
+- Service news and updates
+- Announcements about new models and channels
+- Information about scheduled maintenance and incidents
+- Answers to user questions
+
+For real-time status notifications, subscribe to **@nekocode_status**.
+
+## How to Check Status
+
+1. Open [status.nekocode.app](https://status.nekocode.app) to view the current state of all services
+2. Check the **@nekocode_status** Telegram channel for real-time alerts
+3. The dashboard at [nekocode.app/dashboard](https://nekocode.app/dashboard) shows your usage and balance information
+
+
+============================================================
+FILE: docs/troubleshooting.md
+============================================================
+# Устранение неполадок
+
+> Дата: 24 марта 2026
+
+Распространённые проблемы и решения при работе с Nekocode.
+
+---
+
+## 1. Ошибка 429 — Rate Limit
+
+**Проблема:** Превышен лимит запросов. Сервер возвращает `429 Too Many Requests`.
+
+**Решения:**
+
+- Подождите несколько секунд и повторите запрос
+- Переключитесь на другой шлюз (`ru.gateway.nekocode.app`, `ru-2.gateway.nekocode.app`, `ru-3.gateway.nekocode.app`)
+- Переключитесь на другой канал (Alpha / Spark)
+- Проверьте, не отправляете ли вы слишком много параллельных запросов
+
+---
+
+## 2. Подключение из России
+
+**Проблема:** Основной шлюз `gateway.nekocode.app` недоступен или работает медленно из России.
+
+**Решения:**
+
+- Используйте российские шлюзы:
+  - `ru.gateway.nekocode.app` (Primary)
+  - `ru-2.gateway.nekocode.app` (#2)
+  - `ru-3.gateway.nekocode.app` (#3)
+- Попробуйте каждый шлюз — один может работать быстрее в зависимости от вашего провайдера
+- Проверьте статус шлюзов на [status.nekocode.app](https://status.nekocode.app)
+
+---
+
+## 3. Таймаут подключения (Connection Timeout)
+
+**Проблема:** Запросы не получают ответа, соединение разрывается по таймауту.
+
+**Решения:**
+
+- Проверьте текущий статус на [status.nekocode.app](https://status.nekocode.app)
+- Проверьте подключение к интернету
+- Попробуйте другой шлюз
+- Увеличьте таймаут в настройках клиента
+- Проверьте, нет ли блокировки на уровне файрвола или прокси
+
+---
+
+## 4. Недействительный API-ключ (Invalid API Key)
+
+**Проблема:** Сервер возвращает ошибку аутентификации.
+
+**Решения:**
+
+- Убедитесь, что ключ начинается с префикса `sk_live_`
+- Проверьте ключ в личном кабинете: [nekocode.app/dashboard](https://nekocode.app/dashboard)
+- Убедитесь, что в ключе нет лишних пробелов или символов
+- Создайте новый ключ, если текущий мог быть скомпрометирован
+- Проверьте, что ключ передаётся в правильном заголовке/параметре
+
+---
+
+## 5. Модель не найдена (Model Not Found)
+
+**Проблема:** Сервер возвращает ошибку, что указанная модель не существует.
+
+**Решения:**
+
+- Используйте точный идентификатор модели (например, `claude-sonnet-4-20250514`, а не `claude-sonnet`)
+- Проверьте доступные модели в документации или личном кабинете
+- Убедитесь, что модель доступна на выбранном канале
+- Учтите регистр символов — идентификаторы моделей чувствительны к регистру
+
+---
+
+## 6. Высокая задержка (High Latency)
+
+**Проблема:** Запросы выполняются, но с большой задержкой.
+
+**Решения:**
+
+- Используйте канал **Alpha** (оптимизирован для скорости, множитель x0.3)
+- Выберите ближайший к вам шлюз:
+  - Европа/Глобальный: `gateway.nekocode.app`
+  - Россия: `ru.gateway.nekocode.app`, `ru-2.gateway.nekocode.app`, `ru-3.gateway.nekocode.app`
+- Уменьшите `max_tokens` если вам не нужны длинные ответы
+- Проверьте статус на [status.nekocode.app](https://status.nekocode.app) — возможны временные деградации
+
+---
+
+## 7. Ошибки CORS
+
+**Проблема:** Браузер блокирует запросы к API из-за CORS (Cross-Origin Resource Sharing).
+
+**Решения:**
+
+- API Nekocode предназначен **только для серверных вызовов** (server-side)
+- **Не вызывайте API напрямую из браузерного JavaScript**
+- Проксируйте запросы через ваш бэкенд:
+
+```javascript
+// НЕ ДЕЛАЙТЕ ТАК (клиент):
+// fetch("https://gateway.nekocode.app/alpha/v1/messages", ...)
+
+// ДЕЛАЙТЕ ТАК (через свой сервер):
+// Клиент -> Ваш бэкенд -> Nekocode API
+```
+
+- Настройте прокси в вашем серверном приложении (Express, FastAPI и т.д.)
+
+---
+
+## 8. Claude Code — Extra Usage Required
+
+**Проблема:** Claude Code сообщает, что требуется дополнительное использование ("extra usage required") или контекст слишком велик.
+
+**Решения:**
+
+- Контекст вашего запроса слишком большой для текущего канала
+- Переключитесь на канал **Spark** (множитель x1, поддерживает контексты до [1m] токенов)
+- Уменьшите контекст, удалив ненужные файлы из контекста беседы
+- Используйте `/compact` команду для сжатия истории
+- Проверьте баланс в личном кабинете
+
+---
+
+## 9. OpenCode — Provider Not Found
+
+**Проблема:** OpenCode выдаёт ошибку "provider not found" при попытке подключения.
+
+**Решения:**
+
+- Убедитесь, что `baseURL` в `opencode.json` заканчивается суффиксом `/v1`:
+
+```json
+{
+  "provider": {
+    "anthropic": {
+      "options": {
+        "baseURL": "https://gateway.nekocode.app/alpha/v1"
+      }
+    }
+  }
+}
+```
+
+- Неправильно: `https://gateway.nekocode.app/alpha`
+- Правильно: `https://gateway.nekocode.app/alpha/v1`
+- Перезапустите OpenCode после изменения конфигурации
+
+---
+
+## 10. Codex CLI — Missing API Key
+
+**Проблема:** Codex CLI сообщает, что API-ключ не найден.
+
+**Решения:**
+
+- Убедитесь, что имя переменной окружения соответствует провайдеру:
+  - Для OpenAI-совместимого режима: `OPENAI_API_KEY`
+  - Для Anthropic-совместимого режима: `ANTHROPIC_API_KEY`
+- Проверьте, что переменные экспортированы в текущей сессии:
+
+```bash
+echo $OPENAI_API_KEY
+echo $OPENAI_BASE_URL
+```
+
+- Если используете `config.toml`, убедитесь что `api_key` указан в правильной секции `[provider]`
+- Перезапустите терминал после установки переменных окружения
+
+---
+
+## Общие советы
+
+- Всегда проверяйте [status.nekocode.app](https://status.nekocode.app) перед диагностикой
+- Подпишитесь на @nekocode_status в Telegram для оповещений
+- Для вопросов используйте Telegram-канал [t.me/nekocode_app](https://t.me/nekocode_app)
+- Ключ API всегда начинается с `sk_live_`
+
+---
+
+---
+
+# Troubleshooting
+
+> Date: March 24, 2026
+
+Common problems and solutions when working with Nekocode.
+
+---
+
+## 1. Error 429 — Rate Limit
+
+**Problem:** Request rate limit exceeded. Server returns `429 Too Many Requests`.
+
+**Solutions:**
+
+- Wait a few seconds and retry the request
+- Switch to a different gateway (`ru.gateway.nekocode.app`, `ru-2.gateway.nekocode.app`, `ru-3.gateway.nekocode.app`)
+- Switch to a different channel (Alpha / Spark)
+- Check if you are sending too many concurrent requests
+
+---
+
+## 2. Network from Russia
+
+**Problem:** The main gateway `gateway.nekocode.app` is unreachable or slow from Russia.
+
+**Solutions:**
+
+- Use the Russian gateways:
+  - `ru.gateway.nekocode.app` (Primary)
+  - `ru-2.gateway.nekocode.app` (#2)
+  - `ru-3.gateway.nekocode.app` (#3)
+- Try each gateway — one may be faster depending on your ISP
+- Check gateway status at [status.nekocode.app](https://status.nekocode.app)
+
+---
+
+## 3. Connection Timeout
+
+**Problem:** Requests receive no response, the connection times out.
+
+**Solutions:**
+
+- Check current status at [status.nekocode.app](https://status.nekocode.app)
+- Verify your internet connection
+- Try a different gateway
+- Increase the timeout in your client settings
+- Check if there is a firewall or proxy blocking the connection
+
+---
+
+## 4. Invalid API Key
+
+**Problem:** Server returns an authentication error.
+
+**Solutions:**
+
+- Ensure the key starts with the `sk_live_` prefix
+- Verify the key in the dashboard: [nekocode.app/dashboard](https://nekocode.app/dashboard)
+- Make sure there are no extra spaces or characters in the key
+- Generate a new key if the current one may have been compromised
+- Verify the key is being passed in the correct header/parameter
+
+---
+
+## 5. Model Not Found
+
+**Problem:** Server returns an error that the specified model does not exist.
+
+**Solutions:**
+
+- Use the exact model ID (e.g., `claude-sonnet-4-20250514`, not `claude-sonnet`)
+- Check available models in the documentation or dashboard
+- Make sure the model is available on the selected channel
+- Note that model IDs are case-sensitive
+
+---
+
+## 6. High Latency
+
+**Problem:** Requests succeed but with significant delay.
+
+**Solutions:**
+
+- Use the **Alpha** channel (optimized for speed, x0.3 multiplier)
+- Choose the gateway closest to your location:
+  - Europe/Global: `gateway.nekocode.app`
+  - Russia: `ru.gateway.nekocode.app`, `ru-2.gateway.nekocode.app`, `ru-3.gateway.nekocode.app`
+- Reduce `max_tokens` if you don't need long responses
+- Check status at [status.nekocode.app](https://status.nekocode.app) — there may be temporary degradation
+
+---
+
+## 7. CORS Errors
+
+**Problem:** Browser blocks API requests due to CORS (Cross-Origin Resource Sharing).
+
+**Solutions:**
+
+- The Nekocode API is intended for **server-side calls only**
+- **Do not call the API directly from browser JavaScript**
+- Proxy requests through your backend:
+
+```javascript
+// DON'T DO THIS (client-side):
+// fetch("https://gateway.nekocode.app/alpha/v1/messages", ...)
+
+// DO THIS (through your server):
+// Client -> Your Backend -> Nekocode API
+```
+
+- Set up a proxy in your server application (Express, FastAPI, etc.)
+
+---
+
+## 8. Claude Code — Extra Usage Required
+
+**Problem:** Claude Code reports "extra usage required" or the context is too large.
+
+**Solutions:**
+
+- Your request context is too large for the current channel
+- Switch to the **Spark** channel (x1 multiplier, supports contexts up to [1m] tokens)
+- Reduce context by removing unnecessary files from the conversation context
+- Use the `/compact` command to compress history
+- Check your balance in the dashboard
+
+---
+
+## 9. OpenCode — Provider Not Found
+
+**Problem:** OpenCode throws a "provider not found" error when trying to connect.
+
+**Solutions:**
+
+- Make sure `baseURL` in `opencode.json` ends with the `/v1` suffix:
+
+```json
+{
+  "provider": {
+    "anthropic": {
+      "options": {
+        "baseURL": "https://gateway.nekocode.app/alpha/v1"
+      }
+    }
+  }
+}
+```
+
+- Wrong: `https://gateway.nekocode.app/alpha`
+- Correct: `https://gateway.nekocode.app/alpha/v1`
+- Restart OpenCode after changing the configuration
+
+---
+
+## 10. Codex CLI — Missing API Key
+
+**Problem:** Codex CLI reports that the API key is not found.
+
+**Solutions:**
+
+- Ensure the environment variable name matches the provider:
+  - For OpenAI-compatible mode: `OPENAI_API_KEY`
+  - For Anthropic-compatible mode: `ANTHROPIC_API_KEY`
+- Verify the variables are exported in the current session:
+
+```bash
+echo $OPENAI_API_KEY
+echo $OPENAI_BASE_URL
+```
+
+- If using `config.toml`, make sure `api_key` is set in the correct `[provider]` section
+- Restart the terminal after setting environment variables
+
+---
+
+## General Tips
+
+- Always check [status.nekocode.app](https://status.nekocode.app) before troubleshooting
+- Subscribe to @nekocode_status on Telegram for alerts
+- For questions, use the Telegram channel [t.me/nekocode_app](https://t.me/nekocode_app)
+- API key always starts with `sk_live_`
+
+

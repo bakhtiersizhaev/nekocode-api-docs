@@ -1,0 +1,4 @@
+{
+  "_comment": "Default Claude Code settings (no Nekocode). Remove ANTHROPIC_BASE_URL and ANTHROPIC_AUTH_TOKEN from env to use your standard Claude subscription.",
+  "env": {}
+}

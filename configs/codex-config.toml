@@ -1,0 +1,13 @@
+# Nekocode Gateway Configuration for Codex CLI
+# Copy to ~/.config/codex/config.toml
+
+model_provider = "nekocode"
+
+[model_providers.nekocode]
+name = "Nekocode Gateway"
+base_url = "https://gateway.nekocode.app/alpha/v1"
+env_key_api_key = "NEKOCODE_API_KEY"
+wire_api = "responses"
+
+# Then set: export NEKOCODE_API_KEY="sk_live_your_api_key"
+# Run: codex --provider nekocode

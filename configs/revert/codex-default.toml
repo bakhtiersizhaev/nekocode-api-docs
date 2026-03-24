@@ -1,0 +1,5 @@
+# Default Codex CLI config (standard OpenAI)
+# Copy to ~/.config/codex/config.toml
+model_provider = "openai"
+# Or just delete config.toml and run: codex
+# It will use your OpenAI subscription by default
