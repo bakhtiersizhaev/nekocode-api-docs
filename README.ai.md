@@ -30,7 +30,23 @@ Key shown once — save immediately. If lost, revoke and create new.
 | Russia #2 | `ru-2.gateway.nekocode.app` | Russia | 99.99% |
 | Russia #3 | `ru-3.gateway.nekocode.app` | Russia | 99.96% |
 
-URL format: `https://{gateway}/{channel}/v1/messages`
+URL pattern: `https://{gateway}/{channel}`
+
+## API ENDPOINTS
+
+Three distinct API endpoints per channel:
+
+| Endpoint | Path | Auth Header | Models | API Format |
+|----------|------|-------------|--------|------------|
+| Anthropic Messages | `/{channel}/v1/messages` | `x-api-key: sk_live_...` | All Claude | Anthropic Messages API |
+| OpenAI Chat Completions | `/{channel}/v1/chat/completions` | `Authorization: Bearer sk_live_...` | GPT-5, GPT-5-mini, GPT-5.1, GPT-5.2, GPT-5.4 | OpenAI Chat Completions |
+| OpenAI Responses | `/{channel}/v1/responses` | `Authorization: Bearer sk_live_...` | gpt-5-codex, gpt-5.1-codex, gpt-5.2-codex, gpt-5.3-codex | OpenAI Responses API |
+
+CRITICAL:
+- Codex models ONLY work via `/v1/responses`. Using `/v1/chat/completions` returns `model_not_found`.
+- `max_output_tokens` for Codex must be >= 16.
+- GPT and Codex models available ONLY on Alpha channel. Spark returns 400/500.
+- Claude models work via ALL three endpoints (Messages API recommended).
 
 ## CHANNELS
 

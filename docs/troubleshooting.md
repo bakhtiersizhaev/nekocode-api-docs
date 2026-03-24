@@ -68,7 +68,9 @@
 
 **Решения:**
 
-- Используйте точный идентификатор модели (например, `claude-sonnet-4-20250514`, а не `claude-sonnet`)
+- Используйте точный идентификатор модели (например, `claude-sonnet-4-6`, а не `claude-sonnet`)
+- **Codex модели** (gpt-5-codex, gpt-5.1-codex и т.д.) работают **ТОЛЬКО** через `/v1/responses`. Через `/v1/chat/completions` вернётся `model_not_found`
+- **GPT/Codex модели** доступны **только на Alpha канале**. На Spark вернётся ошибка
 - Проверьте доступные модели в документации или личном кабинете
 - Убедитесь, что модель доступна на выбранном канале
 - Учтите регистр символов — идентификаторы моделей чувствительны к регистру
@@ -173,6 +175,45 @@ echo $OPENAI_BASE_URL
 
 ---
 
+## 11. Codex модели — model_not_found
+
+**Проблема:** При запросе Codex моделей (gpt-5-codex, gpt-5.1-codex, gpt-5.2-codex, gpt-5.3-codex) через `/v1/chat/completions` возвращается `model_not_found`.
+
+**Решения:**
+
+- Codex модели работают **ТОЛЬКО** через OpenAI Responses API: `/v1/responses`
+- Используйте правильный эндпоинт:
+
+```bash
+# НЕПРАВИЛЬНО (вернёт model_not_found):
+curl .../v1/chat/completions -d '{"model": "gpt-5.3-codex", ...}'
+
+# ПРАВИЛЬНО:
+curl .../v1/responses -d '{"model": "gpt-5.3-codex", "max_output_tokens": 4096, "input": "..."}'
+```
+
+- `max_output_tokens` для Codex должен быть **>= 16**, иначе ошибка
+- Codex модели доступны **только на Alpha канале** (не Spark)
+- В OpenCode используйте провайдер `nekocode-codex` с `@ai-sdk/openai` (не `@ai-sdk/openai-compatible`)
+
+---
+
+## 12. GPT модели не работают на Spark
+
+**Проблема:** При использовании GPT или Codex моделей на Spark канале возвращается ошибка 400/500.
+
+**Решение:** Spark поддерживает **только Anthropic Claude модели**. Для GPT и Codex используйте Alpha канал (`/alpha`).
+
+---
+
+## 13. GPT-5.1 — "max_tokens reached" при маленьком значении
+
+**Проблема:** `gpt-5.1` возвращает 400 с сообщением "Could not finish the message because max_tokens or model output limit was reached" при `max_tokens` < ~16.
+
+**Решение:** Установите `max_tokens` >= 16 (рекомендуется >= 100). Некоторые модели не могут сгенерировать ответ в 5 токенов.
+
+---
+
 ## Общие советы
 
 - Всегда проверяйте [status.nekocode.app](https://status.nekocode.app) перед диагностикой
@@ -254,7 +295,9 @@ Common problems and solutions when working with Nekocode.
 
 **Solutions:**
 
-- Use the exact model ID (e.g., `claude-sonnet-4-20250514`, not `claude-sonnet`)
+- Use the exact model ID (e.g., `claude-sonnet-4-6`, not `claude-sonnet`)
+- **Codex models** (gpt-5-codex, gpt-5.1-codex, etc.) work **ONLY** via `/v1/responses`. Using `/v1/chat/completions` returns `model_not_found`
+- **GPT/Codex models** are available **only on Alpha channel**. Spark returns error
 - Check available models in the documentation or dashboard
 - Make sure the model is available on the selected channel
 - Note that model IDs are case-sensitive
@@ -356,6 +399,37 @@ echo $OPENAI_BASE_URL
 
 - If using `config.toml`, make sure `api_key` is set in the correct `[provider]` section
 - Restart the terminal after setting environment variables
+
+---
+
+## 11. Codex Models — model_not_found
+
+**Problem:** When requesting Codex models (gpt-5-codex, gpt-5.1-codex, gpt-5.2-codex, gpt-5.3-codex) via `/v1/chat/completions`, server returns `model_not_found`.
+
+**Solutions:**
+
+- Codex models work **ONLY** via OpenAI Responses API: `/v1/responses`
+- Use the correct endpoint:
+
+```bash
+# WRONG (returns model_not_found):
+curl .../v1/chat/completions -d '{"model": "gpt-5.3-codex", ...}'
+
+# CORRECT:
+curl .../v1/responses -d '{"model": "gpt-5.3-codex", "max_output_tokens": 4096, "input": "..."}'
+```
+
+- `max_output_tokens` for Codex must be **>= 16**, otherwise error
+- Codex models available **only on Alpha channel** (not Spark)
+- In OpenCode use provider `nekocode-codex` with `@ai-sdk/openai` (not `@ai-sdk/openai-compatible`)
+
+---
+
+## 12. GPT Models Don't Work on Spark
+
+**Problem:** Using GPT or Codex models on Spark channel returns 400/500 error.
+
+**Solution:** Spark supports **only Anthropic Claude models**. Use Alpha channel (`/alpha`) for GPT and Codex.
 
 ---
 
