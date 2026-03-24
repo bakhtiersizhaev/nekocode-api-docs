@@ -8,19 +8,11 @@
 
 ## Подключение через Nekocode
 
-Два способа настройки.
+> **Проверено:** Codex CLI v0.117 + Nekocode Alpha — все 4 Codex модели работают (gpt-5-codex, gpt-5.1-codex, gpt-5.2-codex, gpt-5.3-codex). Протестировано 24 марта 2026.
 
-### Способ 1 — Переменные окружения
+### Шаг 1 — Создайте конфиг
 
-```bash
-export OPENAI_BASE_URL="https://gateway.nekocode.app/alpha/v1"
-export OPENAI_API_KEY="sk_live_your_api_key"
-codex
-```
-
-### Способ 2 — config.toml
-
-Файл: `~/.config/codex/config.toml`
+Файл: `~/.codex/config.toml`
 
 ```toml
 model_provider = "nekocode"
@@ -28,16 +20,30 @@ model_provider = "nekocode"
 [model_providers.nekocode]
 name = "Nekocode Gateway"
 base_url = "https://gateway.nekocode.app/alpha/v1"
-env_key_api_key = "NEKOCODE_API_KEY"
+env_key = "NEKOCODE_API_KEY"
 wire_api = "responses"
 ```
 
-Затем задайте ключ и запустите:
+### Шаг 2 — Задайте API ключ
 
 ```bash
 export NEKOCODE_API_KEY="sk_live_your_api_key"
-codex --provider nekocode
 ```
+
+Добавьте в `~/.zshrc` или `~/.bashrc` для постоянного использования.
+
+### Шаг 3 — Запустите
+
+```bash
+codex -m gpt-5.3-codex "ваш промпт"
+codex exec -m gpt-5-codex "задача"
+```
+
+> **Важно:**
+> - Путь конфига — `~/.codex/config.toml` (НЕ `~/.config/codex/`)
+> - Поле для ключа — `env_key` (НЕ `env_key_api_key`)
+> - Флаг `--provider` не существует в v0.117+, используйте `model_provider` в config.toml
+> - Codex модели доступны **только на Alpha канале**
 
 ### Каналы
 
@@ -79,19 +85,11 @@ https://ru.gateway.nekocode.app/alpha/v1
 
 ## Connecting via Nekocode
 
-Two configuration methods.
+> **Verified:** Codex CLI v0.117 + Nekocode Alpha — all 4 Codex models work (gpt-5-codex, gpt-5.1-codex, gpt-5.2-codex, gpt-5.3-codex). Tested March 24, 2026.
 
-### Method 1 — Environment variables
+### Step 1 — Create config
 
-```bash
-export OPENAI_BASE_URL="https://gateway.nekocode.app/alpha/v1"
-export OPENAI_API_KEY="sk_live_your_api_key"
-codex
-```
-
-### Method 2 — config.toml
-
-File: `~/.config/codex/config.toml`
+File: `~/.codex/config.toml`:
 
 ```toml
 model_provider = "nekocode"
@@ -99,16 +97,30 @@ model_provider = "nekocode"
 [model_providers.nekocode]
 name = "Nekocode Gateway"
 base_url = "https://gateway.nekocode.app/alpha/v1"
-env_key_api_key = "NEKOCODE_API_KEY"
+env_key = "NEKOCODE_API_KEY"
 wire_api = "responses"
 ```
 
-Then set the key and run:
+### Step 2 — Set API key
 
 ```bash
 export NEKOCODE_API_KEY="sk_live_your_api_key"
-codex --provider nekocode
 ```
+
+Add to `~/.zshrc` or `~/.bashrc` for persistent use.
+
+### Step 3 — Run
+
+```bash
+codex -m gpt-5.3-codex "your prompt"
+codex exec -m gpt-5-codex "task"
+```
+
+> **Important:**
+> - Config path is `~/.codex/config.toml` (NOT `~/.config/codex/`)
+> - Key field is `env_key` (NOT `env_key_api_key`)
+> - `--provider` flag does not exist in v0.117+, use `model_provider` in config.toml
+> - Codex models available **only on Alpha channel**
 
 ### Channels
 

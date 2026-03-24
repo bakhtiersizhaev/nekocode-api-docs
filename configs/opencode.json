@@ -1,6 +1,9 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "_comment": "Nekocode Gateway — full config with Claude + GPT + Codex support",
+  "_comment_1": "Nekocode Gateway for OpenCode — full config with Claude + GPT + Codex",
+  "_comment_2": "anthropic = Claude models (from Nekocode dashboard config)",
+  "_comment_3": "nekocode = GPT models via Chat Completions API",
+  "_comment_4": "nekocode-codex = Codex models via Responses API (responsesApiSupported + store:false required)",
   "provider": {
     "anthropic": {
       "options": {
@@ -23,6 +26,24 @@
       "options": {
         "apiKey": "sk_live_your_api_key",
         "baseURL": "https://gateway.nekocode.app/alpha/v1"
+      },
+      "models": {
+        "gpt-5-codex": {
+          "name": "GPT-5 Codex",
+          "options": { "responsesApiSupported": true, "store": false }
+        },
+        "gpt-5.1-codex": {
+          "name": "GPT-5.1 Codex",
+          "options": { "responsesApiSupported": true, "store": false }
+        },
+        "gpt-5.2-codex": {
+          "name": "GPT-5.2 Codex",
+          "options": { "responsesApiSupported": true, "store": false }
+        },
+        "gpt-5.3-codex": {
+          "name": "GPT-5.3 Codex",
+          "options": { "responsesApiSupported": true, "store": false }
+        }
       }
     }
   }

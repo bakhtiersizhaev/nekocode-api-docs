@@ -24,6 +24,13 @@
 }
 ```
 
+> **Все три переменные ОБЯЗАТЕЛЬНЫ:**
+> - `ANTHROPIC_AUTH_TOKEN` — ваш Nekocode API ключ
+> - `ANTHROPIC_BASE_URL` — URL шлюза (без `/v1` — Claude Code добавит сам)
+> - `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` — **обязательно "1"**, иначе Claude Code отправляет дополнительные параметры (`context_management` и др.) которые Nekocode не поддерживает, и вы получите ошибку `400 Extra inputs are not permitted`
+>
+> Проверено: Claude Code + Nekocode Alpha — работает. Тест 24 марта 2026.
+
 ### Каналы
 
 | Канал | URL | Особенности |
@@ -86,6 +93,13 @@ Add (or replace) the `env` block:
   }
 }
 ```
+
+> **All three variables are REQUIRED:**
+> - `ANTHROPIC_AUTH_TOKEN` — your Nekocode API key
+> - `ANTHROPIC_BASE_URL` — gateway URL (without `/v1` — Claude Code adds it automatically)
+> - `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` — **must be "1"**, otherwise Claude Code sends additional parameters (`context_management`, etc.) that Nekocode doesn't support, resulting in `400 Extra inputs are not permitted` error
+>
+> Verified: Claude Code + Nekocode Alpha — works. Tested March 24, 2026.
 
 ### Channels
 

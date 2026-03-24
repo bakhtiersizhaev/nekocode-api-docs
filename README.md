@@ -91,7 +91,7 @@
 | Инструмент | Файл конфигурации | Документация |
 |------------|-------------------|--------------|
 | **Claude Code** | `~/.claude/settings.json` | [docs/integrations/claude-code.md](docs/integrations/claude-code.md) |
-| **Codex CLI** | `~/.config/codex/config.toml` | [docs/integrations/codex-cli.md](docs/integrations/codex-cli.md) |
+| **Codex CLI** | `~/.codex/config.toml` | [docs/integrations/codex-cli.md](docs/integrations/codex-cli.md) |
 | **OpenCode** | `opencode.json` | [docs/integrations/opencode.md](docs/integrations/opencode.md) |
 | **OpenClaw** | `~/.openclaw/openclaw.json` | [docs/integrations/openclaw.md](docs/integrations/openclaw.md) |
 | **Cursor** | Settings → Models | [docs/integrations/cursor.md](docs/integrations/cursor.md) |
@@ -251,7 +251,7 @@ Prices in USD per 1M tokens.
 | Tool | Config file | Documentation |
 |------|-------------|---------------|
 | **Claude Code** | `~/.claude/settings.json` | [docs/integrations/claude-code.md](docs/integrations/claude-code.md) |
-| **Codex CLI** | `~/.config/codex/config.toml` | [docs/integrations/codex-cli.md](docs/integrations/codex-cli.md) |
+| **Codex CLI** | `~/.codex/config.toml` | [docs/integrations/codex-cli.md](docs/integrations/codex-cli.md) |
 | **OpenCode** | `opencode.json` | [docs/integrations/opencode.md](docs/integrations/opencode.md) |
 | **OpenClaw** | `~/.openclaw/openclaw.json` | [docs/integrations/openclaw.md](docs/integrations/openclaw.md) |
 | **Cursor** | Settings → Models | [docs/integrations/cursor.md](docs/integrations/cursor.md) |

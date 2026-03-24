@@ -49,6 +49,36 @@
       "options": {
         "apiKey": "sk_live_your_api_key",
         "baseURL": "https://gateway.nekocode.app/alpha/v1"
+      },
+      "models": {
+        "gpt-5-codex": {
+          "name": "GPT-5 Codex",
+          "options": {
+            "responsesApiSupported": true,
+            "store": false
+          }
+        },
+        "gpt-5.1-codex": {
+          "name": "GPT-5.1 Codex",
+          "options": {
+            "responsesApiSupported": true,
+            "store": false
+          }
+        },
+        "gpt-5.2-codex": {
+          "name": "GPT-5.2 Codex",
+          "options": {
+            "responsesApiSupported": true,
+            "store": false
+          }
+        },
+        "gpt-5.3-codex": {
+          "name": "GPT-5.3 Codex",
+          "options": {
+            "responsesApiSupported": true,
+            "store": false
+          }
+        }
       }
     }
   }
@@ -58,6 +88,11 @@
 > **Зачем два провайдера?**
 > - `nekocode` (`@ai-sdk/openai-compatible`) — для Claude и обычных GPT моделей (Chat Completions API)
 > - `nekocode-codex` (`@ai-sdk/openai`) — для Codex моделей (Responses API `/v1/responses`)
+>
+> **Важно для Codex моделей:**
+> - `responsesApiSupported: true` — включает Responses API вместо Chat Completions
+> - `store: false` — отключает `item_reference` сообщения которые Nekocode не поддерживает
+> - Без этих опций получите ошибку `Unknown parameter: 'reasoningSummary'`
 >
 > Codex модели (gpt-5-codex, gpt-5.1-codex и т.д.) работают **ТОЛЬКО** через Responses API.
 
@@ -135,6 +170,24 @@ For access to all models, use two providers:
       "options": {
         "apiKey": "sk_live_your_api_key",
         "baseURL": "https://gateway.nekocode.app/alpha/v1"
+      },
+      "models": {
+        "gpt-5-codex": {
+          "name": "GPT-5 Codex",
+          "options": { "responsesApiSupported": true, "store": false }
+        },
+        "gpt-5.1-codex": {
+          "name": "GPT-5.1 Codex",
+          "options": { "responsesApiSupported": true, "store": false }
+        },
+        "gpt-5.2-codex": {
+          "name": "GPT-5.2 Codex",
+          "options": { "responsesApiSupported": true, "store": false }
+        },
+        "gpt-5.3-codex": {
+          "name": "GPT-5.3 Codex",
+          "options": { "responsesApiSupported": true, "store": false }
+        }
       }
     }
   }
@@ -144,6 +197,11 @@ For access to all models, use two providers:
 > **Why two providers?**
 > - `nekocode` (`@ai-sdk/openai-compatible`) — for Claude and regular GPT models (Chat Completions API)
 > - `nekocode-codex` (`@ai-sdk/openai`) — for Codex models (Responses API `/v1/responses`)
+>
+> **Important for Codex models:**
+> - `responsesApiSupported: true` — enables Responses API instead of Chat Completions
+> - `store: false` — disables `item_reference` messages that Nekocode doesn't support
+> - Without these options you'll get `Unknown parameter: 'reasoningSummary'` error
 >
 > Codex models (gpt-5-codex, gpt-5.1-codex, etc.) work **ONLY** through the Responses API.
 

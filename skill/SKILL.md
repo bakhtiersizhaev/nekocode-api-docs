@@ -133,7 +133,7 @@ export OPENAI_BASE_URL="https://gateway.nekocode.app/alpha/v1"
 export OPENAI_API_KEY="sk_live_your_api_key"
 ```
 
-Or configure via `~/.config/codex/config.toml` with a custom provider:
+Or configure via `~/.codex/config.toml` with a custom provider:
 
 ```toml
 model_provider = "nekocode"
@@ -141,7 +141,7 @@ model_provider = "nekocode"
 [model_providers.nekocode]
 name = "Nekocode Gateway"
 base_url = "https://gateway.nekocode.app/alpha/v1"
-env_key_api_key = "NEKOCODE_API_KEY"
+env_key = "NEKOCODE_API_KEY"
 wire_api = "responses"
 ```
 

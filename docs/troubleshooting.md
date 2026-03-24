@@ -206,7 +206,35 @@ curl .../v1/responses -d '{"model": "gpt-5.3-codex", "max_output_tokens": 4096, 
 
 ---
 
-## 13. GPT-5.1 — "max_tokens reached" при маленьком значении
+## 13. OpenCode + Codex — "Unknown parameter: reasoningSummary"
+
+**Проблема:** При использовании Codex моделей (gpt-5-codex, gpt-5.x-codex) через OpenCode возвращается ошибка `Unknown parameter: 'reasoningSummary'`.
+
+**Причина:** OpenCode добавляет параметры `reasoningSummary` и `reasoningEffort` для GPT-5 моделей, но через `@ai-sdk/openai-compatible` они отправляются как лишние поля в Chat Completions API.
+
+**Решение:** Используйте провайдер `@ai-sdk/openai` (не `@ai-sdk/openai-compatible`) с опциями `responsesApiSupported: true` и `store: false` для Codex моделей:
+
+```json
+"nekocode-codex": {
+  "npm": "@ai-sdk/openai",
+  "options": {
+    "apiKey": "sk_live_your_api_key",
+    "baseURL": "https://gateway.nekocode.app/alpha/v1"
+  },
+  "models": {
+    "gpt-5.3-codex": {
+      "name": "GPT-5.3 Codex",
+      "options": { "responsesApiSupported": true, "store": false }
+    }
+  }
+}
+```
+
+См. [docs/integrations/opencode.md](../integrations/opencode.md) для полного конфига.
+
+---
+
+## 14. GPT-5.1 — "max_tokens reached" при маленьком значении
 
 **Проблема:** `gpt-5.1` возвращает 400 с сообщением "Could not finish the message because max_tokens or model output limit was reached" при `max_tokens` < ~16.
 
@@ -430,6 +458,42 @@ curl .../v1/responses -d '{"model": "gpt-5.3-codex", "max_output_tokens": 4096, 
 **Problem:** Using GPT or Codex models on Spark channel returns 400/500 error.
 
 **Solution:** Spark supports **only Anthropic Claude models**. Use Alpha channel (`/alpha`) for GPT and Codex.
+
+---
+
+## 13. OpenCode + Codex — "Unknown parameter: reasoningSummary"
+
+**Problem:** When using Codex models (gpt-5-codex, gpt-5.x-codex) through OpenCode, returns error `Unknown parameter: 'reasoningSummary'`.
+
+**Cause:** OpenCode adds `reasoningSummary` and `reasoningEffort` params for GPT-5 models, but via `@ai-sdk/openai-compatible` they are sent as extra fields in Chat Completions API.
+
+**Solution:** Use `@ai-sdk/openai` provider (not `@ai-sdk/openai-compatible`) with `responsesApiSupported: true` and `store: false` options for Codex models:
+
+```json
+"nekocode-codex": {
+  "npm": "@ai-sdk/openai",
+  "options": {
+    "apiKey": "sk_live_your_api_key",
+    "baseURL": "https://gateway.nekocode.app/alpha/v1"
+  },
+  "models": {
+    "gpt-5.3-codex": {
+      "name": "GPT-5.3 Codex",
+      "options": { "responsesApiSupported": true, "store": false }
+    }
+  }
+}
+```
+
+See [docs/integrations/opencode.md](../integrations/opencode.md) for full config.
+
+---
+
+## 14. GPT-5.1 — "max_tokens reached" with small value
+
+**Problem:** `gpt-5.1` returns 400 with "Could not finish the message because max_tokens or model output limit was reached" when `max_tokens` < ~16.
+
+**Solution:** Set `max_tokens` >= 16 (recommended >= 100). Some models cannot generate a response in just 5 tokens.
 
 ---
 
