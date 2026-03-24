@@ -62,27 +62,27 @@ Nekocode offers two pricing channels appended to the gateway URL path:
 
 | Model | Input ($/M tok) | Output ($/M tok) | Cache Write ($/M tok) | Cache Read ($/M tok) | Speed (tok/s) | Latency |
 |-------|:---:|:---:|:---:|:---:|:---:|:---:|
-| `claude-opus-4-6` | 5 | 25 | 6.25 | 0.5 | 37.8 | 4.9s |
-| `claude-opus-4-6[1m]` | 5 | 25 | 6.25 | 0.5 | 38.3 | 5.2s |
-| `claude-sonnet-4-6` | 3 | 15 | 3.75 | 0.3 | 24.1 | 3.8s |
-| `claude-sonnet-4-6[1m]` | 3 | 15 | 3.75 | 0.3 | 9.6 | 9.3s |
-| `claude-haiku-4-5` | 1 | 5 | 1.25 | 0.1 | 74.5 | 2.7s |
-| `claude-sonnet-4-5` | 3 | 15 | 3.75 | 0.3 | 47.1 | 2.4s |
-| `claude-opus-4-5` | 5 | 25 | 6.25 | 0.5 | 43.4 | 2.0s |
+| `claude-opus-4-6` | 5 | 25 | 6.25 | 0.5 | 37.9 | 5.1s |
+| `claude-opus-4-6[1m]` | 5 | 25 | 6.25 | 0.5 | 39.7 | 4.8s |
+| `claude-sonnet-4-6` | 3 | 15 | 3.75 | 0.3 | 20.7 | 3.5s |
+| `claude-sonnet-4-6[1m]` | 3 | 15 | 3.75 | 0.3 | 23.1 | 8.5s |
+| `claude-haiku-4-5` | 1 | 5 | 1.25 | 0.1 | 60.7 | 2.9s |
+| `claude-sonnet-4-5` | 3 | 15 | 3.75 | 0.3 | 47.0 | 2.4s |
+| `claude-opus-4-5` | 5 | 25 | 6.25 | 0.5 | 48.6 | 3.4s |
 
 ### OpenAI Models (Alpha)
 
 | Model | Input ($/M tok) | Output ($/M tok) | Cache Write ($/M tok) | Cache Read ($/M tok) | Speed (tok/s) | Latency |
 |-------|:---:|:---:|:---:|:---:|:---:|:---:|
-| `gpt-5` | 1.07 | 8.5 | 0 | 0.11 | 55.2 | 4.4s |
-| `gpt-5-mini` | 0.25 | 2 | 0 | 0.03 | 77.5 | 19.2s |
+| `gpt-5` | 1.07 | 8.5 | 0 | 0.11 | - | - |
+| `gpt-5-mini` | 0.25 | 2 | 0 | 0.03 | 74.0 | 16.7s |
 | `gpt-5-codex` | 1.25 | 10 | 0 | 0.13 | - | - |
 | `gpt-5.1` | 1.25 | 10 | 0 | 0.13 | - | - |
 | `gpt-5.1-codex` | 1.25 | 10 | 0 | 0.13 | - | - |
 | `gpt-5.2` | 1.75 | 14 | 0 | 0.17 | - | - |
 | `gpt-5.2-codex` | 1.75 | 14 | 0 | 0.17 | - | - |
-| `gpt-5.3-codex` | 1.74 | 14 | 0 | 0.17 | 41.1 | 2.5s |
-| `gpt-5.4` | 2.5 | 15 | 0 | 0.25 | 50.4 | 21.3s |
+| `gpt-5.3-codex` | 1.74 | 14 | 0 | 0.17 | 37.5 | 2.3s |
+| `gpt-5.4` | 2.5 | 15 | 0 | 0.25 | 24.1 | 28.7s |
 
 ---
 
@@ -92,11 +92,11 @@ Spark channel supports Anthropic models only. The `[1m]` variants have different
 
 | Model | Input ($/M tok) | Output ($/M tok) | Cache Write ($/M tok) | Cache Read ($/M tok) | Speed (tok/s) | Latency |
 |-------|:---:|:---:|:---:|:---:|:---:|:---:|
-| `claude-opus-4-6` | 5 | 25 | 6.25 | 0.5 | 42.6 | 3.6s |
+| `claude-opus-4-6` | 5 | 25 | 6.25 | 0.5 | 32.7 | 3.9s |
 | `claude-opus-4-6[1m]` | 10 | 37.5 | 12.5 | 1 | 37.2 | 5.8s |
-| `claude-sonnet-4-6` | 3 | 15 | 3.75 | 0.3 | - | - |
-| `claude-sonnet-4-6[1m]` | 6 | 22.5 | 7.5 | 0.6 | 41.7 | 4.2s |
-| `claude-haiku-4-5` | 1 | 5 | 1.25 | 0.1 | 54.5 | 2.9s |
+| `claude-sonnet-4-6` | 3 | 15 | 3.75 | 0.3 | 36.5 | 3.1s |
+| `claude-sonnet-4-6[1m]` | 6 | 22.5 | 7.5 | 0.6 | 39.6 | 4.7s |
+| `claude-haiku-4-5` | 1 | 5 | 1.25 | 0.1 | 44.0 | 2.5s |
 | `claude-sonnet-4-5` | 3 | 15 | 3.75 | 0.3 | - | - |
 | `claude-opus-4-5` | 5 | 25 | 6.25 | 0.5 | - | - |
 
@@ -133,16 +133,19 @@ export OPENAI_BASE_URL="https://gateway.nekocode.app/alpha/v1"
 export OPENAI_API_KEY="sk_live_your_api_key"
 ```
 
-Or configure via `~/.codex/config.toml` with a custom provider:
+Or configure via `~/.config/codex/config.toml` with a custom provider:
 
 ```toml
-[provider.nekocode]
-name = "nekocode"
+model_provider = "nekocode"
+
+[model_providers.nekocode]
+name = "Nekocode Gateway"
 base_url = "https://gateway.nekocode.app/alpha/v1"
-api_key_env = "NEKOCODE_API_KEY"
+env_key_api_key = "NEKOCODE_API_KEY"
+wire_api = "responses"
 ```
 
-**To revert**: unset the environment variables (`unset OPENAI_BASE_URL OPENAI_API_KEY`) and remove the `[provider.nekocode]` section from `config.toml`.
+**To revert**: unset the environment variables (`unset OPENAI_BASE_URL OPENAI_API_KEY`) and remove the `[model_providers.nekocode]` section from `config.toml`.
 
 ---
 
@@ -158,7 +161,7 @@ Add a provider to `opencode.json`:
         "apiKey": "sk_live_your_api_key",
         "baseURL": "https://gateway.nekocode.app/alpha/v1",
         "headers": {
-          "anthropic-beta": "interleaved-thinking-2025-05-14"
+          "anthropic-beta": "claude-code-20250219,interleaved-thinking-2025-05-14,fine-grained-tool-streaming-2025-05-14,adaptive-thinking-2026-01-28"
         }
       }
     }

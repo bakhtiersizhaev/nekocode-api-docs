@@ -18,13 +18,13 @@
 
 | Модель | Полный ID | Input | Output | Cache Write | Cache Read | tok/s | Latency |
 |--------|-----------|-------|--------|-------------|------------|-------|---------|
-| Claude Opus 4.6 | `claude-opus-4-6` | $5.00 | $25.00 | $6.25 | $0.50 | 37.8 | 4.9s |
-| Claude Opus 4.6 [1M] | `claude-opus-4-6[1m]` | $5.00 | $25.00 | $6.25 | $0.50 | 38.3 | 5.2s |
-| Claude Sonnet 4.6 | `claude-sonnet-4-6` | $3.00 | $15.00 | $3.75 | $0.30 | 24.1 | 3.8s |
-| Claude Sonnet 4.6 [1M] | `claude-sonnet-4-6[1m]` | $3.00 | $15.00 | $3.75 | $0.30 | 9.6 | 9.3s |
-| Claude Haiku 4.5 | `claude-haiku-4-5-20251001` | $1.00 | $5.00 | $1.25 | $0.10 | 74.5 | 2.7s |
-| Claude Sonnet 4.5 | `claude-sonnet-4-5-20250929` | $3.00 | $15.00 | $3.75 | $0.30 | 47.1 | 2.4s |
-| Claude Opus 4.5 | `claude-opus-4-5-20251101` | $5.00 | $25.00 | $6.25 | $0.50 | 43.4 | 2.0s |
+| Claude Opus 4.6 | `claude-opus-4-6` | $5.00 | $25.00 | $6.25 | $0.50 | 37.9 | 5.1s |
+| Claude Opus 4.6 [1M] | `claude-opus-4-6[1m]` | $5.00 | $25.00 | $6.25 | $0.50 | 39.7 | 4.8s |
+| Claude Sonnet 4.6 | `claude-sonnet-4-6` | $3.00 | $15.00 | $3.75 | $0.30 | 20.7 | 3.5s |
+| Claude Sonnet 4.6 [1M] | `claude-sonnet-4-6[1m]` | $3.00 | $15.00 | $3.75 | $0.30 | 23.1 | 8.5s |
+| Claude Haiku 4.5 | `claude-haiku-4-5-20251001` | $1.00 | $5.00 | $1.25 | $0.10 | 60.7 | 2.9s |
+| Claude Sonnet 4.5 | `claude-sonnet-4-5-20250929` | $3.00 | $15.00 | $3.75 | $0.30 | 47.0 | 2.4s |
+| Claude Opus 4.5 | `claude-opus-4-5-20251101` | $5.00 | $25.00 | $6.25 | $0.50 | 48.6 | 3.4s |
 
 ### Алиасы (Alpha)
 
@@ -40,11 +40,11 @@
 
 | Модель | Полный ID | Input | Output | Cache Write | Cache Read | tok/s | Latency |
 |--------|-----------|-------|--------|-------------|------------|-------|---------|
-| Claude Opus 4.6 | `claude-opus-4-6` | $5.00 | $25.00 | $6.25 | $0.50 | 42.6 | 3.6s |
+| Claude Opus 4.6 | `claude-opus-4-6` | $5.00 | $25.00 | $6.25 | $0.50 | 32.7 | 3.9s |
 | Claude Opus 4.6 [1M] | `claude-opus-4-6[1m]` | $10.00 | $37.50 | $12.50 | $1.00 | 37.2 | 5.8s |
-| Claude Sonnet 4.6 | `claude-sonnet-4-6` | $3.00 | $15.00 | $3.75 | $0.30 | — | — |
-| Claude Sonnet 4.6 [1M] | `claude-sonnet-4-6[1m]` | $6.00 | $22.50 | $7.50 | $0.60 | 41.7 | 4.2s |
-| Claude Haiku 4.5 | `claude-haiku-4-5` | $1.00 | $5.00 | $1.25 | $0.10 | 54.5 | 2.9s |
+| Claude Sonnet 4.6 | `claude-sonnet-4-6` | $3.00 | $15.00 | $3.75 | $0.30 | 36.5 | 3.1s |
+| Claude Sonnet 4.6 [1M] | `claude-sonnet-4-6[1m]` | $6.00 | $22.50 | $7.50 | $0.60 | 39.6 | 4.7s |
+| Claude Haiku 4.5 | `claude-haiku-4-5` | $1.00 | $5.00 | $1.25 | $0.10 | 44.0 | 2.5s |
 | Claude Sonnet 4.5 | `claude-sonnet-4-5` | $3.00 | $15.00 | $3.75 | $0.30 | — | — |
 | Claude Opus 4.5 | `claude-opus-4-5` | $5.00 | $25.00 | $6.25 | $0.50 | — | — |
 
@@ -83,13 +83,13 @@ The most cost-effective channel. All prices in USD per 1M tokens.
 
 | Model | Full ID | Input | Output | Cache Write | Cache Read | tok/s | Latency |
 |-------|---------|-------|--------|-------------|------------|-------|---------|
-| Claude Opus 4.6 | `claude-opus-4-6` | $5.00 | $25.00 | $6.25 | $0.50 | 37.8 | 4.9s |
-| Claude Opus 4.6 [1M] | `claude-opus-4-6[1m]` | $5.00 | $25.00 | $6.25 | $0.50 | 38.3 | 5.2s |
-| Claude Sonnet 4.6 | `claude-sonnet-4-6` | $3.00 | $15.00 | $3.75 | $0.30 | 24.1 | 3.8s |
-| Claude Sonnet 4.6 [1M] | `claude-sonnet-4-6[1m]` | $3.00 | $15.00 | $3.75 | $0.30 | 9.6 | 9.3s |
-| Claude Haiku 4.5 | `claude-haiku-4-5-20251001` | $1.00 | $5.00 | $1.25 | $0.10 | 74.5 | 2.7s |
-| Claude Sonnet 4.5 | `claude-sonnet-4-5-20250929` | $3.00 | $15.00 | $3.75 | $0.30 | 47.1 | 2.4s |
-| Claude Opus 4.5 | `claude-opus-4-5-20251101` | $5.00 | $25.00 | $6.25 | $0.50 | 43.4 | 2.0s |
+| Claude Opus 4.6 | `claude-opus-4-6` | $5.00 | $25.00 | $6.25 | $0.50 | 37.9 | 5.1s |
+| Claude Opus 4.6 [1M] | `claude-opus-4-6[1m]` | $5.00 | $25.00 | $6.25 | $0.50 | 39.7 | 4.8s |
+| Claude Sonnet 4.6 | `claude-sonnet-4-6` | $3.00 | $15.00 | $3.75 | $0.30 | 20.7 | 3.5s |
+| Claude Sonnet 4.6 [1M] | `claude-sonnet-4-6[1m]` | $3.00 | $15.00 | $3.75 | $0.30 | 23.1 | 8.5s |
+| Claude Haiku 4.5 | `claude-haiku-4-5-20251001` | $1.00 | $5.00 | $1.25 | $0.10 | 60.7 | 2.9s |
+| Claude Sonnet 4.5 | `claude-sonnet-4-5-20250929` | $3.00 | $15.00 | $3.75 | $0.30 | 47.0 | 2.4s |
+| Claude Opus 4.5 | `claude-opus-4-5-20251101` | $5.00 | $25.00 | $6.25 | $0.50 | 48.6 | 3.4s |
 
 ### Aliases (Alpha)
 
@@ -105,11 +105,11 @@ Channel with full 1M token context support. Models with the `[1m]` suffix have d
 
 | Model | Full ID | Input | Output | Cache Write | Cache Read | tok/s | Latency |
 |-------|---------|-------|--------|-------------|------------|-------|---------|
-| Claude Opus 4.6 | `claude-opus-4-6` | $5.00 | $25.00 | $6.25 | $0.50 | 42.6 | 3.6s |
+| Claude Opus 4.6 | `claude-opus-4-6` | $5.00 | $25.00 | $6.25 | $0.50 | 32.7 | 3.9s |
 | Claude Opus 4.6 [1M] | `claude-opus-4-6[1m]` | $10.00 | $37.50 | $12.50 | $1.00 | 37.2 | 5.8s |
-| Claude Sonnet 4.6 | `claude-sonnet-4-6` | $3.00 | $15.00 | $3.75 | $0.30 | — | — |
-| Claude Sonnet 4.6 [1M] | `claude-sonnet-4-6[1m]` | $6.00 | $22.50 | $7.50 | $0.60 | 41.7 | 4.2s |
-| Claude Haiku 4.5 | `claude-haiku-4-5` | $1.00 | $5.00 | $1.25 | $0.10 | 54.5 | 2.9s |
+| Claude Sonnet 4.6 | `claude-sonnet-4-6` | $3.00 | $15.00 | $3.75 | $0.30 | 36.5 | 3.1s |
+| Claude Sonnet 4.6 [1M] | `claude-sonnet-4-6[1m]` | $6.00 | $22.50 | $7.50 | $0.60 | 39.6 | 4.7s |
+| Claude Haiku 4.5 | `claude-haiku-4-5` | $1.00 | $5.00 | $1.25 | $0.10 | 44.0 | 2.5s |
 | Claude Sonnet 4.5 | `claude-sonnet-4-5` | $3.00 | $15.00 | $3.75 | $0.30 | — | — |
 | Claude Opus 4.5 | `claude-opus-4-5` | $5.00 | $25.00 | $6.25 | $0.50 | — | — |
 

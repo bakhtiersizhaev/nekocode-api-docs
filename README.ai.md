@@ -43,10 +43,11 @@ Three distinct API endpoints per channel:
 | OpenAI Responses | `/{channel}/v1/responses` | `Authorization: Bearer sk_live_...` | gpt-5-codex, gpt-5.1-codex, gpt-5.2-codex, gpt-5.3-codex | OpenAI Responses API |
 
 CRITICAL:
+- Claude models: use `/v1/messages` (Anthropic Messages API). This is the primary and recommended endpoint.
+- Regular GPT models (gpt-5, gpt-5-mini, gpt-5.1, gpt-5.2, gpt-5.4): use `/v1/chat/completions`.
 - Codex models ONLY work via `/v1/responses`. Using `/v1/chat/completions` returns `model_not_found`.
 - `max_output_tokens` for Codex must be >= 16.
-- GPT and Codex models available ONLY on Alpha channel. Spark returns 400/500.
-- Claude models work via ALL three endpoints (Messages API recommended).
+- GPT and Codex models available ONLY on Alpha channel. Spark returns 400 "model not available on this channel".
 
 ## CHANNELS
 
@@ -65,27 +66,27 @@ Prices: USD per 1M tokens. Alpha channel (x0.3 multiplier).
 
 | Model | ID | Input | Output | Cache Write | Cache Read | tok/s | Latency |
 |-------|----|-------|--------|-------------|------------|-------|---------|
-| Claude Opus 4.6 | `claude-opus-4-6` | $5.00 | $25.00 | $6.25 | $0.50 | 37.8 | 4.9s |
-| Claude Opus 4.6 [1M] | `claude-opus-4-6[1m]` | $5.00 | $25.00 | $6.25 | $0.50 | 38.3 | 5.2s |
-| Claude Sonnet 4.6 | `claude-sonnet-4-6` | $3.00 | $15.00 | $3.75 | $0.30 | 24.1 | 3.8s |
-| Claude Sonnet 4.6 [1M] | `claude-sonnet-4-6[1m]` | $3.00 | $15.00 | $3.75 | $0.30 | 9.6 | 9.3s |
-| Claude Haiku 4.5 | `claude-haiku-4-5` | $1.00 | $5.00 | $1.25 | $0.10 | 74.5 | 2.7s |
-| Claude Sonnet 4.5 | `claude-sonnet-4-5` | $3.00 | $15.00 | $3.75 | $0.30 | 47.1 | 2.4s |
-| Claude Opus 4.5 | `claude-opus-4-5` | $5.00 | $25.00 | $6.25 | $0.50 | 43.4 | 2.0s |
+| Claude Opus 4.6 | `claude-opus-4-6` | $5.00 | $25.00 | $6.25 | $0.50 | 37.9 | 5.1s |
+| Claude Opus 4.6 [1M] | `claude-opus-4-6[1m]` | $5.00 | $25.00 | $6.25 | $0.50 | 39.7 | 4.8s |
+| Claude Sonnet 4.6 | `claude-sonnet-4-6` | $3.00 | $15.00 | $3.75 | $0.30 | 20.7 | 3.5s |
+| Claude Sonnet 4.6 [1M] | `claude-sonnet-4-6[1m]` | $3.00 | $15.00 | $3.75 | $0.30 | 23.1 | 8.5s |
+| Claude Haiku 4.5 | `claude-haiku-4-5` | $1.00 | $5.00 | $1.25 | $0.10 | 60.7 | 2.9s |
+| Claude Sonnet 4.5 | `claude-sonnet-4-5` | $3.00 | $15.00 | $3.75 | $0.30 | 47.0 | 2.4s |
+| Claude Opus 4.5 | `claude-opus-4-5` | $5.00 | $25.00 | $6.25 | $0.50 | 48.6 | 3.4s |
 
 ### OpenAI GPT
 
 | Model | ID | Input | Output | Cache Write | Cache Read | tok/s | Latency |
 |-------|----|-------|--------|-------------|------------|-------|---------|
-| GPT-5 | `gpt-5` | $1.07 | $8.50 | $0 | $0.11 | 55.2 | 4.4s |
-| GPT-5 Mini | `gpt-5-mini` | $0.25 | $2.00 | $0 | $0.03 | 77.5 | 19.2s |
+| GPT-5 | `gpt-5` | $1.07 | $8.50 | $0 | $0.11 | — | — |
+| GPT-5 Mini | `gpt-5-mini` | $0.25 | $2.00 | $0 | $0.03 | 74.0 | 16.7s |
 | GPT-5 Codex | `gpt-5-codex` | $1.25 | $10.00 | $0 | $0.13 | — | — |
 | GPT-5.1 | `gpt-5.1` | $1.25 | $10.00 | $0 | $0.13 | — | — |
 | GPT-5.1 Codex | `gpt-5.1-codex` | $1.25 | $10.00 | $0 | $0.13 | — | — |
 | GPT-5.2 | `gpt-5.2` | $1.75 | $14.00 | $0 | $0.17 | — | — |
 | GPT-5.2 Codex | `gpt-5.2-codex` | $1.75 | $14.00 | $0 | $0.17 | — | — |
-| GPT-5.3 Codex | `gpt-5.3-codex` | $1.74 | $14.00 | $0 | $0.17 | 41.1 | 2.5s |
-| GPT-5.4 | `gpt-5.4` | $2.50 | $15.00 | $0 | $0.25 | 50.4 | 21.3s |
+| GPT-5.3 Codex | `gpt-5.3-codex` | $1.74 | $14.00 | $0 | $0.17 | 37.5 | 2.3s |
+| GPT-5.4 | `gpt-5.4` | $2.50 | $15.00 | $0 | $0.25 | 24.1 | 28.7s |
 
 OpenAI Cache Write is always $0. Caching is automatic on OpenAI side.
 
@@ -95,11 +96,11 @@ Spark channel (x1 multiplier). Anthropic Claude only. `[1m]` variants = x2 price
 
 | Model | ID | Input | Output | Cache Write | Cache Read | tok/s | Latency |
 |-------|----|-------|--------|-------------|------------|-------|---------|
-| Claude Opus 4.6 | `claude-opus-4-6` | $5.00 | $25.00 | $6.25 | $0.50 | 42.6 | 3.6s |
+| Claude Opus 4.6 | `claude-opus-4-6` | $5.00 | $25.00 | $6.25 | $0.50 | 32.7 | 3.9s |
 | Claude Opus 4.6 [1M] | `claude-opus-4-6[1m]` | $10.00 | $37.50 | $12.50 | $1.00 | 37.2 | 5.8s |
-| Claude Sonnet 4.6 | `claude-sonnet-4-6` | $3.00 | $15.00 | $3.75 | $0.30 | — | — |
-| Claude Sonnet 4.6 [1M] | `claude-sonnet-4-6[1m]` | $6.00 | $22.50 | $7.50 | $0.60 | 41.7 | 4.2s |
-| Claude Haiku 4.5 | `claude-haiku-4-5` | $1.00 | $5.00 | $1.25 | $0.10 | 54.5 | 2.9s |
+| Claude Sonnet 4.6 | `claude-sonnet-4-6` | $3.00 | $15.00 | $3.75 | $0.30 | 36.5 | 3.1s |
+| Claude Sonnet 4.6 [1M] | `claude-sonnet-4-6[1m]` | $6.00 | $22.50 | $7.50 | $0.60 | 39.6 | 4.7s |
+| Claude Haiku 4.5 | `claude-haiku-4-5` | $1.00 | $5.00 | $1.25 | $0.10 | 44.0 | 2.5s |
 | Claude Sonnet 4.5 | `claude-sonnet-4-5` | $3.00 | $15.00 | $3.75 | $0.30 | — | — |
 | Claude Opus 4.5 | `claude-opus-4-5` | $5.00 | $25.00 | $6.25 | $0.50 | — | — |
 

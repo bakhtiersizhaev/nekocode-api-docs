@@ -67,7 +67,7 @@ curl https://ru.gateway.nekocode.app/alpha/v1/messages \
   -H "x-api-key: sk_live_YOUR_KEY_HERE" \
   -H "anthropic-version: 2023-06-01" \
   -d '{
-    "model": "claude-sonnet-4-20250514",
+    "model": "claude-sonnet-4-6",
     "max_tokens": 256,
     "messages": [
       {"role": "user", "content": "Привет! Скажи одно предложение."}
@@ -83,7 +83,7 @@ curl https://ru.gateway.nekocode.app/spark/v1/messages \
   -H "x-api-key: sk_live_YOUR_KEY_HERE" \
   -H "anthropic-version: 2023-06-01" \
   -d '{
-    "model": "claude-sonnet-4-20250514",
+    "model": "claude-sonnet-4-6",
     "max_tokens": 256,
     "messages": [
       {"role": "user", "content": "Hello! Say one sentence."}
@@ -172,7 +172,7 @@ curl https://gateway.nekocode.app/alpha/v1/messages \
   -H "x-api-key: sk_live_YOUR_KEY_HERE" \
   -H "anthropic-version: 2023-06-01" \
   -d '{
-    "model": "claude-sonnet-4-20250514",
+    "model": "claude-sonnet-4-6",
     "max_tokens": 256,
     "messages": [
       {"role": "user", "content": "Hello! Say one sentence."}
@@ -188,7 +188,7 @@ curl https://gateway.nekocode.app/spark/v1/messages \
   -H "x-api-key: sk_live_YOUR_KEY_HERE" \
   -H "anthropic-version: 2023-06-01" \
   -d '{
-    "model": "claude-sonnet-4-20250514",
+    "model": "claude-sonnet-4-6",
     "max_tokens": 256,
     "messages": [
       {"role": "user", "content": "Hello! Say one sentence."}

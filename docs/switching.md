@@ -98,11 +98,16 @@ export OPENAI_API_KEY="sk_live_ВАШ_КЛЮЧ"
 Вариант B — через `config.toml`:
 
 ```toml
-[provider]
-name = "nekocode"
-base_url = "https://gateway.nekocode.app/alpha"
-api_key = "sk_live_ВАШ_КЛЮЧ"
+model_provider = "nekocode"
+
+[model_providers.nekocode]
+name = "Nekocode Gateway"
+base_url = "https://gateway.nekocode.app/alpha/v1"
+env_key_api_key = "NEKOCODE_API_KEY"
+wire_api = "responses"
 ```
+
+Затем: `export NEKOCODE_API_KEY="sk_live_ВАШ_КЛЮЧ"` и `codex --provider nekocode`
 
 ### Как переключить gateway
 
@@ -119,7 +124,7 @@ export OPENAI_BASE_URL="https://gateway.nekocode.app/spark"
 ### Как выбрать модель
 
 ```bash
-codex --model claude-sonnet-4-20250514
+codex --model claude-sonnet-4-6
 ```
 
 ### Как вернуть стандартную подписку (REVERT)
@@ -333,7 +338,7 @@ export ANTHROPIC_API_BASE="https://gateway.nekocode.app/spark"
 ### Как выбрать модель
 
 ```bash
-aider --model claude-sonnet-4-20250514
+aider --model claude-sonnet-4-6
 ```
 
 ### Как вернуть стандартную подписку (REVERT)
@@ -405,7 +410,7 @@ aider --version
     {
       "title": "Nekocode Claude",
       "provider": "anthropic",
-      "model": "claude-sonnet-4-20250514",
+      "model": "claude-sonnet-4-6",
       "apiBase": "https://gateway.nekocode.app/alpha",
       "apiKey": "sk_live_ВАШ_КЛЮЧ"
     }
@@ -430,7 +435,7 @@ aider --version
 Измените поле `model`:
 
 ```json
-"model": "claude-sonnet-4-20250514"
+"model": "claude-sonnet-4-6"
 ```
 
 ### Как вернуть стандартную подписку (REVERT)
@@ -443,7 +448,7 @@ aider --version
     {
       "title": "Claude",
       "provider": "anthropic",
-      "model": "claude-sonnet-4-20250514",
+      "model": "claude-sonnet-4-6",
       "apiKey": "ВАШ_КЛЮЧ_ANTHROPIC"
     }
   ]
@@ -471,7 +476,7 @@ client = anthropic.Anthropic(
 )
 
 response = client.messages.create(
-    model="claude-sonnet-4-20250514",
+    model="claude-sonnet-4-6",
     max_tokens=1024,
     messages=[{"role": "user", "content": "Привет!"}]
 )
@@ -488,7 +493,7 @@ const client = new Anthropic({
 });
 
 const response = await client.messages.create({
-  model: "claude-sonnet-4-20250514",
+  model: "claude-sonnet-4-6",
   max_tokens: 1024,
   messages: [{ role: "user", content: "Привет!" }],
 });
@@ -511,7 +516,7 @@ base_url="https://gateway.nekocode.app/spark"
 Измените параметр `model`:
 
 ```python
-model="claude-sonnet-4-20250514"
+model="claude-sonnet-4-6"
 ```
 
 ### Как вернуть стандартную подписку (REVERT)
@@ -536,7 +541,7 @@ SDK вернётся к стандартному `api.anthropic.com`.
 
 ```python
 response = client.messages.create(
-    model="claude-sonnet-4-20250514",
+    model="claude-sonnet-4-6",
     max_tokens=128,
     messages=[{"role": "user", "content": "ping"}]
 )
@@ -562,7 +567,7 @@ curl -X POST "${ANTHROPIC_BASE_URL}/v1/messages" \
   -H "x-api-key: ${ANTHROPIC_API_KEY}" \
   -H "anthropic-version: 2023-06-01" \
   -d '{
-    "model": "claude-sonnet-4-20250514",
+    "model": "claude-sonnet-4-6",
     "max_tokens": 1024,
     "messages": [{"role": "user", "content": "Привет!"}]
   }'
@@ -605,7 +610,7 @@ curl -s "${ANTHROPIC_BASE_URL}/v1/messages" \
   -H "x-api-key: ${ANTHROPIC_API_KEY}" \
   -H "anthropic-version: 2023-06-01" \
   -H "Content-Type: application/json" \
-  -d '{"model":"claude-sonnet-4-20250514","max_tokens":64,"messages":[{"role":"user","content":"ping"}]}' | head -c 200
+  -d '{"model":"claude-sonnet-4-6","max_tokens":64,"messages":[{"role":"user","content":"ping"}]}' | head -c 200
 ```
 
 ---
@@ -712,11 +717,16 @@ export OPENAI_API_KEY="sk_live_YOUR_KEY"
 Option B — via `config.toml`:
 
 ```toml
-[provider]
-name = "nekocode"
-base_url = "https://gateway.nekocode.app/alpha"
-api_key = "sk_live_YOUR_KEY"
+model_provider = "nekocode"
+
+[model_providers.nekocode]
+name = "Nekocode Gateway"
+base_url = "https://gateway.nekocode.app/alpha/v1"
+env_key_api_key = "NEKOCODE_API_KEY"
+wire_api = "responses"
 ```
+
+Then: `export NEKOCODE_API_KEY="sk_live_YOUR_KEY"` and `codex --provider nekocode`
 
 ### How to switch gateway
 
@@ -733,7 +743,7 @@ export OPENAI_BASE_URL="https://gateway.nekocode.app/spark"
 ### How to choose a model
 
 ```bash
-codex --model claude-sonnet-4-20250514
+codex --model claude-sonnet-4-6
 ```
 
 ### How to revert to standard subscription (REVERT)
@@ -947,7 +957,7 @@ export ANTHROPIC_API_BASE="https://gateway.nekocode.app/spark"
 ### How to choose a model
 
 ```bash
-aider --model claude-sonnet-4-20250514
+aider --model claude-sonnet-4-6
 ```
 
 ### How to revert to standard subscription (REVERT)
@@ -1019,7 +1029,7 @@ Edit `config.json`:
     {
       "title": "Nekocode Claude",
       "provider": "anthropic",
-      "model": "claude-sonnet-4-20250514",
+      "model": "claude-sonnet-4-6",
       "apiBase": "https://gateway.nekocode.app/alpha",
       "apiKey": "sk_live_YOUR_KEY"
     }
@@ -1044,7 +1054,7 @@ Edit `config.json`:
 Change the `model` field:
 
 ```json
-"model": "claude-sonnet-4-20250514"
+"model": "claude-sonnet-4-6"
 ```
 
 ### How to revert to standard subscription (REVERT)
@@ -1057,7 +1067,7 @@ Remove the Nekocode model from the `models` array in `config.json` or replace it
     {
       "title": "Claude",
       "provider": "anthropic",
-      "model": "claude-sonnet-4-20250514",
+      "model": "claude-sonnet-4-6",
       "apiKey": "YOUR_ANTHROPIC_KEY"
     }
   ]
@@ -1085,7 +1095,7 @@ client = anthropic.Anthropic(
 )
 
 response = client.messages.create(
-    model="claude-sonnet-4-20250514",
+    model="claude-sonnet-4-6",
     max_tokens=1024,
     messages=[{"role": "user", "content": "Hello!"}]
 )
@@ -1102,7 +1112,7 @@ const client = new Anthropic({
 });
 
 const response = await client.messages.create({
-  model: "claude-sonnet-4-20250514",
+  model: "claude-sonnet-4-6",
   max_tokens: 1024,
   messages: [{ role: "user", content: "Hello!" }],
 });
@@ -1125,7 +1135,7 @@ base_url="https://gateway.nekocode.app/spark"
 Change the `model` parameter:
 
 ```python
-model="claude-sonnet-4-20250514"
+model="claude-sonnet-4-6"
 ```
 
 ### How to revert to standard subscription (REVERT)
@@ -1150,7 +1160,7 @@ The SDK will revert to the standard `api.anthropic.com`.
 
 ```python
 response = client.messages.create(
-    model="claude-sonnet-4-20250514",
+    model="claude-sonnet-4-6",
     max_tokens=128,
     messages=[{"role": "user", "content": "ping"}]
 )
@@ -1176,7 +1186,7 @@ curl -X POST "${ANTHROPIC_BASE_URL}/v1/messages" \
   -H "x-api-key: ${ANTHROPIC_API_KEY}" \
   -H "anthropic-version: 2023-06-01" \
   -d '{
-    "model": "claude-sonnet-4-20250514",
+    "model": "claude-sonnet-4-6",
     "max_tokens": 1024,
     "messages": [{"role": "user", "content": "Hello!"}]
   }'
@@ -1219,5 +1229,5 @@ curl -s "${ANTHROPIC_BASE_URL}/v1/messages" \
   -H "x-api-key: ${ANTHROPIC_API_KEY}" \
   -H "anthropic-version: 2023-06-01" \
   -H "Content-Type: application/json" \
-  -d '{"model":"claude-sonnet-4-20250514","max_tokens":64,"messages":[{"role":"user","content":"ping"}]}' | head -c 200
+  -d '{"model":"claude-sonnet-4-6","max_tokens":64,"messages":[{"role":"user","content":"ping"}]}' | head -c 200
 ```

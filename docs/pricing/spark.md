@@ -13,18 +13,20 @@
 
 ## Ценообразование [1m] вариантов
 
-Варианты с суффиксом **[1m]** имеют **удвоенную стоимость** (x2) по всем категориям (Input, Output, Cache Write, Cache Read) по сравнению с базовой моделью. Это плата за расширенное контекстное окно.
+Варианты с суффиксом **[1m]** имеют повышенную стоимость по сравнению с базовой моделью. Множители различаются по категориям:
 
-**Формула:**
-```
-Цена [1m] = Цена базовой модели × 2
-```
+| Категория | Множитель [1m] |
+|-----------|---------------|
+| Input | **x2** |
+| Output | **x1.5** |
+| Cache Write | **x2** |
+| Cache Read | **x2** |
 
 **Пример (Claude Opus 4.6):**
-- Базовая: Input $5.00 → [1m]: Input $10.00
-- Базовая: Output $25.00 → [1m]: Output $37.50
-- Базовая: Cache Write $6.25 → [1m]: Cache Write $12.50
-- Базовая: Cache Read $0.50 → [1m]: Cache Read $1.00
+- Input: $5.00 → $10.00 (x2)
+- Output: $25.00 → $37.50 (x1.5)
+- Cache Write: $6.25 → $12.50 (x2)
+- Cache Read: $0.50 → $1.00 (x2)
 
 ## Полная таблица цен
 
@@ -32,11 +34,11 @@
 
 | Модель | ID | Input | Output | Cache Write | Cache Read | tok/s | Latency |
 |--------|----|-------|--------|-------------|------------|-------|---------|
-| Claude Opus 4.6 | `claude-opus-4-6` | $5.00 | $25.00 | $6.25 | $0.50 | 42.6 | 3.6s |
+| Claude Opus 4.6 | `claude-opus-4-6` | $5.00 | $25.00 | $6.25 | $0.50 | 32.7 | 3.9s |
 | Claude Opus 4.6 [1M] | `claude-opus-4-6[1m]` | $10.00 | $37.50 | $12.50 | $1.00 | 37.2 | 5.8s |
-| Claude Sonnet 4.6 | `claude-sonnet-4-6` | $3.00 | $15.00 | $3.75 | $0.30 | — | — |
-| Claude Sonnet 4.6 [1M] | `claude-sonnet-4-6[1m]` | $6.00 | $22.50 | $7.50 | $0.60 | 41.7 | 4.2s |
-| Claude Haiku 4.5 | `claude-haiku-4-5` | $1.00 | $5.00 | $1.25 | $0.10 | 54.5 | 2.9s |
+| Claude Sonnet 4.6 | `claude-sonnet-4-6` | $3.00 | $15.00 | $3.75 | $0.30 | 36.5 | 3.1s |
+| Claude Sonnet 4.6 [1M] | `claude-sonnet-4-6[1m]` | $6.00 | $22.50 | $7.50 | $0.60 | 39.6 | 4.7s |
+| Claude Haiku 4.5 | `claude-haiku-4-5` | $1.00 | $5.00 | $1.25 | $0.10 | 44.0 | 2.5s |
 | Claude Sonnet 4.5 | `claude-sonnet-4-5` | $3.00 | $15.00 | $3.75 | $0.30 | — | — |
 | Claude Opus 4.5 | `claude-opus-4-5` | $5.00 | $25.00 | $6.25 | $0.50 | — | — |
 
@@ -102,18 +104,20 @@
 
 ## [1m] Variant Pricing
 
-Variants with the **[1m]** suffix have **doubled pricing** (x2) across all categories (Input, Output, Cache Write, Cache Read) compared to the base model. This is the cost of the extended context window.
+Variants with the **[1m]** suffix have increased pricing compared to the base model. Multipliers differ by category:
 
-**Formula:**
-```
-[1m] price = Base model price × 2
-```
+| Category | [1m] Multiplier |
+|----------|----------------|
+| Input | **x2** |
+| Output | **x1.5** |
+| Cache Write | **x2** |
+| Cache Read | **x2** |
 
 **Example (Claude Opus 4.6):**
-- Base: Input $5.00 → [1m]: Input $10.00
-- Base: Output $25.00 → [1m]: Output $37.50
-- Base: Cache Write $6.25 → [1m]: Cache Write $12.50
-- Base: Cache Read $0.50 → [1m]: Cache Read $1.00
+- Input: $5.00 → $10.00 (x2)
+- Output: $25.00 → $37.50 (x1.5)
+- Cache Write: $6.25 → $12.50 (x2)
+- Cache Read: $0.50 → $1.00 (x2)
 
 ## Full Pricing Table
 
@@ -121,11 +125,11 @@ All prices in USD per 1M tokens.
 
 | Model | ID | Input | Output | Cache Write | Cache Read | tok/s | Latency |
 |-------|----|-------|--------|-------------|------------|-------|---------|
-| Claude Opus 4.6 | `claude-opus-4-6` | $5.00 | $25.00 | $6.25 | $0.50 | 42.6 | 3.6s |
+| Claude Opus 4.6 | `claude-opus-4-6` | $5.00 | $25.00 | $6.25 | $0.50 | 32.7 | 3.9s |
 | Claude Opus 4.6 [1M] | `claude-opus-4-6[1m]` | $10.00 | $37.50 | $12.50 | $1.00 | 37.2 | 5.8s |
-| Claude Sonnet 4.6 | `claude-sonnet-4-6` | $3.00 | $15.00 | $3.75 | $0.30 | — | — |
-| Claude Sonnet 4.6 [1M] | `claude-sonnet-4-6[1m]` | $6.00 | $22.50 | $7.50 | $0.60 | 41.7 | 4.2s |
-| Claude Haiku 4.5 | `claude-haiku-4-5` | $1.00 | $5.00 | $1.25 | $0.10 | 54.5 | 2.9s |
+| Claude Sonnet 4.6 | `claude-sonnet-4-6` | $3.00 | $15.00 | $3.75 | $0.30 | 36.5 | 3.1s |
+| Claude Sonnet 4.6 [1M] | `claude-sonnet-4-6[1m]` | $6.00 | $22.50 | $7.50 | $0.60 | 39.6 | 4.7s |
+| Claude Haiku 4.5 | `claude-haiku-4-5` | $1.00 | $5.00 | $1.25 | $0.10 | 44.0 | 2.5s |
 | Claude Sonnet 4.5 | `claude-sonnet-4-5` | $3.00 | $15.00 | $3.75 | $0.30 | — | — |
 | Claude Opus 4.5 | `claude-opus-4-5` | $5.00 | $25.00 | $6.25 | $0.50 | — | — |
 

@@ -60,27 +60,27 @@
 
 | Модель | ID | Input | Output | Cache Write | Cache Read | tok/s | Latency |
 |--------|----|-------|--------|-------------|------------|-------|---------|
-| Claude Opus 4.6 | `claude-opus-4-6` | $5.00 | $25.00 | $6.25 | $0.50 | 37.8 | 4.9s |
-| Claude Opus 4.6 [1M] | `claude-opus-4-6[1m]` | $5.00 | $25.00 | $6.25 | $0.50 | 38.3 | 5.2s |
-| Claude Sonnet 4.6 | `claude-sonnet-4-6` | $3.00 | $15.00 | $3.75 | $0.30 | 24.1 | 3.8s |
-| Claude Sonnet 4.6 [1M] | `claude-sonnet-4-6[1m]` | $3.00 | $15.00 | $3.75 | $0.30 | 9.6 | 9.3s |
-| Claude Haiku 4.5 | `claude-haiku-4-5` | $1.00 | $5.00 | $1.25 | $0.10 | 74.5 | 2.7s |
-| Claude Sonnet 4.5 | `claude-sonnet-4-5` | $3.00 | $15.00 | $3.75 | $0.30 | 47.1 | 2.4s |
-| Claude Opus 4.5 | `claude-opus-4-5` | $5.00 | $25.00 | $6.25 | $0.50 | 43.4 | 2.0s |
+| Claude Opus 4.6 | `claude-opus-4-6` | $5.00 | $25.00 | $6.25 | $0.50 | 37.9 | 5.1s |
+| Claude Opus 4.6 [1M] | `claude-opus-4-6[1m]` | $5.00 | $25.00 | $6.25 | $0.50 | 39.7 | 4.8s |
+| Claude Sonnet 4.6 | `claude-sonnet-4-6` | $3.00 | $15.00 | $3.75 | $0.30 | 20.7 | 3.5s |
+| Claude Sonnet 4.6 [1M] | `claude-sonnet-4-6[1m]` | $3.00 | $15.00 | $3.75 | $0.30 | 23.1 | 8.5s |
+| Claude Haiku 4.5 | `claude-haiku-4-5` | $1.00 | $5.00 | $1.25 | $0.10 | 60.7 | 2.9s |
+| Claude Sonnet 4.5 | `claude-sonnet-4-5` | $3.00 | $15.00 | $3.75 | $0.30 | 47.0 | 2.4s |
+| Claude Opus 4.5 | `claude-opus-4-5` | $5.00 | $25.00 | $6.25 | $0.50 | 48.6 | 3.4s |
 
 ### OpenAI GPT (Alpha, x0.3)
 
 | Модель | ID | Input | Output | Cache Write | Cache Read | tok/s | Latency |
 |--------|----|-------|--------|-------------|------------|-------|---------|
-| GPT-5 | `gpt-5` | $1.07 | $8.50 | $0 | $0.11 | 55.2 | 4.4s |
-| GPT-5 Mini | `gpt-5-mini` | $0.25 | $2.00 | $0 | $0.03 | 77.5 | 19.2s |
+| GPT-5 | `gpt-5` | $1.07 | $8.50 | $0 | $0.11 | — | — |
+| GPT-5 Mini | `gpt-5-mini` | $0.25 | $2.00 | $0 | $0.03 | 74.0 | 16.7s |
 | GPT-5 Codex | `gpt-5-codex` | $1.25 | $10.00 | $0 | $0.13 | — | — |
 | GPT-5.1 | `gpt-5.1` | $1.25 | $10.00 | $0 | $0.13 | — | — |
 | GPT-5.1 Codex | `gpt-5.1-codex` | $1.25 | $10.00 | $0 | $0.13 | — | — |
 | GPT-5.2 | `gpt-5.2` | $1.75 | $14.00 | $0 | $0.17 | — | — |
 | GPT-5.2 Codex | `gpt-5.2-codex` | $1.75 | $14.00 | $0 | $0.17 | — | — |
-| GPT-5.3 Codex | `gpt-5.3-codex` | $1.74 | $14.00 | $0 | $0.17 | 41.1 | 2.5s |
-| GPT-5.4 | `gpt-5.4` | $2.50 | $15.00 | $0 | $0.25 | 50.4 | 21.3s |
+| GPT-5.3 Codex | `gpt-5.3-codex` | $1.74 | $14.00 | $0 | $0.17 | 37.5 | 2.3s |
+| GPT-5.4 | `gpt-5.4` | $2.50 | $15.00 | $0 | $0.25 | 24.1 | 28.7s |
 
 > На канале **Spark** (x1) доступны модели Claude с контекстом до 1M токенов. Модели `[1m]` стоят x2 от базовой цены. Подробнее: [docs/pricing/](docs/pricing/)
 
@@ -220,27 +220,27 @@ Prices in USD per 1M tokens.
 
 | Model | ID | Input | Output | Cache Write | Cache Read | tok/s | Latency |
 |-------|----|-------|--------|-------------|------------|-------|---------|
-| Claude Opus 4.6 | `claude-opus-4-6` | $5.00 | $25.00 | $6.25 | $0.50 | 37.8 | 4.9s |
-| Claude Opus 4.6 [1M] | `claude-opus-4-6[1m]` | $5.00 | $25.00 | $6.25 | $0.50 | 38.3 | 5.2s |
-| Claude Sonnet 4.6 | `claude-sonnet-4-6` | $3.00 | $15.00 | $3.75 | $0.30 | 24.1 | 3.8s |
-| Claude Sonnet 4.6 [1M] | `claude-sonnet-4-6[1m]` | $3.00 | $15.00 | $3.75 | $0.30 | 9.6 | 9.3s |
-| Claude Haiku 4.5 | `claude-haiku-4-5` | $1.00 | $5.00 | $1.25 | $0.10 | 74.5 | 2.7s |
-| Claude Sonnet 4.5 | `claude-sonnet-4-5` | $3.00 | $15.00 | $3.75 | $0.30 | 47.1 | 2.4s |
-| Claude Opus 4.5 | `claude-opus-4-5` | $5.00 | $25.00 | $6.25 | $0.50 | 43.4 | 2.0s |
+| Claude Opus 4.6 | `claude-opus-4-6` | $5.00 | $25.00 | $6.25 | $0.50 | 37.9 | 5.1s |
+| Claude Opus 4.6 [1M] | `claude-opus-4-6[1m]` | $5.00 | $25.00 | $6.25 | $0.50 | 39.7 | 4.8s |
+| Claude Sonnet 4.6 | `claude-sonnet-4-6` | $3.00 | $15.00 | $3.75 | $0.30 | 20.7 | 3.5s |
+| Claude Sonnet 4.6 [1M] | `claude-sonnet-4-6[1m]` | $3.00 | $15.00 | $3.75 | $0.30 | 23.1 | 8.5s |
+| Claude Haiku 4.5 | `claude-haiku-4-5` | $1.00 | $5.00 | $1.25 | $0.10 | 60.7 | 2.9s |
+| Claude Sonnet 4.5 | `claude-sonnet-4-5` | $3.00 | $15.00 | $3.75 | $0.30 | 47.0 | 2.4s |
+| Claude Opus 4.5 | `claude-opus-4-5` | $5.00 | $25.00 | $6.25 | $0.50 | 48.6 | 3.4s |
 
 ### OpenAI GPT (Alpha, x0.3)
 
 | Model | ID | Input | Output | Cache Write | Cache Read | tok/s | Latency |
 |-------|----|-------|--------|-------------|------------|-------|---------|
-| GPT-5 | `gpt-5` | $1.07 | $8.50 | $0 | $0.11 | 55.2 | 4.4s |
-| GPT-5 Mini | `gpt-5-mini` | $0.25 | $2.00 | $0 | $0.03 | 77.5 | 19.2s |
+| GPT-5 | `gpt-5` | $1.07 | $8.50 | $0 | $0.11 | — | — |
+| GPT-5 Mini | `gpt-5-mini` | $0.25 | $2.00 | $0 | $0.03 | 74.0 | 16.7s |
 | GPT-5 Codex | `gpt-5-codex` | $1.25 | $10.00 | $0 | $0.13 | — | — |
 | GPT-5.1 | `gpt-5.1` | $1.25 | $10.00 | $0 | $0.13 | — | — |
 | GPT-5.1 Codex | `gpt-5.1-codex` | $1.25 | $10.00 | $0 | $0.13 | — | — |
 | GPT-5.2 | `gpt-5.2` | $1.75 | $14.00 | $0 | $0.17 | — | — |
 | GPT-5.2 Codex | `gpt-5.2-codex` | $1.75 | $14.00 | $0 | $0.17 | — | — |
-| GPT-5.3 Codex | `gpt-5.3-codex` | $1.74 | $14.00 | $0 | $0.17 | 41.1 | 2.5s |
-| GPT-5.4 | `gpt-5.4` | $2.50 | $15.00 | $0 | $0.25 | 50.4 | 21.3s |
+| GPT-5.3 Codex | `gpt-5.3-codex` | $1.74 | $14.00 | $0 | $0.17 | 37.5 | 2.3s |
+| GPT-5.4 | `gpt-5.4` | $2.50 | $15.00 | $0 | $0.25 | 24.1 | 28.7s |
 
 > On the **Spark** channel (x1), Claude models support up to 1M token context. `[1m]` models cost x2 the base price. Details: [docs/pricing/](docs/pricing/)
 

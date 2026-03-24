@@ -7,13 +7,13 @@
 ## Обзор линейки
 
 - **GPT-5** — базовая модель пятого поколения. Существенный скачок качества по сравнению с GPT-4o. Хорошая скорость генерации.
-- **GPT-5 Mini** — компактная версия GPT-5. Самая дешёвая модель OpenAI в каталоге. Высокая скорость (77.5 tok/s), но повышенная задержка первого токена.
+- **GPT-5 Mini** — компактная версия GPT-5. Самая дешёвая модель OpenAI в каталоге. Высокая скорость (74.0 tok/s), но повышенная задержка первого токена.
 - **GPT-5 Codex** — модификация GPT-5, оптимизированная для генерации и анализа кода.
 - **GPT-5.1** — улучшенная версия GPT-5 с повышенной точностью рассуждений.
 - **GPT-5.1 Codex** — кодовая модификация GPT-5.1.
 - **GPT-5.2** — следующая итерация с улучшенным следованием инструкциям и расширенными знаниями.
 - **GPT-5.2 Codex** — кодовая модификация GPT-5.2.
-- **GPT-5.3 Codex** — кодовая модель на базе GPT-5.3. Доступны бенчмарки: 41.1 tok/s, задержка 2.5s.
+- **GPT-5.3 Codex** — кодовая модель на базе GPT-5.3. Доступны бенчмарки: 37.5 tok/s, задержка 2.3s.
 - **GPT-5.4** — новейшая модель в линейке (март 2026). Самая дорогая, но и самая качественная модель OpenAI.
 
 > **Примечание:** Модели OpenAI не имеют стоимости Cache Write (всегда $0). Кэширование на стороне OpenAI — бесплатная запись, платное чтение.
@@ -24,15 +24,15 @@
 
 | Модель | Полный ID | Алиас | Input | Output | Cache Write | Cache Read | tok/s | Latency |
 |--------|-----------|-------|-------|--------|-------------|------------|-------|---------|
-| GPT-5 | `gpt-5` | — | $1.07 | $8.50 | $0 | $0.11 | 55.2 | 4.4s |
-| GPT-5 Mini | `gpt-5-mini-2025-08-07` | `gpt-5-mini` | $0.25 | $2.00 | $0 | $0.03 | 77.5 | 19.2s |
+| GPT-5 | `gpt-5` | — | $1.07 | $8.50 | $0 | $0.11 | — | — |
+| GPT-5 Mini | `gpt-5-mini-2025-08-07` | `gpt-5-mini` | $0.25 | $2.00 | $0 | $0.03 | 74.0 | 16.7s |
 | GPT-5 Codex | `gpt-5-codex` | — | $1.25 | $10.00 | $0 | $0.13 | — | — |
 | GPT-5.1 | `gpt-5.1-2025-11-13` | `gpt-5.1` | $1.25 | $10.00 | $0 | $0.13 | — | — |
 | GPT-5.1 Codex | `gpt-5.1-codex` | — | $1.25 | $10.00 | $0 | $0.13 | — | — |
 | GPT-5.2 | `gpt-5.2-2025-12-11` | `gpt-5.2` | $1.75 | $14.00 | $0 | $0.17 | — | — |
 | GPT-5.2 Codex | `gpt-5.2-codex` | — | $1.75 | $14.00 | $0 | $0.17 | — | — |
-| GPT-5.3 Codex | `gpt-5.3-codex` | — | $1.74 | $14.00 | $0 | $0.17 | 41.1 | 2.5s |
-| GPT-5.4 | `gpt-5.4-2026-03-05` | `gpt-5.4` | $2.50 | $15.00 | $0 | $0.25 | 50.4 | 21.3s |
+| GPT-5.3 Codex | `gpt-5.3-codex` | — | $1.74 | $14.00 | $0 | $0.17 | 37.5 | 2.3s |
+| GPT-5.4 | `gpt-5.4-2026-03-05` | `gpt-5.4` | $2.50 | $15.00 | $0 | $0.25 | 24.1 | 28.7s |
 
 ## Варианты Codex
 
@@ -87,13 +87,13 @@ All OpenAI GPT family models available through Nekocode API. OpenAI models are a
 ## Model Lineup
 
 - **GPT-5** — fifth-generation base model. Significant quality leap over GPT-4o. Good generation speed.
-- **GPT-5 Mini** — compact version of GPT-5. Cheapest OpenAI model in the catalog. High speed (77.5 tok/s) but elevated time-to-first-token latency.
+- **GPT-5 Mini** — compact version of GPT-5. Cheapest OpenAI model in the catalog. High speed (74.0 tok/s) but elevated time-to-first-token latency.
 - **GPT-5 Codex** — GPT-5 variant optimized for code generation and analysis.
 - **GPT-5.1** — improved GPT-5 with enhanced reasoning accuracy.
 - **GPT-5.1 Codex** — code-optimized variant of GPT-5.1.
 - **GPT-5.2** — next iteration with improved instruction following and expanded knowledge.
 - **GPT-5.2 Codex** — code-optimized variant of GPT-5.2.
-- **GPT-5.3 Codex** — code model based on GPT-5.3. Benchmarks available: 41.1 tok/s, 2.5s latency.
+- **GPT-5.3 Codex** — code model based on GPT-5.3. Benchmarks available: 37.5 tok/s, 2.3s latency.
 - **GPT-5.4** — the newest model in the lineup (March 2026). The most expensive but highest-quality OpenAI model.
 
 > **Note:** OpenAI models have no Cache Write pricing (always $0). Caching on OpenAI's side means free writes, paid reads.
@@ -104,15 +104,15 @@ All prices in USD per 1M tokens.
 
 | Model | Full ID | Alias | Input | Output | Cache Write | Cache Read | tok/s | Latency |
 |-------|---------|-------|-------|--------|-------------|------------|-------|---------|
-| GPT-5 | `gpt-5` | — | $1.07 | $8.50 | $0 | $0.11 | 55.2 | 4.4s |
-| GPT-5 Mini | `gpt-5-mini-2025-08-07` | `gpt-5-mini` | $0.25 | $2.00 | $0 | $0.03 | 77.5 | 19.2s |
+| GPT-5 | `gpt-5` | — | $1.07 | $8.50 | $0 | $0.11 | — | — |
+| GPT-5 Mini | `gpt-5-mini-2025-08-07` | `gpt-5-mini` | $0.25 | $2.00 | $0 | $0.03 | 74.0 | 16.7s |
 | GPT-5 Codex | `gpt-5-codex` | — | $1.25 | $10.00 | $0 | $0.13 | — | — |
 | GPT-5.1 | `gpt-5.1-2025-11-13` | `gpt-5.1` | $1.25 | $10.00 | $0 | $0.13 | — | — |
 | GPT-5.1 Codex | `gpt-5.1-codex` | — | $1.25 | $10.00 | $0 | $0.13 | — | — |
 | GPT-5.2 | `gpt-5.2-2025-12-11` | `gpt-5.2` | $1.75 | $14.00 | $0 | $0.17 | — | — |
 | GPT-5.2 Codex | `gpt-5.2-codex` | — | $1.75 | $14.00 | $0 | $0.17 | — | — |
-| GPT-5.3 Codex | `gpt-5.3-codex` | — | $1.74 | $14.00 | $0 | $0.17 | 41.1 | 2.5s |
-| GPT-5.4 | `gpt-5.4-2026-03-05` | `gpt-5.4` | $2.50 | $15.00 | $0 | $0.25 | 50.4 | 21.3s |
+| GPT-5.3 Codex | `gpt-5.3-codex` | — | $1.74 | $14.00 | $0 | $0.17 | 37.5 | 2.3s |
+| GPT-5.4 | `gpt-5.4-2026-03-05` | `gpt-5.4` | $2.50 | $15.00 | $0 | $0.25 | 24.1 | 28.7s |
 
 ## Codex Variants
 
